@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rescate vertical — Fundamentos para emergencias médicas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14181A;
+    --bg-panel:#1B2022;
+    --bg-panel-2:#20262A;
+    --paper:#ECE7DA;
+    --paper-dim:#D9D3C2;
+    --accent:#E4572E;
+    --accent-dim:#8A331C;
+    --amber:#F2B84B;
+    --teal:#59B8AA;
+    --text:#ECEAE3;
+    --text-dim:#9BA19C;
+    --line:rgba(236,234,227,0.12);
+    --line-strong:rgba(236,234,227,0.22);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3,.display{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    font-weight:600;
+    margin:0;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 10px;
+  }
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(20,24,26,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1040px;margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Oswald';font-weight:600;font-size:16px;letter-spacing:0.03em;text-transform:uppercase;}
+  .brand-mark{width:20px;height:20px;flex:none;}
+  .navlinks{display:flex;gap:4px;flex-wrap:wrap;}
+  .navlinks a{
+    font-size:12px;font-family:'JetBrains Mono';text-transform:uppercase;letter-spacing:0.04em;
+    color:var(--text-dim);text-decoration:none;padding:8px 10px;border-radius:2px;
+    border:1px solid transparent;
+  }
+  .navlinks a:hover{color:var(--text);border-color:var(--line-strong);}
+
+  /* HERO */
+  .hero{position:relative;padding:88px 0 64px;overflow:hidden;}
+  .hero-rope{position:absolute;top:0;right:-60px;width:420px;height:100%;opacity:0.5;pointer-events:none;}
+  .hero h1{font-size:clamp(38px,6vw,64px);line-height:1.02;max-width:760px;}
+  .hero h1 span{color:var(--accent);}
+  .hero p{max-width:520px;color:var(--text-dim);font-size:16px;margin:20px 0 32px;}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{
+    font-family:'JetBrains Mono';font-size:12px;text-transform:uppercase;letter-spacing:0.06em;
+    padding:12px 18px;border-radius:2px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary{background:var(--accent);color:#1A0D07;font-weight:700;}
+  .btn-ghost{border:1px solid var(--line-strong);color:var(--text);}
+
+  .stat-strip{
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    display:grid;grid-template-columns:repeat(3,1fr);
+  }
+  .stat{padding:22px 24px;border-right:1px solid var(--line);}
+  .stat:last-child{border-right:none;}
+  .stat .num{font-family:'JetBrains Mono';font-size:26px;font-weight:700;color:var(--amber);}
+  .stat .label{font-size:12px;color:var(--text-dim);margin-top:4px;}
+
+  /* SECTION SHELL */
+  section{padding:72px 0;border-bottom:1px solid var(--line);}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:32px;flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(24px,3.4vw,34px);}
+  .section-num{font-family:'JetBrains Mono';color:var(--text-dim);font-size:13px;}
+
+  /* rope divider */
+  .rope-rule{height:14px;margin:0 0 40px;opacity:0.7;}
+
+  /* two col */
+  .split{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;}
+  .split p{color:var(--text-dim);font-size:15.5px;}
+  .callout{
+    background:var(--bg-panel);border:1px solid var(--line);border-left:3px solid var(--accent);
+    padding:20px 22px;border-radius:0 4px 4px 0;
+  }
+  .callout .k{font-family:'JetBrains Mono';font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;}
+  .callout p{margin:8px 0 0;color:var(--text);font-size:14.5px;}
+
+  /* CALCULATOR */
+  .calc{background:var(--bg-panel);border:1px solid var(--line);border-radius:6px;padding:28px;}
+  .calc-row{display:flex;align-items:center;gap:16px;margin-bottom:18px;}
+  .calc-row label{width:210px;font-size:13px;color:var(--text-dim);font-family:'JetBrains Mono';}
+  .calc-row input[type=range]{flex:1;accent-color:var(--accent);}
+  .calc-row .val{width:60px;text-align:right;font-family:'JetBrains Mono';font-weight:700;font-size:14px;}
+  .calc-result{border-radius:4px;padding:20px 22px;margin-top:8px;transition:background 0.2s;}
+  .calc-result .fc-line{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;}
+  .calc-result .fc-num{font-family:'JetBrains Mono';font-size:30px;font-weight:700;}
+  .calc-result .fc-tag{font-family:'JetBrains Mono';font-size:12px;text-transform:uppercase;letter-spacing:0.06em;padding:3px 8px;border-radius:2px;}
+  .calc-result p{margin:0;font-size:14px;color:#1A1A18;}
+
+  /* knots grid */
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .knot-card{background:var(--bg-panel);border:1px solid var(--line);border-radius:6px;padding:18px;text-align:center;}
+  .knot-card svg{width:52px;height:52px;margin-bottom:10px;}
+  .knot-card h3{font-size:13px;text-transform:none;font-family:'Inter';font-weight:600;letter-spacing:0;}
+  .knot-card p{font-size:12.5px;color:var(--text-dim);margin:6px 0 0;}
+
+  /* gear tags (signature element) */
+  .tag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .tag{
+    background:var(--paper);color:#241C10;border-radius:4px;padding:16px 16px 14px;
+    position:relative;box-shadow:0 6px 14px rgba(0,0,0,0.28);
+  }
+  .tag::before{
+    content:"";position:absolute;top:12px;left:12px;width:9px;height:9px;border-radius:50%;
+    background:var(--bg);box-shadow:inset 0 0 0 1px rgba(0,0,0,0.3);
+  }
+  .tag h3{font-size:14px;text-transform:none;font-family:'Inter';font-weight:600;margin-left:20px;letter-spacing:0;}
+  .tag .spec{font-family:'JetBrains Mono';font-size:11.5px;color:var(--accent-dim);margin:10px 0 0;display:flex;justify-content:space-between;border-top:1px dashed rgba(36,28,16,0.3);padding-top:8px;}
+  .tag .spec span:last-child{font-weight:700;}
+  .tag p.desc{font-size:12.5px;color:#4A4030;margin:8px 0 0;}
+
+  /* protocols */
+  .proto-row{
+    display:grid;grid-template-columns:110px 1fr;gap:20px;
+    padding:18px 0;border-top:1px solid var(--line);
+  }
+  .proto-row:last-child{border-bottom:1px solid var(--line);}
+  .proto-row .code{font-family:'JetBrains Mono';font-weight:700;color:var(--teal);font-size:15px;}
+  .proto-row p{margin:0;font-size:14px;color:var(--text-dim);}
+
+  /* norm chips */
+  .chip-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .chip{
+    font-family:'JetBrains Mono';font-size:12px;border:1px solid var(--line-strong);
+    padding:9px 14px;border-radius:2px;color:var(--text-dim);
+  }
+  .chip b{color:var(--text);}
+
+  footer{padding:36px 0;text-align:center;}
+  footer p{font-size:12px;color:var(--text-dim);font-family:'JetBrains Mono';}
+
+  @media (max-width:760px){
+    .navlinks{display:none;}
+    .split{grid-template-columns:1fr;}
+    .grid-4{grid-template-columns:repeat(2,1fr);}
+    .tag-grid{grid-template-columns:1fr;}
+    .stat-strip{grid-template-columns:1fr;}
+    .stat{border-right:none;border-bottom:1px solid var(--line);}
+    .proto-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="6" r="3" stroke="#E4572E" stroke-width="2"/><path d="M12 9v9M12 18l-4 4M12 18l4 4" stroke="#ECEAE3" stroke-width="2" stroke-linecap="round"/></svg>
+      Rescate vertical
+    </div>
+    <div class="navlinks">
+      <a href="#que-es">Qué es</a>
+      <a href="#fisica">Física</a>
+      <a href="#tecnicas">Técnicas</a>
+      <a href="#equipos">Equipos</a>
+      <a href="#protocolos">Protocolos</a>
+      <a href="#normativas">Normativas</a>
+      <a href="#simulacion">Simulación</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <svg class="hero-rope" viewBox="0 0 200 800" preserveAspectRatio="none">
+    <path d="M40 0 C 160 100, -40 200, 100 320 S 220 500, 60 620 S -20 750, 100 800" stroke="#E4572E" stroke-width="2" fill="none" opacity="0.35"/>
+    <path d="M40 0 C 160 100, -40 200, 100 320 S 220 500, 60 620 S -20 750, 100 800" stroke="#E4572E" stroke-width="2" fill="none" opacity="0.35" stroke-dasharray="1 10" transform="translate(6,0)"/>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow">Guía técnica · Emergencias médicas</p>
+    <h1>Acceder, asegurar<br>y <span>evacuar</span> donde<br>nadie más llega.</h1>
+    <p>El rescate vertical es la disciplina que permite intervenir en quebradas, alturas, pozos y estructuras de difícil acceso, cuando cada minuto de exposición cuenta tanto como cada nudo bien hecho.</p>
+    <div class="hero-actions">
+      <a href="#fisica" class="btn btn-primary">Probar el cálculo de riesgo</a>
+      <a href="#tecnicas" class="btn btn-ghost">Ver técnicas</a>
+    </div>
+  </div>
+  <div class="stat-strip" style="margin-top:56px;">
+    <div class="wrap" style="display:contents;">
+      <div class="stat"><div class="num">8 836</div><div class="label">emergencias promedio por día a nivel nacional</div></div>
+      <div class="stat"><div class="num">12 kN</div><div class="label">límite de impacto admitido por un sistema de aseguramiento</div></div>
+      <div class="stat"><div class="num">6 °C</div><div class="label">de pérdida de calor corporal por cada 1000 m de altitud</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="que-es">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="section-num mono">01</span></div>
+      <h2>Qué es el rescate vertical</h2>
+    </div>
+    <div class="split">
+      <div>
+        <p>Es el conjunto de procedimientos con cuerdas, anclajes y equipo certificado usado para acceder, estabilizar y evacuar a una persona cuando el terreno no permite un rescate convencional: laderas escarpadas, quebradas, pozos, torres o edificios en altura.</p>
+        <p>No es una técnica de montañismo aplicada a emergencias por casualidad: es una disciplina propia, con sus propios márgenes de seguridad, porque aquí el paciente no puede caminar hacia la ambulancia. El equipo tiene que ir hacia él, estabilizarlo suspendido en el aire, y traerlo de vuelta sin agravar sus lesiones.</p>
+        <p>El cuerpo humano en altura además se comporta distinto: la baja presión de oxígeno acelera el deterioro neurológico, el frío avanza más rápido de lo esperado, y un politraumatismo mal manejado durante la extracción puede convertir una lesión estable en una fatal.</p>
+      </div>
+      <div class="callout">
+        <p class="k">Por qué se enseña aparte</p>
+        <p>Requiere dominar simultáneamente tres lenguajes: la física de las cargas, la técnica de cuerdas y el protocolo clínico del paciente politraumatizado. Fallar en cualquiera de los tres compromete a todo el equipo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="fisica">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="section-num mono">02</span></div>
+      <h2>La física detrás de una caída</h2>
+    </div>
+    <p style="color:var(--text-dim);max-width:600px;margin:-16px 0 32px;">Antes de tocar una cuerda, un rescatista tiene que entender el factor de caída: la relación entre cuánto cae una persona y cuánta cuerda tiene disponible para absorberlo. Ajusta los valores y observa cómo cambia el riesgo.</p>
+
+    <div class="calc">
+      <div class="calc-row">
+        <label>Distancia de caída (m)</label>
+        <input type="range" min="0" max="10" step="0.5" value="4" id="fall">
+        <span class="val" id="fall-out">4.0</span>
+      </div>
+      <div class="calc-row">
+        <label>Cuerda disponible (m)</label>
+        <input type="range" min="1" max="10" step="0.5" value="5" id="rope">
+        <span class="val" id="rope-out">5.0</span>
+      </div>
+      <div class="calc-row">
+        <label>Ángulo entre anclajes (°)</label>
+        <input type="range" min="0" max="150" step="5" value="40" id="angle">
+        <span class="val" id="angle-out">40</span>
+      </div>
+      <div class="calc-result" id="panel">
+        <div class="fc-line">
+          <span style="font-family:'JetBrains Mono';font-size:12px;color:#1A1A18;">Factor de caída</span>
+          <span class="fc-num" id="fc-value">0.80</span>
+          <span class="fc-tag" id="fc-status">moderado</span>
+        </div>
+        <p id="feedback">Ajusta los controles para ver la recomendación.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tecnicas">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="section-num mono">03</span></div>
+      <h2>Nudos que sostienen una vida</h2>
+    </div>
+    <p style="color:var(--text-dim);max-width:640px;margin:-16px 0 24px;">Antes de ejecutar cualquier maniobra real, un rescatista avanza por niveles certificados: <b style="color:var(--text)">concientización</b>, <b style="color:var(--text)">operaciones</b> y <b style="color:var(--text)">técnico</b>. Casi 6 de cada 10 lesiones registradas en personal de rescate en montaña ocurren durante el entrenamiento, no en operaciones reales — la razón por la que practicar bien importa tanto como actuar bien.</p>
+    <div class="grid-4">
+      <div class="knot-card">
+        <svg viewBox="0 0 60 60" fill="none"><path d="M15 45 C 15 20, 45 20, 45 35 C 45 50, 15 50, 15 35 C 15 20, 45 20, 45 45" stroke="#E4572E" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <h3>Nudo ocho</h3>
+        <p>Terminal de alta resistencia, fácil de inspeccionar a simple vista.</p>
+      </div>
+      <div class="knot-card">
+        <svg viewBox="0 0 60 60" fill="none"><rect x="14" y="20" width="32" height="20" rx="2" stroke="#F2B84B" stroke-width="2"/><path d="M14 26 H46 M14 34 H46" stroke="#F2B84B" stroke-width="2"/></svg>
+        <h3>Ballestrinque</h3>
+        <p>Fijación rápida a estructuras tubulares, ajustable bajo carga.</p>
+      </div>
+      <div class="knot-card">
+        <svg viewBox="0 0 60 60" fill="none"><path d="M20 15 V45 M40 15 V45" stroke="#59B8AA" stroke-width="2"/><path d="M18 25 C 26 25, 26 35, 18 35 M42 25 C 34 25, 34 35, 42 35" stroke="#59B8AA" stroke-width="2"/></svg>
+        <h3>Prusik</h3>
+        <p>Bloqueo por fricción para ascenso controlado o seguro de emergencia.</p>
+      </div>
+      <div class="knot-card">
+        <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="12" stroke="#E4572E" stroke-width="2"/><path d="M20 20 L15 15 M40 40 L45 45" stroke="#E4572E" stroke-width="2" stroke-linecap="round"/></svg>
+        <h3>Mariposa</h3>
+        <p>Crea un anclaje intermedio sin usar los extremos de la cuerda.</p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:28px;">
+      <p class="k">Factor de seguridad del anclaje</p>
+      <p>Todo punto de anclaje debe resistir al menos <b>10 kN estáticos</b> o <b>6 kN dinámicos</b>, con un factor de seguridad mínimo de <b>10:1</b> frente a la carga máxima esperada.</p>
+    </div>
+  </div>
+</section>
+
+<section id="equipos">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="section-num mono">04</span></div>
+      <h2>El equipo, pieza por pieza</h2>
+    </div>
+    <div class="tag-grid">
+      <div class="tag">
+        <h3>Cuerda dinámica</h3>
+        <p class="desc">Absorbe energía de caída mediante elongación controlada.</p>
+        <div class="spec"><span>Norma</span><span>EN 892</span></div>
+        <div class="spec"><span>Resistencia mín.</span><span>22 kN</span></div>
+      </div>
+      <div class="tag">
+        <h3>Arnés integral</h3>
+        <p class="desc">Distribuye la carga entre tronco, hombros y muslos.</p>
+        <div class="spec"><span>Norma</span><span>EN 361</span></div>
+        <div class="spec"><span>Reduce</span><span>síndrome de suspensión</span></div>
+      </div>
+      <div class="tag">
+        <h3>Mosquetón</h3>
+        <p class="desc">Cierre de seguro automático en anclajes críticos.</p>
+        <div class="spec"><span>Norma</span><span>EN 362</span></div>
+        <div class="spec"><span>Eje mayor</span><span>20 kN</span></div>
+      </div>
+      <div class="tag">
+        <h3>Descensor</h3>
+        <p class="desc">Fricciona la cuerda para controlar la velocidad de bajada.</p>
+        <div class="spec"><span>Norma</span><span>EN 341</span></div>
+        <div class="spec"><span>Tipo</span><span>ID / RIG / ocho</span></div>
+      </div>
+      <div class="tag">
+        <h3>Casco</h3>
+        <p class="desc">Protege contra impacto de objetos en caída durante la maniobra.</p>
+        <div class="spec"><span>Norma</span><span>EN 397</span></div>
+        <div class="spec"><span>Uso</span><span>obligatorio</span></div>
+      </div>
+      <div class="tag">
+        <h3>Camilla Stokes</h3>
+        <p class="desc">Inmoviliza al paciente en posición horizontal o inclinada.</p>
+        <div class="spec"><span>Enganches</span><span>certificados</span></div>
+        <div class="spec"><span>Prioriza</span><span>restricción de movimiento</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="protocolos">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="section-num mono">05</span></div>
+      <h2>Cuando la técnica se cruza con la clínica</h2>
+    </div>
+    <div class="proto-row">
+      <div class="code">PHTLS</div>
+      <p>Evaluación ABCDE del paciente politraumatizado, adaptada para ejecutarse mientras avanza la extracción técnica, no después de ella.</p>
+    </div>
+    <div class="proto-row">
+      <div class="code">TECC</div>
+      <p>Control de hemorragias y vía aérea cuando el entorno restringe el acceso normal del equipo médico.</p>
+    </div>
+    <div class="proto-row">
+      <div class="code">TCCC</div>
+      <p>Equilibra la atención clínica con la seguridad operativa cuando la evacuación inmediata no es posible.</p>
+    </div>
+    <div class="proto-row">
+      <div class="code">Integración</div>
+      <p>El equipo técnico y el médico actúan en simultáneo, no en secuencia: reduce el tiempo total de exposición al riesgo.</p>
+    </div>
+  </div>
+</section>
+
+<section id="normativas">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="section-num mono">06</span></div>
+      <h2>El marco que respalda cada maniobra</h2>
+    </div>
+    <div class="chip-row">
+      <div class="chip"><b>NFPA 1983</b> · cuerdas y accesorios</div>
+      <div class="chip"><b>NFPA 2500</b> · operación y entrenamiento</div>
+      <div class="chip"><b>OSHA 1926.502</b> · protección contra caídas</div>
+      <div class="chip"><b>ANSI Z359</b> · sistemas anticaídas</div>
+      <div class="chip"><b>IRATA</b> · certificación por niveles</div>
+      <div class="chip"><b>SPRAT</b> · acceso con cuerdas</div>
+      <div class="chip"><b>OSHA 1910.146</b> · espacios confinados</div>
+    </div>
+  </div>
+</section>
+
+<section id="simulacion" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="section-num mono">07</span></div>
+      <h2>Practicar en digital, antes de subir a la cuerda</h2>
+    </div>
+    <div class="split">
+      <div>
+        <p>El rescate vertical se aprende haciendo, pero el primer error no debería cometerse a 30 metros de altura. Un entorno de simulación permite repetir un procedimiento —armar un anclaje, calcular un factor de caída, elegir un protocolo— tantas veces como haga falta, sin riesgo real para quien está aprendiendo.</p>
+        <p>No sustituye la práctica con cuerdas reales: la complementa, resolviendo la parte que sí puede entrenarse en cualquier momento y lugar — el razonamiento técnico detrás de cada decisión — antes de que ese razonamiento se ponga a prueba en el terreno.</p>
+      </div>
+      <div class="callout">
+        <p class="k">Lo que cambia con una plataforma digital</p>
+        <p>Contenido siempre disponible, retroalimentación inmediata sobre cada caso, y la posibilidad de equivocarse las veces que haga falta antes de que el error tenga consecuencias reales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>RESCATE VERTICAL — RECURSO EDUCATIVO PARA FORMACIÓN EN EMERGENCIAS MÉDICAS</p>
+</footer>
+
+<script>
+const fall=document.getElementById('fall'),rope=document.getElementById('rope'),angle=document.getElementById('angle');
+const fallOut=document.getElementById('fall-out'),ropeOut=document.getElementById('rope-out'),angleOut=document.getElementById('angle-out');
+const fcValue=document.getElementById('fc-value'),fcStatus=document.getElementById('fc-status'),feedback=document.getElementById('feedback'),panel=document.getElementById('panel');
+
+function update(){
+  const f=parseFloat(fall.value), r=parseFloat(rope.value), a=parseFloat(angle.value);
+  fallOut.textContent=f.toFixed(1);
+  ropeOut.textContent=r.toFixed(1);
+  angleOut.textContent=a.toFixed(0);
+  const fc=Math.min(f/r,2);
+  fcValue.textContent=fc.toFixed(2);
+
+  let level,msg,bg,tagBg,tagText;
+  if(fc<=0.3){
+    level='seguro'; bg='#BFE3C9'; tagBg='#2F6B44'; tagText='#EAF6ED';
+    msg='Factor de caída bajo: el sistema absorbe el impacto lejos del límite de 12 kN.';
+  } else if(fc<=1){
+    level='moderado'; bg='#F6DDA0'; tagBg='#8A5A0E'; tagText='#FFF3DA';
+    msg='Riesgo moderado. Un anclaje intermedio acortaría la distancia de caída potencial.';
+  } else {
+    level='peligroso'; bg='#F2B7AC'; tagBg='#8A2E1C'; tagText='#FFEAE4';
+    msg='Factor de caída alto, cerca del máximo de 2. La fuerza puede superar los 12 kN: instala un anclaje intermedio antes de continuar.';
+  }
+  if(a>60){
+    msg += a>=120
+      ? ' El ángulo entre anclajes además duplica la tensión por punto: bájalo de 60°.'
+      : ' El ángulo entre anclajes ya supera los 60° recomendados.';
+  }
+  fcStatus.textContent=level;
+  fcStatus.style.background=tagBg;
+  fcStatus.style.color=tagText;
+  feedback.textContent=msg;
+  panel.style.background=bg;
+}
+[fall,rope,angle].forEach(el=>el.addEventListener('input',update));
+update();
+</script>
+
+</body>
+</html>

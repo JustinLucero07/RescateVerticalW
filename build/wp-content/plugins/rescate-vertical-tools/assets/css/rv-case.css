@@ -1,0 +1,58 @@
+.rv-case{
+	--rv-bg:#FFFFFF;
+	--rv-soft:#F5F7F8;
+	--rv-line:#E1E6EA;
+	--rv-line-2:#C9D1D8;
+	--rv-ink:#0E1A24;
+	--rv-ink-2:#5A6873;
+	--rv-accent:#E4572E;
+	--rv-accent-dark:#B93816;
+	--rv-steel:#2C5468;
+	font-family:'Public Sans','Segoe UI',sans-serif;
+	max-width:720px;
+}
+.rv-case-form{
+	background:var(--rv-bg);border:1px solid var(--rv-line);border-radius:8px;padding:28px;
+}
+.rv-case-row{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.rv-case-row label{
+	font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:700;
+	color:var(--rv-ink-2);text-transform:uppercase;letter-spacing:0.07em;line-height:1.5;
+}
+.rv-case-row textarea{
+	background:var(--rv-bg);border:1.5px solid var(--rv-line-2);color:var(--rv-ink);
+	padding:13px 14px;border-radius:5px;font-family:inherit;font-size:15px;width:100%;
+	min-height:150px;resize:vertical;line-height:1.65;transition:border-color 0.15s ease;
+}
+.rv-case-row textarea:focus{border-color:var(--rv-accent);outline:none;}
+.rv-case-row textarea:focus-visible{outline:3px solid var(--rv-accent);outline-offset:2px;}
+
+.rv-case-submit{
+	display:inline-flex;align-items:center;gap:9px;
+	font-family:inherit;font-size:15px;font-weight:700;
+	padding:14px 26px;border-radius:5px;border:none;
+	background:var(--rv-accent);color:#FFFFFF;cursor:pointer;
+	transition:background 0.16s ease, transform 0.16s ease, opacity 0.16s ease;
+}
+.rv-case-submit:hover:not(:disabled){background:var(--rv-accent-dark);transform:translateY(-1px);}
+.rv-case-submit:focus-visible{outline:3px solid var(--rv-accent);outline-offset:3px;}
+.rv-case-submit:disabled{opacity:0.55;cursor:progress;}
+
+.rv-case-disclaimer{
+	font-size:12.5px;color:var(--rv-ink-2);margin:16px 0 0;line-height:1.55;
+	padding-top:14px;border-top:1px solid var(--rv-line);
+}
+
+.rv-case-result{
+	margin-top:20px;border:1px solid var(--rv-line);border-left:4px solid var(--rv-steel);
+	background:var(--rv-soft);padding:22px 24px;border-radius:0 8px 8px 0;
+	color:var(--rv-ink);white-space:pre-wrap;font-size:15px;line-height:1.7;
+}
+.rv-case-result.is-error{
+	border-left-color:var(--rv-accent);background:#FDEEEA;color:#4A231A;
+}
+
+@media (max-width:600px){
+	.rv-case-form{padding:22px;}
+	.rv-case-submit{width:100%;justify-content:center;}
+}
