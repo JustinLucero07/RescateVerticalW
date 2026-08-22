@@ -8,7 +8,7 @@
 	--rv-accent:#E4572E;
 	--rv-accent-dark:#B93816;
 	--rv-steel:#2C5468;
-	font-family:'Public Sans','Segoe UI',sans-serif;
+	font-family:'Source Sans 3','Segoe UI',sans-serif;
 	max-width:720px;
 }
 .rv-case-form{
@@ -16,7 +16,7 @@
 }
 .rv-case-row{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
 .rv-case-row label{
-	font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:700;
+	font-family:'Source Sans 3','Segoe UI',sans-serif;font-size:12px;font-weight:700;
 	color:var(--rv-ink-2);text-transform:uppercase;letter-spacing:0.07em;line-height:1.5;
 }
 .rv-case-row textarea{
@@ -45,9 +45,38 @@
 
 .rv-case-result{
 	margin-top:20px;border:1px solid var(--rv-line);border-left:4px solid var(--rv-steel);
-	background:var(--rv-soft);padding:22px 24px;border-radius:0 8px 8px 0;
-	color:var(--rv-ink);white-space:pre-wrap;font-size:15px;line-height:1.7;
+	background:var(--rv-soft);padding:24px 26px;border-radius:0 8px 8px 0;
+	color:var(--rv-ink);font-size:15px;line-height:1.7;
 }
+/* Contenido devuelto por la IA (markdown renderizado) */
+.rv-case-result > *:first-child{margin-top:0;}
+.rv-case-result > *:last-child{margin-bottom:0;}
+.rv-case-result p{margin:0 0 0.95em;}
+.rv-case-result h3,
+.rv-case-result h4,
+.rv-case-result h5{
+	font-family:'Archivo','Segoe UI',sans-serif;font-weight:700;line-height:1.25;
+	color:var(--rv-ink);margin:1.5em 0 0.5em;
+}
+.rv-case-result h3{font-size:19px;}
+.rv-case-result h4{font-size:16.5px;}
+.rv-case-result h5{font-size:15px;}
+.rv-case-result strong{font-weight:700;color:var(--rv-ink);}
+.rv-case-result em{font-style:italic;}
+.rv-case-result ul,
+.rv-case-result ol{margin:0 0 1em;padding-left:1.35em;}
+.rv-case-result li{margin-bottom:0.4em;}
+.rv-case-result li > ul,
+.rv-case-result li > ol{margin:0.4em 0 0;}
+.rv-case-result ul ul li::marker{color:var(--rv-ink-3);}
+.rv-case-result li::marker{color:var(--rv-accent);font-weight:700;}
+.rv-case-result code{
+	background:#EBEFF2;border-radius:3px;padding:1px 5px;font-size:0.92em;
+	font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+.rv-case-result hr{border:none;border-top:1px solid var(--rv-line);margin:1.4em 0;}
+/* Los avisos (cargando / error) llegan como texto plano */
+.rv-case-result.is-error{white-space:pre-wrap;}
 .rv-case-result.is-error{
 	border-left-color:var(--rv-accent);background:#FDEEEA;color:#4A231A;
 }

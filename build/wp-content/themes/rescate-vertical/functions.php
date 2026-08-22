@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RV_THEME_VERSION', '2.0.0' );
+define( 'RV_THEME_VERSION', '2.1.0' );
 
 /**
  * Theme setup.
@@ -33,7 +33,7 @@ add_action( 'after_setup_theme', 'rv_theme_setup' );
 function rv_enqueue_assets() {
 	wp_enqueue_style(
 		'rv-google-fonts',
-		'https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap',
+		'https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap',
 		array(),
 		null
 	);
@@ -63,6 +63,21 @@ function rv_preload_hero() {
 	);
 }
 add_action( 'wp_head', 'rv_preload_hero', 1 );
+
+/**
+ * Favicon del tema (nudo ocho). Se omite si el sitio ya tiene un
+ * icono configurado en Ajustes > Generales, para no pisarlo.
+ */
+function rv_favicon() {
+	if ( function_exists( 'has_site_icon' ) && has_site_icon() ) {
+		return;
+	}
+	printf(
+		'<link rel="icon" type="image/svg+xml" href="%s">' . "\n",
+		esc_url( get_template_directory_uri() . '/assets/img/favicon.svg' )
+	);
+}
+add_action( 'wp_head', 'rv_favicon' );
 
 /**
  * Sections used by the fallback menu and the footer links.
@@ -182,7 +197,7 @@ function rv_technique_diagram( $which ) {
 					<path d="M228 88 h16 M240 84 l4 4 -4 4"/><path d="M228 104 h16 M240 100 l4 4 -4 4"/>
 				</g>
 				<path d="M200 150 l-10 12 M200 150 l10 12" stroke="#0E1A24" stroke-width="2" stroke-linecap="round"/>
-				<g font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="600" fill="#5A6873">
+				<g font-family="Source Sans 3, Segoe UI, sans-serif" letter-spacing="0.04em" font-size="9.5" font-weight="600" fill="#5A6873">
 					<path d="M148 95 H130" stroke="#B0BDC6" stroke-width="1"/>
 					<text x="62" y="98">FRENADO 2 kN</text>
 				</g>
@@ -212,8 +227,8 @@ function rv_technique_diagram( $which ) {
 				</g>
 				<path d="M200 130 V150" stroke="#0E1A24" stroke-width="2" stroke-linecap="round"/>
 				<rect x="184" y="150" width="32" height="14" rx="2" fill="#FFFFFF" stroke="#0E1A24" stroke-width="2"/>
-				<text x="292" y="64" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#E4572E">3:1</text>
-				<g font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="600" fill="#5A6873">
+				<text x="292" y="64" font-family="Source Sans 3, Segoe UI, sans-serif" letter-spacing="0.04em" font-size="11" font-weight="700" fill="#E4572E">3:1</text>
+				<g font-family="Source Sans 3, Segoe UI, sans-serif" letter-spacing="0.04em" font-size="9.5" font-weight="600" fill="#5A6873">
 					<path d="M96 118 H140" stroke="#B0BDC6" stroke-width="1" stroke-dasharray="3 3"/>
 					<text x="30" y="121">VENTAJA</text>
 				</g>
@@ -233,14 +248,14 @@ function rv_technique_diagram( $which ) {
 				<path d="M150 49 L200 108" stroke="#E4572E" stroke-width="2.5" stroke-linecap="round"/>
 				<path d="M250 49 L200 108" stroke="#E4572E" stroke-width="2.5" stroke-linecap="round"/>
 				<path d="M170 72 A 42 42 0 0 0 230 72" fill="none" stroke="#2C5468" stroke-width="1.6" stroke-dasharray="4 3"/>
-				<text x="181" y="90" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="700" fill="#2C5468">≤60°</text>
+				<text x="181" y="90" font-family="Source Sans 3, Segoe UI, sans-serif" letter-spacing="0.04em" font-size="10.5" font-weight="700" fill="#2C5468">≤60°</text>
 				<circle cx="200" cy="114" r="9" fill="#FFFFFF" stroke="#0E1A24" stroke-width="2.4"/>
 				<path d="M200 123 V148" stroke="#0E1A24" stroke-width="2" stroke-linecap="round"/>
 				<path d="M192 148 h16" stroke="#0E1A24" stroke-width="2" stroke-linecap="round"/>
 				<g stroke="#0E1A24" stroke-width="1.8" fill="none" stroke-linecap="round">
 					<path d="M200 152 V162 M196 158 l4 5 4 -5"/>
 				</g>
-				<g font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="600" fill="#5A6873">
+				<g font-family="Source Sans 3, Segoe UI, sans-serif" letter-spacing="0.04em" font-size="9.5" font-weight="600" fill="#5A6873">
 					<path d="M116 42 H86" stroke="#B0BDC6" stroke-width="1" stroke-dasharray="3 3"/>
 					<text x="24" y="45">30 kN c/u</text>
 				</g>
@@ -270,7 +285,7 @@ function rv_technique_diagram( $which ) {
 					<circle cx="126" cy="96" r="3.4"/><circle cx="170" cy="96" r="3.4"/>
 					<circle cx="230" cy="96" r="3.4"/><circle cx="274" cy="96" r="3.4"/>
 				</g>
-				<g font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="600" fill="#5A6873">
+				<g font-family="Source Sans 3, Segoe UI, sans-serif" letter-spacing="0.04em" font-size="9.5" font-weight="600" fill="#5A6873">
 					<path d="M96 117 H70" stroke="#B0BDC6" stroke-width="1" stroke-dasharray="3 3"/>
 					<text x="8" y="120">SKED / NEST</text>
 					<path d="M304 117 H330" stroke="#B0BDC6" stroke-width="1" stroke-dasharray="3 3"/>

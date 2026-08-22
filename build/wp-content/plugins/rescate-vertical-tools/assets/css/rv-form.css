@@ -8,7 +8,7 @@
 	--rv-accent:#E4572E;
 	--rv-accent-dark:#B93816;
 	--rv-ok:#1F7A4D;
-	font-family:'Public Sans','Segoe UI',sans-serif;
+	font-family:'Source Sans 3','Segoe UI',sans-serif;
 	max-width:680px;
 }
 .rv-vf-form{
@@ -16,7 +16,7 @@
 }
 .rv-vf-row{margin-bottom:20px;display:flex;flex-direction:column;gap:8px;}
 .rv-vf-row > label{
-	font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:700;
+	font-family:'Source Sans 3','Segoe UI',sans-serif;font-size:12px;font-weight:700;
 	color:var(--rv-ink-2);text-transform:uppercase;letter-spacing:0.07em;
 }
 .rv-vf-row input[type=text],
@@ -35,7 +35,7 @@
 .rv-vf-scale label{
 	display:flex;align-items:center;gap:7px;border:1.5px solid var(--rv-line-2);
 	padding:9px 15px;border-radius:5px;background:var(--rv-bg);
-	font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;font-weight:600;
+	font-family:'Source Sans 3','Segoe UI',sans-serif;font-size:13px;font-weight:600;
 	color:var(--rv-ink-2);cursor:pointer;transition:border-color 0.15s ease, color 0.15s ease;
 }
 .rv-vf-scale label:hover{border-color:var(--rv-accent);color:var(--rv-ink);}

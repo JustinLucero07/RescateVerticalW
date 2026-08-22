@@ -11,10 +11,10 @@
 	border-radius:8px;
 	padding:28px;
 	color:var(--rv-ink);
-	font-family:'Public Sans','Segoe UI',sans-serif;
+	font-family:'Source Sans 3','Segoe UI',sans-serif;
 	max-width:720px;
 }
-.rv-sim .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+.rv-sim .mono{font-family:'Source Sans 3','Segoe UI',sans-serif;}
 
 .rv-sim-row{display:flex;align-items:center;gap:16px;margin-bottom:18px;flex-wrap:wrap;}
 .rv-sim-row label{
@@ -24,8 +24,8 @@
 	flex:1;min-width:140px;accent-color:var(--rv-accent);height:6px;cursor:pointer;
 }
 .rv-sim-row input[type=range]:focus-visible{outline:3px solid var(--rv-accent);outline-offset:4px;border-radius:3px;}
-.rv-sim-val{
-	width:56px;text-align:right;font-family:'JetBrains Mono',ui-monospace,monospace;
+.rv-sim-val{font-variant-numeric:tabular-nums;
+	width:56px;text-align:right;font-family:'Source Sans 3','Segoe UI',sans-serif;
 	font-weight:700;font-size:14px;color:var(--rv-ink);
 }
 
@@ -36,9 +36,9 @@
 }
 .rv-sim-fc-line{display:flex;align-items:baseline;gap:11px;margin-bottom:7px;flex-wrap:wrap;}
 .rv-sim-fc-label{font-size:13px;font-weight:600;color:#0E1A24;}
-.rv-sim-fc-num{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:26px;font-weight:700;color:#0E1A24;}
+.rv-sim-fc-num{font-family:'Archivo','Segoe UI',sans-serif;font-size:30px;font-weight:800;color:#0E1A24;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;}
 .rv-sim-fc-tag{
-	font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;font-weight:700;
+	font-family:'Source Sans 3','Segoe UI',sans-serif;font-size:11.5px;font-weight:700;
 	text-transform:uppercase;letter-spacing:0.05em;padding:4px 10px;border-radius:3px;
 	background:#C97A1E;color:#FFFFFF;
 }

@@ -12,7 +12,7 @@ class RV_Case_Review {
 
 	const NONCE_ACTION = 'rv_presenta_caso';
 	const AJAX_ACTION   = 'rv_revisar_caso';
-	const MAX_CASE_LEN  = 2000;
+	const MAX_CASE_LEN  = 6000;
 
 	public static function register() {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
@@ -128,14 +128,14 @@ class RV_Case_Review {
 			),
 			'generationConfig'  => array(
 				'temperature'     => 0.4,
-				'maxOutputTokens' => 800,
+				'maxOutputTokens' => 8192,
 			),
 		);
 
 		$response = wp_remote_post(
 			$endpoint,
 			array(
-				'timeout' => 30,
+				'timeout' => 60,
 				'headers' => array(
 					'Content-Type'   => 'application/json',
 					'x-goog-api-key' => $api_key,
@@ -165,12 +165,41 @@ class RV_Case_Review {
 			);
 		}
 
-		$text = isset( $data['candidates'][0]['content']['parts'][0]['text'] )
-			? trim( $data['candidates'][0]['content']['parts'][0]['text'] )
-			: '';
+		/*
+		 * Gemini devuelve "parts" como ARRAY y con frecuencia reparte la
+		 * respuesta en varios trozos. Leer solo parts[0] entrega nada más el
+		 * primer fragmento (típicamente la frase de entrada), que es como se
+		 * veía cortada la retroalimentación. Hay que concatenarlos todos.
+		 */
+		$parts  = isset( $data['candidates'][0]['content']['parts'] ) && is_array( $data['candidates'][0]['content']['parts'] )
+			? $data['candidates'][0]['content']['parts']
+			: array();
+		$finish = isset( $data['candidates'][0]['finishReason'] ) ? $data['candidates'][0]['finishReason'] : '';
+
+		$chunks = array();
+		foreach ( $parts as $part ) {
+			if ( isset( $part['text'] ) && is_string( $part['text'] ) ) {
+				$chunks[] = $part['text'];
+			}
+		}
+		$text = trim( implode( '', $chunks ) );
 
 		if ( '' === $text ) {
-			return new WP_Error( 'rv_gemini_empty', __( 'La IA no pudo generar una respuesta para este caso. Intenta reformularlo con más detalle.', 'rescate-vertical-tools' ) );
+			if ( 'SAFETY' === $finish || 'PROHIBITED_CONTENT' === $finish ) {
+				return new WP_Error(
+					'rv_gemini_safety',
+					__( 'Los filtros de contenido del servicio de IA bloquearon este caso. Reformúlalo en términos clínicos y técnicos.', 'rescate-vertical-tools' )
+				);
+			}
+			return new WP_Error(
+				'rv_gemini_empty',
+				__( 'La IA no pudo generar una respuesta para este caso. Intenta reformularlo con más detalle.', 'rescate-vertical-tools' )
+			);
+		}
+
+		// Si el modelo agotó el techo de tokens, avisarlo en vez de cortar en seco.
+		if ( 'MAX_TOKENS' === $finish ) {
+			$text .= "\n\n" . __( '[La respuesta se cortó por longitud: resume el caso o envíalo por partes para recibir el análisis completo.]', 'rescate-vertical-tools' );
 		}
 
 		return $text;

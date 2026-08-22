@@ -23,13 +23,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="rv-header-inner">
 		<a class="rv-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>">
 			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-				<circle cx="12" cy="6" r="3.2" stroke="#E4572E" stroke-width="2"/>
-				<path d="M12 9.2v8.8M12 18l-4.4 4.2M12 18l4.4 4.2" stroke="#0E1A24" stroke-width="2" stroke-linecap="round"/>
+				<path d="M12 1.8v5.2" stroke="#0E1A24" stroke-width="2" stroke-linecap="round"/>
+				<circle cx="12" cy="10" r="3" stroke="#E4572E" stroke-width="2"/>
+				<circle cx="12" cy="15.6" r="3" stroke="#E4572E" stroke-width="2"/>
+				<path d="M12 18.6v3.6" stroke="#0E1A24" stroke-width="2" stroke-linecap="round"/>
 			</svg>
 			<span class="rv-brand-name"><?php bloginfo( 'name' ); ?></span>
 		</a>
 
 		<button type="button" class="rv-nav-toggle" id="rv-nav-toggle" aria-expanded="false" aria-controls="rv-nav">
+			<span class="rv-nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
 			<?php esc_html_e( 'Menú', 'rescate-vertical' ); ?>
 		</button>
 

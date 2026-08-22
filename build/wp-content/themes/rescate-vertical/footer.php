@@ -15,8 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="rv-footer-brand">
 				<div class="rv-brand">
 					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-						<circle cx="12" cy="6" r="3.2" stroke="#E4572E" stroke-width="2"/>
-						<path d="M12 9.2v8.8M12 18l-4.4 4.2M12 18l4.4 4.2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+						<path d="M12 1.8v5.2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+						<circle cx="12" cy="10" r="3" stroke="#E4572E" stroke-width="2"/>
+						<circle cx="12" cy="15.6" r="3" stroke="#E4572E" stroke-width="2"/>
+						<path d="M12 18.6v3.6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
 					</svg>
 					<span class="rv-brand-name"><?php bloginfo( 'name' ); ?></span>
 				</div>
