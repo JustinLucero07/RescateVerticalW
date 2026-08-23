@@ -104,6 +104,7 @@ class RV_Case_Review {
 
 	/**
 	 * Calls the Gemini generateContent REST endpoint.
+	 * Publica: la reutiliza RV_Cases para corregir ejercicios.
 	 *
 	 * @param string $api_key       Gemini API key.
 	 * @param string $model         Gemini model name (e.g. gemini-2.0-flash).
@@ -111,7 +112,7 @@ class RV_Case_Review {
 	 * @param string $caso          Sanitized case description from the student.
 	 * @return string|WP_Error Generated feedback text, or a WP_Error on failure.
 	 */
-	private static function call_gemini( $api_key, $model, $system_prompt, $caso ) {
+	public static function call_gemini( $api_key, $model, $system_prompt, $caso ) {
 		$endpoint = sprintf(
 			'https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent',
 			rawurlencode( $model )

@@ -55,19 +55,32 @@ rv_page_hero(
 <section class="rv-section rv-section--soft">
 	<div class="rv-shell">
 		<div class="rv-section-head rv-reveal">
-			<span class="rv-kicker"><?php esc_html_e( 'Caso práctico', 'rescate-vertical' ); ?></span>
+			<span class="rv-kicker"><?php esc_html_e( 'Ejercicio', 'rescate-vertical' ); ?></span>
 			<h2>
 				<?php
 				printf(
-					/* translators: %s: highlighted words. */
-					esc_html__( 'Presenta tu %s', 'rescate-vertical' ),
-					'<em>' . esc_html__( 'caso', 'rescate-vertical' ) . '</em>'
+					/* translators: %s: palabras destacadas. */
+					esc_html__( 'Resuelve un %s', 'rescate-vertical' ),
+					'<em>' . esc_html__( 'caso real', 'rescate-vertical' ) . '</em>'
 				);
 				?>
 			</h2>
-			<p class="rv-section-intro"><?php esc_html_e( 'Describe un escenario de rescate —terreno, altura, estado del paciente, equipo disponible— y recibe retroalimentación educativa sobre los riesgos técnicos y las consideraciones médicas del caso.', 'rescate-vertical' ); ?></p>
+			<p class="rv-section-intro"><?php esc_html_e( 'Cada vez que entras aparece un caso distinto. Léelo, resuélvelo y pulsa «Ver corrección»: el factor de caída se corrige solo y después verás lo que debería haberse hecho.', 'rescate-vertical' ); ?></p>
 		</div>
 
+		<div class="rv-reveal d1">
+			<?php echo do_shortcode( '[rv_caso_practico]' ); ?>
+		</div>
+	</div>
+</section>
+
+<section class="rv-section">
+	<div class="rv-shell">
+		<div class="rv-section-head rv-reveal">
+			<span class="rv-kicker"><?php esc_html_e( 'Caso libre', 'rescate-vertical' ); ?></span>
+			<h2><?php esc_html_e( 'O plantea tu propio caso', 'rescate-vertical' ); ?></h2>
+			<p class="rv-section-intro"><?php esc_html_e( 'Describe un escenario tuyo — terreno, altura, estado del paciente, equipo disponible — y recibe retroalimentación sobre los riesgos técnicos y las consideraciones médicas.', 'rescate-vertical' ); ?></p>
+		</div>
 		<div class="rv-reveal d1">
 			<?php echo do_shortcode( '[rv_presenta_caso]' ); ?>
 		</div>

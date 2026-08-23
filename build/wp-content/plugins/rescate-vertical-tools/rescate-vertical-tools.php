@@ -3,7 +3,7 @@
  * Plugin Name: Rescate Vertical — Herramientas
  * Plugin URI: https://rescatevertical.local
  * Description: Simulador de factor de caída, formulario de validación por expertos y ajustes de umbrales de riesgo para el sitio educativo "Rescate vertical en emergencias médicas".
- * Version: 1.4.0
+ * Version: 1.5.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Rescate Vertical
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RV_TOOLS_VERSION', '1.4.0' );
+define( 'RV_TOOLS_VERSION', '1.5.0' );
 define( 'RV_TOOLS_FILE', __FILE__ );
 define( 'RV_TOOLS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'RV_TOOLS_URL', plugin_dir_url( __FILE__ ) );
@@ -31,6 +31,7 @@ require_once RV_TOOLS_PATH . 'includes/class-rv-validation-form.php';
 require_once RV_TOOLS_PATH . 'includes/class-rv-export.php';
 require_once RV_TOOLS_PATH . 'includes/class-rv-case-review.php';
 require_once RV_TOOLS_PATH . 'includes/class-rv-anchor.php';
+require_once RV_TOOLS_PATH . 'includes/class-rv-cases.php';
 
 /**
  * Default settings values. Central source of truth used on activation
@@ -150,6 +151,7 @@ function rv_tools_init() {
 	if ( get_option( 'rv_tools_version' ) !== RV_TOOLS_VERSION ) {
 		rv_maybe_upgrade_settings();
 		update_option( 'rv_tools_version', RV_TOOLS_VERSION );
+		add_action( 'init', array( 'RV_Cases', 'seed' ), 20 );
 	}
 
 	RV_CPT::register();
@@ -159,5 +161,6 @@ function rv_tools_init() {
 	RV_Export::register();
 	RV_Case_Review::register();
 	RV_Anchor::register();
+	RV_Cases::register();
 }
 add_action( 'plugins_loaded', 'rv_tools_init' );

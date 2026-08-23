@@ -80,29 +80,31 @@ en dos líneas en pantallas medianas.
 
 ---
 
-## 4. Cambiar las fotos por las tuyas
+## 4. Cambiar CUALQUIER imagen desde el escritorio
 
-El tema trae 6 fotos incluidas (todas de dominio público o licencia libre
-para uso comercial, sin necesidad de atribución). Para poner las tuyas
-tienes dos caminos:
+**Todas** las fotografías del sitio se cambian sin tocar archivos ni FTP:
 
-- **Por página (recomendado, sin FTP):** edita la página y asigna una
-  **Imagen destacada**. Las secciones "Qué es" y "Practicar" la usan
-  automáticamente en lugar de la foto incluida.
-- **Reemplazando los archivos:** en el Administrador de archivos de hPanel,
-  entra a `wp-content/themes/rescate-vertical/assets/images/` y sustituye
-  los `.jpg` manteniendo **exactamente los mismos nombres**:
+**Apariencia → Personalizar → Imágenes del sitio**
 
-  | Archivo          | Dónde aparece                                  |
-  |------------------|------------------------------------------------|
-  | `hero.jpg`       | Portada (fondo del hero) y cabecera de Física  |
-  | `que-es.jpg`     | Portada y cabecera de Qué es                   |
-  | `tecnicas.jpg`   | Banda de la portada y cabecera de Técnicas     |
-  | `equipos.jpg`    | Cabecera de Equipos                            |
-  | `protocolos.jpg` | Cabecera de Protocolos                         |
-  | `practicar.jpg`  | Portada y cabecera de Practicar                |
+Ahí están agrupadas en tres bloques:
 
-  Usa imágenes horizontales de ~1500 px de ancho y menos de ~400 KB.
+- **Portada y cabeceras** (6): la imagen principal de la portada y la
+  cabecera de cada sección.
+- **Fotos de nudos** (4): nudo ocho, ballestrinque, prusik y mariposa.
+- **Fotos de equipos** (6): cuerda, arnés, mosquetón, descensor, casco y
+  camilla.
+
+En cada una pulsas **Cambiar imagen**, la subes desde tu ordenador y le das
+a **Publicar**. Para volver a la que trae el tema, pulsa **Eliminar**.
+
+También tienes un resumen con vista previa en **Apariencia → Imágenes del
+sitio**, que te dice cuáles has personalizado y cuáles siguen por defecto.
+
+> Para la portada usa una foto horizontal de al menos 1500 px de ancho.
+> Para nudos y equipos, horizontal 4:3 de unos 900 px.
+
+Alternativa por página: si asignas una **Imagen destacada** a las páginas
+"Qué es" o "Practicar", esa manda sobre la del tema en esa sección.
 
 ---
 
@@ -163,6 +165,8 @@ Ya están incrustados en sus plantillas, pero puedes reutilizarlos en
 cualquier página o entrada:
 
 - `[rv_simulador_caso]` — simulador interactivo de factor de caída.
+- `[rv_simulador_anclaje]` — simulador de carga en anclajes según el ángulo.
+- `[rv_caso_practico]` — ejercicio con caso aleatorio y corrección.
 - `[rv_presenta_caso]` — formulario de caso con respuesta de IA.
 - `[rv_formulario_validacion]` — formulario de validación por expertos.
 
@@ -172,8 +176,9 @@ cualquier página o entrada:
 
 - Sin Elementor ni ningún constructor: todo el diseño va en PHP y CSS dentro
   del tema.
-- Tipografías Archivo, Public Sans y JetBrains Mono vía Google Fonts con
-  `wp_enqueue_style`.
+- Tipografías Archivo y Source Sans 3 vía Google Fonts con `wp_enqueue_style`.
+ - Las cifras usan Archivo con numeración tabular; no se usa ninguna fuente
+  monoespaciada.
 - Animaciones de entrada con `IntersectionObserver`; se desactivan solas si
   el visitante tiene activado "reducir movimiento" en su sistema.
 - Los diagramas técnicos (rapel, polipasto, anclajes, camilla) son SVG
@@ -236,20 +241,32 @@ se editan en **Rescate Vertical → Ajustes**.
 
 ---
 
-## 10. Cambiar las fotos de los nudos
+## 10. Casos prácticos con corrección
 
-Las cuatro fotos de nudos (dominio público / CC0) están en
-`wp-content/themes/rescate-vertical/assets/images/nudos/`:
-`nudo-ocho.jpg`, `ballestrinque.jpg`, `prusik.jpg`, `mariposa.jpg`.
+En **Practicar en digital** el alumno recibe un **caso distinto cada vez**,
+lo resuelve y pulsa "Ver corrección".
 
-Para poner las tuyas, súbelas con esos mismos nombres desde el
-Administrador de archivos de hPanel. Formato horizontal (4:3), ~900 px de
-ancho.
+Qué recibe:
 
-## 11. Cambiar las fotos de los equipos
+1. **El factor de caída corregido automáticamente.** Se compara su número
+   con el real (tolerancia ±0,1) y se le muestra el cálculo. Esto no
+   depende de la IA: es matemática exacta y funciona siempre.
+2. **La respuesta modelo**, o sea lo que debería haberse hecho.
+3. **Una evaluación de sus respuestas abiertas**, solo si has configurado
+   la clave de Gemini. Sin clave, los puntos 1 y 2 siguen funcionando.
 
-Igual que los nudos, pero en
-`wp-content/themes/rescate-vertical/assets/images/equipos/`:
-`cuerda.jpg`, `arnes.jpg`, `mosqueton.jpg`, `descensor.jpg`, `casco.jpg`,
-`camilla.jpg`. Todas son de dominio público o CC0 y se pueden sustituir
-manteniendo los mismos nombres.
+### Añadir o editar casos
+
+**Rescate Vertical → Casos prácticos**. El plugin trae 4 casos de ejemplo
+ya cargados. Para crear uno nuevo:
+
+- **Título**: nombre corto del caso.
+- **Editor**: el enunciado que lee el alumno.
+- **Distancia de caída** y **Cuerda disponible**: con estos dos datos el
+  factor de caída se corrige solo. Si los dejas vacíos, esa pregunta no
+  se le muestra al alumno.
+- **Respuesta modelo**: lo que debería haber contestado. Admite títulos
+  con `##` y viñetas con `-`.
+
+Los casos de ejemplo solo se crean la primera vez: si los borras o los
+editas, el plugin no los vuelve a añadir.

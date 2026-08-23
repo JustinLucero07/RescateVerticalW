@@ -7,7 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RV_THEME_VERSION', '2.3.0' );
+define( 'RV_THEME_VERSION', '2.4.0' );
+
+require_once get_template_directory() . '/inc/customizer.php';
 
 /**
  * Theme setup.
@@ -59,7 +61,7 @@ function rv_preload_hero() {
 	}
 	printf(
 		'<link rel="preload" as="image" href="%s" fetchpriority="high">' . "\n",
-		esc_url( get_template_directory_uri() . '/assets/images/hero.jpg' )
+		esc_url( rv_img( 'hero.jpg' ) )
 	);
 }
 add_action( 'wp_head', 'rv_preload_hero', 1 );
@@ -129,7 +131,25 @@ function rv_fallback_menu() {
  * @return string
  */
 function rv_img( $file ) {
-	return get_template_directory_uri() . '/assets/images/' . ltrim( $file, '/' );
+	$file = ltrim( $file, '/' );
+
+	/*
+	 * Si el administrador subió una imagen propia desde
+	 * Apariencia > Personalizar > Imágenes del sitio, esa manda sobre la
+	 * incluida en el tema. Así todas las plantillas heredan el cambio sin
+	 * tener que tocarlas una por una.
+	 */
+	if ( function_exists( 'rv_image_map' ) ) {
+		$map = rv_image_map();
+		if ( isset( $map[ $file ] ) ) {
+			$custom = get_theme_mod( 'rv_img_' . $map[ $file ]['key'] );
+			if ( $custom ) {
+				return $custom;
+			}
+		}
+	}
+
+	return get_template_directory_uri() . '/assets/images/' . $file;
 }
 
 /**
