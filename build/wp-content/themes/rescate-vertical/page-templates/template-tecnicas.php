@@ -100,43 +100,59 @@ $rv_procedures = array(
 			</p>
 		</div>
 
-		<div class="rv-gear">
-			<div class="rv-gear-card rv-reveal">
-				<div class="rv-gear-figure">
-					<svg viewBox="0 0 60 60" fill="none" aria-hidden="true" focusable="false"><path d="M15 45 C 15 20, 45 20, 45 35 C 45 50, 15 50, 15 35 C 15 20, 45 20, 45 45" stroke="#E4572E" stroke-width="2.5" stroke-linecap="round"/></svg>
-				</div>
-				<div class="rv-gear-body">
-					<h3><?php esc_html_e( 'Nudo ocho', 'rescate-vertical' ); ?></h3>
-					<p><?php esc_html_e( 'Terminal de alta resistencia, fácil de inspeccionar a simple vista.', 'rescate-vertical' ); ?></p>
-				</div>
-			</div>
-			<div class="rv-gear-card rv-reveal d1">
-				<div class="rv-gear-figure">
-					<svg viewBox="0 0 60 60" fill="none" aria-hidden="true" focusable="false"><rect x="14" y="20" width="32" height="20" rx="2" stroke="#2C5468" stroke-width="2"/><path d="M14 26 H46 M14 34 H46" stroke="#2C5468" stroke-width="2"/></svg>
-				</div>
-				<div class="rv-gear-body">
-					<h3><?php esc_html_e( 'Ballestrinque', 'rescate-vertical' ); ?></h3>
-					<p><?php esc_html_e( 'Fijación rápida a estructuras tubulares, ajustable bajo carga.', 'rescate-vertical' ); ?></p>
-				</div>
-			</div>
-			<div class="rv-gear-card rv-reveal d2">
-				<div class="rv-gear-figure">
-					<svg viewBox="0 0 60 60" fill="none" aria-hidden="true" focusable="false"><path d="M20 15 V45 M40 15 V45" stroke="#1F7A4D" stroke-width="2"/><path d="M18 25 C 26 25, 26 35, 18 35 M42 25 C 34 25, 34 35, 42 35" stroke="#1F7A4D" stroke-width="2"/></svg>
-				</div>
-				<div class="rv-gear-body">
-					<h3><?php esc_html_e( 'Prusik', 'rescate-vertical' ); ?></h3>
-					<p><?php esc_html_e( 'Bloqueo por fricción para ascenso controlado o seguro de emergencia.', 'rescate-vertical' ); ?></p>
-				</div>
-			</div>
-			<div class="rv-gear-card rv-reveal d3">
-				<div class="rv-gear-figure">
-					<svg viewBox="0 0 60 60" fill="none" aria-hidden="true" focusable="false"><circle cx="30" cy="30" r="12" stroke="#E4572E" stroke-width="2"/><path d="M20 20 L15 15 M40 40 L45 45" stroke="#E4572E" stroke-width="2" stroke-linecap="round"/></svg>
-				</div>
-				<div class="rv-gear-body">
-					<h3><?php esc_html_e( 'Mariposa', 'rescate-vertical' ); ?></h3>
-					<p><?php esc_html_e( 'Crea un anclaje intermedio sin usar los extremos de la cuerda.', 'rescate-vertical' ); ?></p>
-				</div>
-			</div>
+		<?php
+		$rv_knots = array(
+			array(
+				'img'  => 'nudos/nudo-ocho.jpg',
+				'name' => __( 'Nudo ocho', 'rescate-vertical' ),
+				'desc' => __( 'Terminal de alta resistencia, fácil de inspeccionar a simple vista.', 'rescate-vertical' ),
+				'alt'  => __( 'Nudo ocho rematado en una cuerda de rescate roja', 'rescate-vertical' ),
+				'use'  => __( 'Encordamiento', 'rescate-vertical' ),
+			),
+			array(
+				'img'  => 'nudos/ballestrinque.jpg',
+				'name' => __( 'Ballestrinque', 'rescate-vertical' ),
+				'desc' => __( 'Fijación rápida a estructuras tubulares, ajustable bajo carga.', 'rescate-vertical' ),
+				'alt'  => __( 'Ballestrinque amarrado alrededor de un poste', 'rescate-vertical' ),
+				'use'  => __( 'Anclaje', 'rescate-vertical' ),
+			),
+			array(
+				'img'  => 'nudos/prusik.jpg',
+				'name' => __( 'Prusik', 'rescate-vertical' ),
+				'desc' => __( 'Bloqueo por fricción para ascenso controlado o seguro de emergencia.', 'rescate-vertical' ),
+				'alt'  => __( 'Manos anudando un cordino sobre una cuerda de trabajo', 'rescate-vertical' ),
+				'use'  => __( 'Autoseguro', 'rescate-vertical' ),
+			),
+			array(
+				'img'  => 'nudos/mariposa.jpg',
+				'name' => __( 'Mariposa', 'rescate-vertical' ),
+				'desc' => __( 'Crea un anclaje intermedio sin usar los extremos de la cuerda.', 'rescate-vertical' ),
+				'alt'  => __( 'Nudo mariposa formando un seno en mitad de la cuerda', 'rescate-vertical' ),
+				'use'  => __( 'Punto intermedio', 'rescate-vertical' ),
+			),
+		);
+		?>
+		<div class="rv-knots">
+			<?php
+			$rv_k = 0;
+			foreach ( $rv_knots as $knot ) :
+				$rv_kc = ( $rv_k % 4 ) > 0 ? ' d' . ( $rv_k % 4 ) : '';
+				$rv_k++;
+				?>
+				<figure class="rv-knot-card rv-reveal<?php echo esc_attr( $rv_kc ); ?>">
+					<div class="rv-knot-photo">
+						<img src="<?php echo esc_url( rv_img( $knot['img'] ) ); ?>"
+							alt="<?php echo esc_attr( $knot['alt'] ); ?>"
+							loading="lazy" decoding="async"
+							sizes="(max-width: 860px) 100vw, 25vw">
+						<span class="rv-knot-tag"><?php echo esc_html( $knot['use'] ); ?></span>
+					</div>
+					<figcaption class="rv-knot-body">
+						<h3><?php echo esc_html( $knot['name'] ); ?></h3>
+						<p><?php echo esc_html( $knot['desc'] ); ?></p>
+					</figcaption>
+				</figure>
+			<?php endforeach; ?>
 		</div>
 
 		<div class="rv-callout rv-reveal" style="margin-top:32px;max-width:760px;">

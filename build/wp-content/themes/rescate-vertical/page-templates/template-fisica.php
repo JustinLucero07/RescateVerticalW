@@ -42,6 +42,19 @@ rv_page_hero(
 <section class="rv-section rv-section--soft">
 	<div class="rv-shell">
 		<div class="rv-section-head rv-reveal">
+			<span class="rv-kicker"><?php esc_html_e( 'Segunda herramienta', 'rescate-vertical' ); ?></span>
+			<h2><?php esc_html_e( 'Simulador de carga en anclajes', 'rescate-vertical' ); ?></h2>
+			<p class="rv-section-intro"><?php esc_html_e( 'El factor de caída explica la energía del impacto; este calcula cómo se reparte esa carga entre dos anclajes según el ángulo que forman. Abre el ángulo y observa cómo cada punto pasa de soportar la mitad de la carga a soportarla entera.', 'rescate-vertical' ); ?></p>
+		</div>
+		<div class="rv-reveal d1">
+			<?php echo do_shortcode( '[rv_simulador_anclaje]' ); ?>
+		</div>
+	</div>
+</section>
+
+<section class="rv-section">
+	<div class="rv-shell">
+		<div class="rv-section-head rv-reveal">
 			<span class="rv-kicker"><?php esc_html_e( 'Cómo se lee', 'rescate-vertical' ); ?></span>
 			<h2><?php esc_html_e( 'Los tres factores que definen el impacto', 'rescate-vertical' ); ?></h2>
 		</div>

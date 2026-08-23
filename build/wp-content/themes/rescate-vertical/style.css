@@ -4,7 +4,7 @@ Theme URI: https://rescatevertical.local
 Author: Rescate Vertical
 Author URI: https://rescatevertical.local
 Description: Tema educativo profesional sobre rescate vertical en emergencias médicas. Diseño claro con fotografía real, diagramas técnicos en SVG y animaciones de entrada al hacer scroll.
-Version: 2.1.0
+Version: 2.2.0
 Requires at least: 6.0
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
@@ -354,6 +354,29 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .rv-spec span:last-child{font-weight:700;color:var(--rv-ink);font-family:var(--rv-font-data);font-size:13.5px;font-variant-numeric:tabular-nums;}
 
 /* ============================================================
+ 10b. TARJETAS DE NUDOS (con fotografia)
+   ============================================================ */
+.rv-knots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;}
+.rv-knot-card{
+  margin:0;background:var(--rv-bg);border:1px solid var(--rv-line);border-radius:var(--rv-radius);
+  overflow:hidden;display:flex;flex-direction:column;
+  transition:border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.rv-knot-card:hover{border-color:var(--rv-accent);box-shadow:0 12px 28px rgba(14,26,36,0.10);transform:translateY(-3px);}
+.rv-knot-photo{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--rv-bg-soft);}
+.rv-knot-photo img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);}
+.rv-knot-card:hover .rv-knot-photo img{transform:scale(1.05);}
+.rv-knot-tag{
+  position:absolute;left:10px;bottom:10px;
+  background:rgba(14,26,36,0.86);color:#FFFFFF;backdrop-filter:blur(4px);
+  font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;
+  padding:5px 10px;border-radius:3px;
+}
+.rv-knot-body{padding:18px 20px 20px;}
+.rv-knot-body h3{font-size:16.5px;font-weight:700;margin:0 0 7px;}
+.rv-knot-body p{font-size:13.3px;line-height:1.55;color:var(--rv-ink-2);margin:0;}
+
+/* ============================================================
    11. PROTOCOLOS + NORMATIVAS
    ============================================================ */
 .rv-proto{display:flex;flex-direction:column;}
@@ -435,6 +458,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
    ============================================================ */
 @media (max-width:1000px){
   .rv-gear{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .rv-knots{grid-template-columns:repeat(2,minmax(0,1fr));}
 }
 
 /* El menú colapsa antes que el resto del layout: las etiquetas largas
@@ -482,6 +506,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
   .rv-cards{grid-template-columns:1fr;}
   .rv-gear{grid-template-columns:1fr;}
+  .rv-knots{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
   .rv-proto-row{grid-template-columns:1fr;gap:8px;}
 
   .rv-footer-cols{gap:34px;}

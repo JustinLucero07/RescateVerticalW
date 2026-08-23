@@ -185,3 +185,63 @@ cualquier página o entrada:
   todas las fotos.
 - Todo el plugin usa el prefijo `rv_` / `RV_` en funciones, clases, hooks y
   opciones, con nonces, sanitización de entradas y escape de salidas.
+
+---
+
+## 9. Los dos simuladores
+
+### Factor de caída — `[rv_simulador_caso]`
+
+Responde a: *¿qué tan violento es el impacto si alguien cae?*
+
+`Factor de caída = distancia de caída ÷ cuerda disponible`
+
+La cuerda es lo que absorbe la energía estirándose. Cuanta más cuerda hay
+en juego para una misma caída, más suave es la frenada. Por eso el número
+que importa no son los metros de caída sueltos, sino esa **relación**.
+
+- **FC 0** — el sistema está en tensión, no hay caída libre.
+- **FC 1** — caes tanto como cuerda tienes: ya toca revisar el montaje.
+- **FC 2** — el máximo posible. Toda la cuerda, ninguna absorción útil.
+
+Caer 4 m con 8 m de cuerda (FC 0,5) es mucho menos grave que caer 4 m con
+2 m de cuerda (FC 2), aunque la altura sea la misma. El simulador cambia de
+color en los umbrales configurados en Ajustes.
+
+### Carga en anclajes — `[rv_simulador_anclaje]`
+
+Responde a: *¿cuánto aguanta cada anclaje según cómo de abiertas estén las
+ramas?*
+
+`Fuerza por anclaje = carga total ÷ (2 × coseno(ángulo ÷ 2))`
+
+Es el complemento del anterior: uno mide la energía del golpe, este mide
+cómo se reparte esa carga. Lo contraintuitivo es que **abrir el ángulo no
+reparte mejor, reparte peor**:
+
+| Ángulo | Cada anclaje soporta |
+|--------|----------------------|
+| 0°     | 50 % de la carga     |
+| 60°    | 58 %                 |
+| 120°   | 100 % (¡la carga entera, cada uno!) |
+| 150°   | 193 %                |
+
+Por eso la regla de campo es mantenerse por debajo de 60°. El simulador
+muestra la fuerza en kN, el porcentaje respecto a la carga, el margen que
+queda frente a la resistencia del anclaje, y un esquema que se abre y se
+cierra con el ángulo.
+
+Los umbrales (ángulo de advertencia y crítico) y la resistencia del anclaje
+se editan en **Rescate Vertical → Ajustes**.
+
+---
+
+## 10. Cambiar las fotos de los nudos
+
+Las cuatro fotos de nudos (dominio público / CC0) están en
+`wp-content/themes/rescate-vertical/assets/images/nudos/`:
+`nudo-ocho.jpg`, `ballestrinque.jpg`, `prusik.jpg`, `mariposa.jpg`.
+
+Para poner las tuyas, súbelas con esos mismos nombres desde el
+Administrador de archivos de hPanel. Formato horizontal (4:3), ~900 px de
+ancho.

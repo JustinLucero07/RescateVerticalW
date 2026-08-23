@@ -60,13 +60,13 @@ class RV_Settings {
 		$defaults = rv_default_settings();
 		$output   = array();
 
-		$numeric_fields = array( 'fc_safe_max', 'fc_moderate_max', 'kn_limit', 'angle_warn', 'angle_critical' );
+		$numeric_fields = array( 'fc_safe_max', 'fc_moderate_max', 'kn_limit', 'angle_warn', 'angle_critical', 'anchor_rating' );
 		foreach ( $numeric_fields as $field ) {
 			$value            = isset( $input[ $field ] ) ? $input[ $field ] : $defaults[ $field ];
 			$output[ $field ] = is_numeric( $value ) ? (string) floatval( $value ) : $defaults[ $field ];
 		}
 
-		$text_fields = array( 'msg_safe', 'msg_moderate', 'msg_dangerous', 'msg_angle_warn', 'msg_angle_critical', 'gemini_prompt' );
+		$text_fields = array( 'msg_safe', 'msg_moderate', 'msg_dangerous', 'msg_angle_warn', 'msg_angle_critical', 'msg_anchor_safe', 'msg_anchor_warn', 'msg_anchor_critical', 'gemini_prompt' );
 		foreach ( $text_fields as $field ) {
 			$output[ $field ] = isset( $input[ $field ] )
 				? sanitize_textarea_field( wp_unslash( $input[ $field ] ) )
@@ -135,6 +135,27 @@ class RV_Settings {
 					<tr>
 						<th scope="row"><label for="rv_msg_angle_critical"><?php esc_html_e( 'Mensaje adicional: ángulo crítico', 'rescate-vertical-tools' ); ?></label></th>
 						<td><textarea id="rv_msg_angle_critical" name="<?php echo esc_attr( RV_TOOLS_OPTION ); ?>[msg_angle_critical]" rows="2" class="large-text"><?php echo esc_textarea( $settings['msg_angle_critical'] ); ?></textarea></td>
+					</tr>
+				</table>
+
+				<h2><?php esc_html_e( 'Simulador de carga en anclajes', 'rescate-vertical-tools' ); ?></h2>
+				<p><?php esc_html_e( 'Controla el shortcode [rv_simulador_anclaje]. Reutiliza los ángulos de advertencia y crítico definidos arriba. Marcadores disponibles: {angle_warn}, {angle_critical} y {anchor}.', 'rescate-vertical-tools' ); ?></p>
+				<table class="form-table" role="presentation">
+					<tr>
+						<th scope="row"><label for="rv_anchor_rating"><?php esc_html_e( 'Resistencia de cada anclaje (kN)', 'rescate-vertical-tools' ); ?></label></th>
+						<td><input type="number" step="1" min="1" id="rv_anchor_rating" name="<?php echo esc_attr( RV_TOOLS_OPTION ); ?>[anchor_rating]" value="<?php echo esc_attr( $settings['anchor_rating'] ); ?>" class="small-text"></td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="rv_msg_anchor_safe"><?php esc_html_e( 'Mensaje: reparto eficiente', 'rescate-vertical-tools' ); ?></label></th>
+						<td><textarea id="rv_msg_anchor_safe" name="<?php echo esc_attr( RV_TOOLS_OPTION ); ?>[msg_anchor_safe]" rows="2" class="large-text"><?php echo esc_textarea( $settings['msg_anchor_safe'] ); ?></textarea></td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="rv_msg_anchor_warn"><?php esc_html_e( 'Mensaje: atención', 'rescate-vertical-tools' ); ?></label></th>
+						<td><textarea id="rv_msg_anchor_warn" name="<?php echo esc_attr( RV_TOOLS_OPTION ); ?>[msg_anchor_warn]" rows="2" class="large-text"><?php echo esc_textarea( $settings['msg_anchor_warn'] ); ?></textarea></td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="rv_msg_anchor_critical"><?php esc_html_e( 'Mensaje: ángulo crítico', 'rescate-vertical-tools' ); ?></label></th>
+						<td><textarea id="rv_msg_anchor_critical" name="<?php echo esc_attr( RV_TOOLS_OPTION ); ?>[msg_anchor_critical]" rows="2" class="large-text"><?php echo esc_textarea( $settings['msg_anchor_critical'] ); ?></textarea></td>
 					</tr>
 				</table>
 

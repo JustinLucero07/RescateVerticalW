@@ -3,7 +3,7 @@
  * Plugin Name: Rescate Vertical — Herramientas
  * Plugin URI: https://rescatevertical.local
  * Description: Simulador de factor de caída, formulario de validación por expertos y ajustes de umbrales de riesgo para el sitio educativo "Rescate vertical en emergencias médicas".
- * Version: 1.3.0
+ * Version: 1.4.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Rescate Vertical
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RV_TOOLS_VERSION', '1.3.0' );
+define( 'RV_TOOLS_VERSION', '1.4.0' );
 define( 'RV_TOOLS_FILE', __FILE__ );
 define( 'RV_TOOLS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'RV_TOOLS_URL', plugin_dir_url( __FILE__ ) );
@@ -30,6 +30,7 @@ require_once RV_TOOLS_PATH . 'includes/class-rv-simulator.php';
 require_once RV_TOOLS_PATH . 'includes/class-rv-validation-form.php';
 require_once RV_TOOLS_PATH . 'includes/class-rv-export.php';
 require_once RV_TOOLS_PATH . 'includes/class-rv-case-review.php';
+require_once RV_TOOLS_PATH . 'includes/class-rv-anchor.php';
 
 /**
  * Default settings values. Central source of truth used on activation
@@ -47,6 +48,10 @@ function rv_default_settings() {
 		'msg_dangerous'      => 'Factor de caída alto, cerca del máximo de 2. La fuerza puede superar los {kn} kN: instala un anclaje intermedio antes de continuar.',
 		'msg_angle_warn'     => 'El ángulo entre anclajes ya supera los {angle_warn}° recomendados.',
 		'msg_angle_critical' => 'El ángulo entre anclajes además duplica la tensión por punto: bájalo de {angle_warn}°.',
+		'anchor_rating'       => '22',
+		'msg_anchor_safe'     => 'Reparto eficiente: con el ángulo por debajo de {angle_warn}° cada anclaje soporta menos que la carga total.',
+		'msg_anchor_warn'     => 'El ángulo ya penaliza el reparto: cada anclaje asume una fracción alta de la carga. Acerca las ramas o alarga la cinta.',
+		'msg_anchor_critical' => 'Ángulo crítico: por encima de {angle_critical}° cada anclaje soporta tanto o más que la carga total. Reduce el ángulo antes de cargar el sistema.',
 		'gemini_api_key'     => '',
 		'gemini_model'       => 'gemini-2.0-flash',
 		'gemini_prompt'      => rv_default_prompt(),
@@ -153,5 +158,6 @@ function rv_tools_init() {
 	RV_Validation_Form::register();
 	RV_Export::register();
 	RV_Case_Review::register();
+	RV_Anchor::register();
 }
 add_action( 'plugins_loaded', 'rv_tools_init' );

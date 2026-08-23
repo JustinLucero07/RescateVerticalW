@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RV_THEME_VERSION', '2.1.0' );
+define( 'RV_THEME_VERSION', '2.2.0' );
 
 /**
  * Theme setup.
