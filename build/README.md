@@ -245,3 +245,11 @@ Las cuatro fotos de nudos (dominio público / CC0) están en
 Para poner las tuyas, súbelas con esos mismos nombres desde el
 Administrador de archivos de hPanel. Formato horizontal (4:3), ~900 px de
 ancho.
+
+## 11. Cambiar las fotos de los equipos
+
+Igual que los nudos, pero en
+`wp-content/themes/rescate-vertical/assets/images/equipos/`:
+`cuerda.jpg`, `arnes.jpg`, `mosqueton.jpg`, `descensor.jpg`, `casco.jpg`,
+`camilla.jpg`. Todas son de dominio público o CC0 y se pueden sustituir
+manteniendo los mismos nombres.

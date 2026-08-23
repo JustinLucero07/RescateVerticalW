@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RV_THEME_VERSION', '2.2.0' );
+define( 'RV_THEME_VERSION', '2.3.0' );
 
 /**
  * Theme setup.
@@ -295,27 +295,6 @@ function rv_technique_diagram( $which ) {
 			<?php
 			break;
 	}
-}
-
-/**
- * Simple line icons used on the gear cards.
- *
- * @param string $which Icon key.
- */
-function rv_gear_icon( $which ) {
-	$icons = array(
-		'cuerda'    => '<circle cx="12" cy="12" r="9"/><path d="M7 12c2.5-4 7.5 4 10 0"/>',
-		'arnes'     => '<path d="M8 4v6a4 4 0 0 0 8 0V4"/><path d="M12 14v6M8 20h8"/>',
-		'mosqueton' => '<path d="M9 4a5 5 0 0 1 0 10v6"/><path d="M15 4a5 5 0 0 0 0 10v6"/>',
-		'descensor' => '<circle cx="12" cy="8" r="4"/><circle cx="12" cy="17" r="3"/>',
-		'casco'     => '<path d="M4 15a8 8 0 0 1 16 0"/><path d="M3 15h18v3H3z"/>',
-		'camilla'   => '<rect x="3" y="9" width="18" height="7" rx="2"/><path d="M7 9V6M17 9V6M12 9v7"/>',
-	);
-	$path = isset( $icons[ $which ] ) ? $icons[ $which ] : $icons['cuerda'];
-	printf(
-		'<svg viewBox="0 0 24 24" fill="none" stroke="#0E1A24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">%s</svg>',
-		$path // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static markup defined above.
-	);
 }
 
 /**

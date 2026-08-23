@@ -26,7 +26,8 @@ rv_page_hero(
 
 $rv_gear = array(
 	array(
-		'icon'  => 'cuerda',
+		'img'   => 'equipos/cuerda.jpg',
+		'alt'   => __( 'Cuerda dinámica de alma y camisa con un nudo hecho', 'rescate-vertical' ),
 		'name'  => __( 'Cuerda dinámica', 'rescate-vertical' ),
 		'desc'  => __( 'Absorbe energía de caída mediante elongación controlada.', 'rescate-vertical' ),
 		'specs' => array(
@@ -35,7 +36,8 @@ $rv_gear = array(
 		),
 	),
 	array(
-		'icon'  => 'arnes',
+		'img'   => 'equipos/arnes.jpg',
+		'alt'   => __( 'Trabajador equipado con arnés integral sobre una estructura', 'rescate-vertical' ),
 		'name'  => __( 'Arnés integral', 'rescate-vertical' ),
 		'desc'  => __( 'Distribuye la carga entre tronco, hombros y muslos.', 'rescate-vertical' ),
 		'specs' => array(
@@ -44,7 +46,8 @@ $rv_gear = array(
 		),
 	),
 	array(
-		'icon'  => 'mosqueton',
+		'img'   => 'equipos/mosqueton.jpg',
+		'alt'   => __( 'Mosquetón de seguro automático', 'rescate-vertical' ),
 		'name'  => __( 'Mosquetón', 'rescate-vertical' ),
 		'desc'  => __( 'Cierre de seguro automático en anclajes críticos.', 'rescate-vertical' ),
 		'specs' => array(
@@ -53,7 +56,8 @@ $rv_gear = array(
 		),
 	),
 	array(
-		'icon'  => 'descensor',
+		'img'   => 'equipos/descensor.jpg',
+		'alt'   => __( 'Descensor en ocho con la cuerda pasada', 'rescate-vertical' ),
 		'name'  => __( 'Descensor', 'rescate-vertical' ),
 		'desc'  => __( 'Fricciona la cuerda para controlar la velocidad de bajada.', 'rescate-vertical' ),
 		'specs' => array(
@@ -62,7 +66,8 @@ $rv_gear = array(
 		),
 	),
 	array(
-		'icon'  => 'casco',
+		'img'   => 'equipos/casco.jpg',
+		'alt'   => __( 'Casco de escalada y rescate', 'rescate-vertical' ),
 		'name'  => __( 'Casco', 'rescate-vertical' ),
 		'desc'  => __( 'Protege contra impacto de objetos en caída durante la maniobra.', 'rescate-vertical' ),
 		'specs' => array(
@@ -71,7 +76,8 @@ $rv_gear = array(
 		),
 	),
 	array(
-		'icon'  => 'camilla',
+		'img'   => 'equipos/camilla.jpg',
+		'alt'   => __( 'Equipo de rescate trasladando a un paciente en camilla de extracción', 'rescate-vertical' ),
 		'name'  => __( 'Camilla Stokes', 'rescate-vertical' ),
 		'desc'  => __( 'Inmoviliza al paciente en posición horizontal o inclinada.', 'rescate-vertical' ),
 		'specs' => array(
@@ -98,7 +104,11 @@ $rv_gear = array(
 				$rv_i++;
 				?>
 				<div class="rv-gear-card rv-reveal<?php echo esc_attr( $rv_class ); ?>">
-					<div class="rv-gear-figure"><?php rv_gear_icon( $item['icon'] ); ?></div>
+					<div class="rv-gear-photo">
+						<img src="<?php echo esc_url( rv_img( $item['img'] ) ); ?>"
+							alt="<?php echo esc_attr( $item['alt'] ); ?>"
+							loading="lazy" decoding="async" sizes="(max-width: 860px) 100vw, 33vw">
+					</div>
 					<div class="rv-gear-body">
 						<span class="rv-badge"><?php esc_html_e( 'Certificado', 'rescate-vertical' ); ?></span>
 						<h3><?php echo esc_html( $item['name'] ); ?></h3>
