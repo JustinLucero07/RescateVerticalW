@@ -108,6 +108,28 @@ Alternativa por página: si asignas una **Imagen destacada** a las páginas
 
 ---
 
+## 4b. Poner tu logo
+
+**Apariencia → Personalizar → Identidad del sitio → Logo**
+
+Sube el logo de ANCLAVIA (PNG con fondo transparente funciona mejor) y
+publica. Sustituye automáticamente al icono del nudo ocho en la cabecera.
+Se escala solo: hasta 76 px de alto en escritorio y 44 px en móvil.
+
+**El nombre aparece al lado del logo**, en tipografía Chakra Petch, y el
+logo también sale en el pie de página.
+Ese texto sale de **Ajustes → Generales → Título del sitio**: ponlo en
+`ANCLAVIA` para que se lea así en la cabecera (y también en la pestaña del
+navegador y en Google).
+
+Si no subes ninguno, la cabecera sigue mostrando el icono del nudo ocho
+junto al nombre del sitio.
+
+El **nombre del sitio** (el texto que acompaña al logo y el título en
+Google) se cambia en **Ajustes → Generales → Título del sitio**.
+
+---
+
 ## 5. Purgar la caché (Hostinger)
 
 Hostinger usa LiteSpeed Cache: tras cualquier cambio de diseño o plantilla,
@@ -176,6 +198,9 @@ cualquier página o entrada:
 
 - Sin Elementor ni ningún constructor: todo el diseño va en PHP y CSS dentro
   del tema.
+- Paleta tomada del logo ANCLAVIA: azul médico #1B7FC4, naranja #D9502B,
+  dorado #C0982F y grafito #101820. Se cambian en un solo sitio, al principio
+  de `style.css`.
 - Tipografías Archivo y Source Sans 3 vía Google Fonts con `wp_enqueue_style`.
  - Las cifras usan Archivo con numeración tabular; no se usa ninguna fuente
   monoespaciada.

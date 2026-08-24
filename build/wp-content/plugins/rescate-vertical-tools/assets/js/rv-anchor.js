@@ -117,7 +117,7 @@
 			feedback.style.color = th.text;
 			panel.style.background = th.bg;
 			panel.style.borderLeftColor = th.border;
-			marginEl.style.color = margin < 5 ? '#C0341A' : '#0E1A24';
+			marginEl.style.color = margin < 5 ? '#C0341A' : '#101820';
 
 			drawSchematic(deg);
 		}

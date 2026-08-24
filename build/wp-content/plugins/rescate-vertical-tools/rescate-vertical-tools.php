@@ -3,7 +3,7 @@
  * Plugin Name: Rescate Vertical — Herramientas
  * Plugin URI: https://rescatevertical.local
  * Description: Simulador de factor de caída, formulario de validación por expertos y ajustes de umbrales de riesgo para el sitio educativo "Rescate vertical en emergencias médicas".
- * Version: 1.5.0
+ * Version: 1.6.0
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Rescate Vertical
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RV_TOOLS_VERSION', '1.5.0' );
+define( 'RV_TOOLS_VERSION', '1.6.0' );
 define( 'RV_TOOLS_FILE', __FILE__ );
 define( 'RV_TOOLS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'RV_TOOLS_URL', plugin_dir_url( __FILE__ ) );

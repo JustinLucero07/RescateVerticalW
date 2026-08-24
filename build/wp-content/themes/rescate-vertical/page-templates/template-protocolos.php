@@ -45,7 +45,7 @@ $rv_norms = array(
 <section class="rv-section">
 	<div class="rv-shell">
 		<div class="rv-section-head rv-reveal">
-			<span class="rv-kicker"><?php esc_html_e( 'Protocolos médicos', 'rescate-vertical' ); ?></span>
+			<span class="rv-kicker rv-kicker--med"><?php esc_html_e( 'Protocolos médicos', 'rescate-vertical' ); ?></span>
 			<h2><?php esc_html_e( 'La atención no espera a la extracción', 'rescate-vertical' ); ?></h2>
 			<p class="rv-section-intro"><?php esc_html_e( 'Tres marcos clínicos distintos, con un principio común: estabilizar al paciente sin detener la operación técnica que lo está sacando de ahí.', 'rescate-vertical' ); ?></p>
 		</div>

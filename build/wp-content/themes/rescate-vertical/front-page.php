@@ -50,7 +50,7 @@ get_header();
 
 			<div class="rv-hero-note rv-reveal d4">
 				<svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-					<path d="M4 12.5l5 5L20 6.5" stroke="#1F7A4D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+					<path d="M4 12.5l5 5L20 6.5" stroke="#1B7FC4" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
 				<span>
 					<?php
@@ -89,7 +89,7 @@ get_header();
 	<div class="rv-shell">
 		<div class="rv-split">
 			<div class="rv-prose rv-reveal">
-				<span class="rv-kicker"><?php esc_html_e( 'La disciplina', 'rescate-vertical' ); ?></span>
+				<span class="rv-kicker rv-kicker--med"><?php esc_html_e( 'La disciplina', 'rescate-vertical' ); ?></span>
 				<h2><?php esc_html_e( 'Cuando el paciente no puede caminar hacia la ambulancia', 'rescate-vertical' ); ?></h2>
 				<p><?php esc_html_e( 'Es el conjunto de procedimientos con cuerdas, anclajes y equipo certificado usado para acceder, estabilizar y evacuar a una persona cuando el terreno no permite un rescate convencional: laderas escarpadas, quebradas, pozos, torres o edificios en altura.', 'rescate-vertical' ); ?></p>
 				<p><?php esc_html_e( 'El equipo tiene que ir hacia él, estabilizarlo suspendido en el aire, y traerlo de vuelta sin agravar sus lesiones. Eso exige dominar tres lenguajes a la vez: la física de las cargas, la técnica de cuerdas y el protocolo clínico del paciente politraumatizado.', 'rescate-vertical' ); ?></p>

@@ -4,7 +4,7 @@ Theme URI: https://rescatevertical.local
 Author: Rescate Vertical
 Author URI: https://rescatevertical.local
 Description: Tema educativo profesional sobre rescate vertical en emergencias médicas. Diseño claro con fotografía real, diagramas técnicos en SVG y animaciones de entrada al hacer scroll.
-Version: 2.4.0
+Version: 2.8.0
 Requires at least: 6.0
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
@@ -18,19 +18,22 @@ Text Domain: rescate-vertical
 :root{
   --rv-bg:#FFFFFF;
   --rv-bg-soft:#F5F7F8;
-  --rv-bg-deep:#0E1A24;
-  --rv-ink:#0E1A24;
+  --rv-bg-deep:#101820;          /* grafito del fondo del logo */
+  --rv-ink:#101820;
   --rv-ink-2:#5A6873;
   --rv-ink-3:#8A98A2;
   --rv-line:#E1E6EA;
   --rv-line-2:#C9D1D8;
-  --rv-accent:#E4572E;
-  --rv-accent-dark:#B93816;
-  --rv-steel:#2C5468;
+  --rv-accent:#D9502B;           /* rojo naranja del texto del logo */
+  --rv-accent-dark:#A93A1B;      /* version oscura, para texto pequeno */
+  --rv-steel:#1B7FC4;            /* azul medico del logo (graficos) */
+  --rv-steel-dark:#145A8D;       /* mismo azul, contraste apto para texto */
+  --rv-gold:#C0982F;             /* dorado de la cuerda del logo */
   --rv-ok:#1F7A4D;
   --rv-warn:#C97A1E;
 
   --rv-font-display:'Archivo', 'Segoe UI', sans-serif;
+  --rv-font-brand:'Chakra Petch', 'Archivo', 'Segoe UI', sans-serif;
   --rv-font-body:'Source Sans 3', 'Segoe UI', sans-serif;
   --rv-font-label:'Source Sans 3', 'Segoe UI', sans-serif;
   --rv-font-data:'Archivo', 'Segoe UI', sans-serif;
@@ -114,6 +117,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 /* ============================================================
    5. HEADER / NAV
    ============================================================ */
+/* Filete con los tres colores del logo: azul medico, naranja y dorado */
+.rv-header::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:4px;z-index:1;
+  background:linear-gradient(90deg,
+    var(--rv-steel) 0%, var(--rv-steel) 34%,
+    var(--rv-accent) 34%, var(--rv-accent) 68%,
+    var(--rv-gold) 68%, var(--rv-gold) 100%);
+}
 .rv-header{
   position:sticky;top:0;z-index:100;
   background:rgba(255,255,255,0.96);
@@ -128,10 +139,20 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 
 .rv-brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex:none;}
+/* Logo propio subido desde el escritorio, con el nombre al lado */
+.rv-brand--logo{gap:13px;align-items:center;}
+.rv-brand--logo .custom-logo-link{display:block;line-height:0;flex:none;}
+.rv-brand--logo img,
+.rv-footer-brand .custom-logo-link img{
+  height:clamp(52px, 5.6vw, 76px);width:auto;max-width:none;object-fit:contain;
+}
+.rv-brand-text{text-decoration:none;display:block;line-height:1;}
 .rv-brand svg{flex:none;}
 .rv-brand-name{
-  font-family:var(--rv-font-display);font-weight:800;font-size:16px;
-  letter-spacing:0.01em;color:var(--rv-ink);text-transform:uppercase;line-height:1.1;
+  font-family:var(--rv-font-brand);font-weight:700;
+  font-size:clamp(21px, 2.3vw, 30px);
+  letter-spacing:0.05em;color:var(--rv-ink);text-transform:uppercase;
+  line-height:1;white-space:nowrap;
 }
 
 .rv-nav{display:flex;align-items:center;gap:8px;}
@@ -233,8 +254,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 .rv-btn-primary{background:var(--rv-accent);color:#FFFFFF;}
 .rv-btn-primary:hover{background:var(--rv-accent-dark);color:#FFFFFF;transform:translateY(-1px);}
-.rv-btn-ghost{border-color:var(--rv-line-2);color:var(--rv-ink);background:transparent;}
-.rv-btn-ghost:hover{background:var(--rv-ink);border-color:var(--rv-ink);color:#FFFFFF;}
+.rv-btn-ghost{border-color:var(--rv-steel);color:var(--rv-steel-dark);background:transparent;}
+.rv-btn-ghost:hover{background:var(--rv-steel-dark);border-color:var(--rv-steel-dark);color:#FFFFFF;}
 
 /* ============================================================
    7. TIRA DE ESTADÍSTICAS
@@ -250,8 +271,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .rv-stat{padding:28px var(--rv-pad);border-right:1px solid var(--rv-line);}
 .rv-stat:last-child{border-right:none;}
 .rv-stat-num{font-family:var(--rv-font-data);font-size:clamp(28px,3.4vw,38px);font-weight:800;color:var(--rv-ink);line-height:1.05;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;}
+.rv-stat:nth-child(1) .rv-stat-num{color:var(--rv-steel-dark);}
 .rv-stat:nth-child(2) .rv-stat-num{color:var(--rv-accent);}
-.rv-stat:nth-child(3) .rv-stat-num{color:var(--rv-steel);}
+.rv-stat:nth-child(3) .rv-stat-num{color:var(--rv-gold);}
 .rv-stat-label{font-size:13px;color:var(--rv-ink-2);margin-top:7px;line-height:1.45;}
 
 /* ============================================================
@@ -265,6 +287,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   font-size:13px;font-weight:700;letter-spacing:0.055em;
   text-transform:uppercase;color:var(--rv-accent-dark);
 }
+.rv-kicker--med{color:var(--rv-steel-dark);}
+.rv-kicker--med::before{background:var(--rv-steel);}
 .rv-kicker::before{
   content:"";width:26px;height:3px;border-radius:2px;background:var(--rv-accent);flex:none;
 }
@@ -390,7 +414,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 .rv-proto-row:last-child{border-bottom:1px solid var(--rv-line);}
 .rv-proto-code{
-  font-family:var(--rv-font-data);font-weight:800;color:var(--rv-steel);font-size:16.5px;letter-spacing:0.005em;
+  font-family:var(--rv-font-data);font-weight:800;color:var(--rv-steel-dark);font-size:16.5px;letter-spacing:0.005em;
 }
 .rv-proto-row p{margin:0;font-size:14.6px;color:var(--rv-ink-2);}
 
@@ -412,7 +436,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .rv-band-media img{width:100%;height:100%;object-fit:cover;}
 .rv-band::before{
   content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(90deg, rgba(14,26,36,0.93) 0%, rgba(14,26,36,0.86) 45%, rgba(14,26,36,0.55) 100%);
+  background:linear-gradient(90deg, rgba(11,30,46,0.94) 0%, rgba(12,28,42,0.88) 45%, rgba(16,24,32,0.55) 100%);
 }
 .rv-band-inner{
   max-width:var(--rv-shell);margin:0 auto;padding:clamp(48px,6vw,76px) var(--rv-pad);
@@ -517,6 +541,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 
 @media (max-width:520px){
+  .rv-brand--logo{gap:9px;}
+  .rv-brand--logo img{height:44px;}
+  .rv-brand-name{font-size:19px;letter-spacing:0.04em;}
   .rv-hero-actions .rv-btn{width:100%;justify-content:center;}
   .rv-footer-grid{flex-direction:column;gap:30px;}
 }

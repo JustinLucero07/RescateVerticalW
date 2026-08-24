@@ -112,25 +112,25 @@ class RV_Anchor {
 					<svg viewBox="0 0 260 200" role="img"
 						aria-label="<?php esc_attr_e( 'Esquema de dos ramas de anclaje que se abren según el ángulo seleccionado', 'rescate-vertical-tools' ); ?>">
 						<!-- ramas -->
-						<line class="rv-anc-leg-l" x1="130" y1="160" x2="86" y2="52" stroke="#E4572E" stroke-width="3" stroke-linecap="round"/>
-						<line class="rv-anc-leg-r" x1="130" y1="160" x2="174" y2="52" stroke="#E4572E" stroke-width="3" stroke-linecap="round"/>
+						<line class="rv-anc-leg-l" x1="130" y1="160" x2="86" y2="52" stroke="#D9502B" stroke-width="3" stroke-linecap="round"/>
+						<line class="rv-anc-leg-r" x1="130" y1="160" x2="174" y2="52" stroke="#D9502B" stroke-width="3" stroke-linecap="round"/>
 						<!-- estructura en cada extremo -->
 						<g class="rv-anc-cap-l">
-							<line x1="66" y1="42" x2="106" y2="62" stroke="#0E1A24" stroke-width="3" stroke-linecap="round"/>
-							<circle cx="86" cy="52" r="5" fill="#FFFFFF" stroke="#0E1A24" stroke-width="2.4"/>
+							<line x1="66" y1="42" x2="106" y2="62" stroke="#101820" stroke-width="3" stroke-linecap="round"/>
+							<circle cx="86" cy="52" r="5" fill="#FFFFFF" stroke="#101820" stroke-width="2.4"/>
 						</g>
 						<g class="rv-anc-cap-r">
-							<line x1="154" y1="62" x2="194" y2="42" stroke="#0E1A24" stroke-width="3" stroke-linecap="round"/>
-							<circle cx="174" cy="52" r="5" fill="#FFFFFF" stroke="#0E1A24" stroke-width="2.4"/>
+							<line x1="154" y1="62" x2="194" y2="42" stroke="#101820" stroke-width="3" stroke-linecap="round"/>
+							<circle cx="174" cy="52" r="5" fill="#FFFFFF" stroke="#101820" stroke-width="2.4"/>
 						</g>
 						<!-- arco del ángulo -->
-						<path class="rv-anc-arc" d="M112 116 A 48 48 0 0 0 148 116" fill="none" stroke="#2C5468" stroke-width="1.8" stroke-dasharray="4 3"/>
+						<path class="rv-anc-arc" d="M112 116 A 48 48 0 0 0 148 116" fill="none" stroke="#1B7FC4" stroke-width="1.8" stroke-dasharray="4 3"/>
 						<text class="rv-anc-arc-label" x="130" y="108" text-anchor="middle"
-							font-family="Archivo, Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#2C5468">45°</text>
+							font-family="Archivo, Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#1B7FC4">45°</text>
 						<!-- punto maestro y carga -->
-						<circle cx="130" cy="160" r="8" fill="#FFFFFF" stroke="#0E1A24" stroke-width="2.6"/>
-						<line x1="130" y1="168" x2="130" y2="186" stroke="#0E1A24" stroke-width="2.6" stroke-linecap="round"/>
-						<path d="M124 180 l6 7 6 -7" fill="none" stroke="#0E1A24" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+						<circle cx="130" cy="160" r="8" fill="#FFFFFF" stroke="#101820" stroke-width="2.6"/>
+						<line x1="130" y1="168" x2="130" y2="186" stroke="#101820" stroke-width="2.6" stroke-linecap="round"/>
+						<path d="M124 180 l6 7 6 -7" fill="none" stroke="#101820" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 				</div>
 			</div>

@@ -13,15 +13,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="rv-shell">
 		<div class="rv-footer-grid">
 			<div class="rv-footer-brand">
-				<div class="rv-brand">
-					<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-						<path d="M12 1.8v5.2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-						<circle cx="12" cy="10" r="3" stroke="#E4572E" stroke-width="2"/>
-						<circle cx="12" cy="15.6" r="3" stroke="#E4572E" stroke-width="2"/>
-						<path d="M12 18.6v3.6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-					</svg>
-					<span class="rv-brand-name"><?php bloginfo( 'name' ); ?></span>
-				</div>
+				<?php if ( function_exists( 'has_custom_logo' ) && has_custom_logo() ) : ?>
+					<div class="rv-brand rv-brand--logo">
+						<?php the_custom_logo(); ?>
+						<span class="rv-brand-name"><?php bloginfo( 'name' ); ?></span>
+					</div>
+				<?php else : ?>
+					<div class="rv-brand">
+						<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+							<path d="M12 1.8v5.2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+							<circle cx="12" cy="10" r="3" stroke="#D9502B" stroke-width="2"/>
+							<circle cx="12" cy="15.6" r="3" stroke="#D9502B" stroke-width="2"/>
+							<path d="M12 18.6v3.6" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+						</svg>
+						<span class="rv-brand-name"><?php bloginfo( 'name' ); ?></span>
+					</div>
+				<?php endif; ?>
 				<p><?php esc_html_e( 'Recurso educativo para formación en emergencias médicas y operaciones de rescate en altura.', 'rescate-vertical' ); ?></p>
 			</div>
 
@@ -44,9 +51,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="rv-footer-base">
 			<?php
 			printf(
-				/* translators: %s: current year. */
-				esc_html__( '© %s Rescate Vertical — Recurso educativo para formación en emergencias médicas.', 'rescate-vertical' ),
-				esc_html( gmdate( 'Y' ) )
+				/* translators: 1: año actual, 2: nombre del sitio. */
+				esc_html__( '© %1$s %2$s — Recurso educativo para formación en emergencias médicas.', 'rescate-vertical' ),
+				esc_html( gmdate( 'Y' ) ),
+				esc_html( get_bloginfo( 'name' ) )
 			);
 			?>
 		</div>
