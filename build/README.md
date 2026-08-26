@@ -295,3 +295,53 @@ ya cargados. Para crear uno nuevo:
 
 Los casos de ejemplo solo se crean la primera vez: si los borras o los
 editas, el plugin no los vuelve a añadir.
+
+
+---
+
+## 11. Ampliar el contenido desde el escritorio
+
+Equipos, Técnicas y Protocolos ya **no están escritos en el código**: son
+fichas que se editan en el menú **Rescate Vertical**. El contenido que ya
+existía se convirtió en fichas, así que no se perdió nada y todo es editable.
+
+En las tres puedes **añadir, editar, reordenar y borrar** fichas. El orden en
+la página lo controla el campo **Orden** del panel *Atributos* (los números
+más bajos salen antes).
+
+### Rescate Vertical → Equipos
+
+Cada ficha lleva: foto (Imagen destacada), descripción (editor), **Norma**,
+un **dato técnico** con su etiqueta, y dos listas clave:
+
+- **Cuándo se usa** — sale en verde.
+- **Cuándo NO se usa** — sale en rojo. Aquí van las contraindicaciones y los
+  errores frecuentes.
+
+Escribe una situación por línea, empezando con guion. Ya vienen cargadas 7
+fichas, incluidas cuerda dinámica y estática con la diferencia de cuándo usar
+cada una, y el mosquetón con el aviso del eje menor.
+
+### Rescate Vertical → Técnicas y nudos
+
+Además de foto y descripción, cada técnica admite un **vídeo**: pega la
+dirección de YouTube o Vimeo en el campo *Vídeo* y se incrusta solo debajo de
+la ficha. Déjalo vacío si esa técnica no tiene vídeo.
+
+### Rescate Vertical → Protocolos
+
+Cada protocolo lleva:
+
+- **Imagen destacada**: aquí subes la infografía. Se muestra a lo ancho y al
+  pulsarla se abre a tamaño completo.
+- **Secuencia**: la sigla, por ejemplo `XABCDE` o `MARCH PAWS`.
+- **Pasos del protocolo**: uno por línea con guion.
+
+Vienen cargados PHTLS, TECC, TCCC, síndrome compartimental/aplastamiento e
+integración con el equipo técnico, cada uno con su secuencia.
+
+### Añadir texto suelto a cualquier sección
+
+Todas las secciones muestran al final lo que escribas en el **editor de la
+página** correspondiente. Sirve para ampliar apartados como *Cómo se lee* en
+Física sin tocar código: edita la página, escribe, y aparece debajo.

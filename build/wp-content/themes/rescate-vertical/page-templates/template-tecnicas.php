@@ -100,60 +100,39 @@ $rv_procedures = array(
 			</p>
 		</div>
 
-		<?php
-		$rv_knots = array(
-			array(
-				'img'  => 'nudos/nudo-ocho.jpg',
-				'name' => __( 'Nudo ocho', 'rescate-vertical' ),
-				'desc' => __( 'Terminal de alta resistencia, fácil de inspeccionar a simple vista.', 'rescate-vertical' ),
-				'alt'  => __( 'Nudo ocho rematado en una cuerda de rescate roja', 'rescate-vertical' ),
-				'use'  => __( 'Encordamiento', 'rescate-vertical' ),
-			),
-			array(
-				'img'  => 'nudos/ballestrinque.jpg',
-				'name' => __( 'Ballestrinque', 'rescate-vertical' ),
-				'desc' => __( 'Fijación rápida a estructuras tubulares, ajustable bajo carga.', 'rescate-vertical' ),
-				'alt'  => __( 'Ballestrinque amarrado alrededor de un poste', 'rescate-vertical' ),
-				'use'  => __( 'Anclaje', 'rescate-vertical' ),
-			),
-			array(
-				'img'  => 'nudos/prusik.jpg',
-				'name' => __( 'Prusik', 'rescate-vertical' ),
-				'desc' => __( 'Bloqueo por fricción para ascenso controlado o seguro de emergencia.', 'rescate-vertical' ),
-				'alt'  => __( 'Manos anudando un cordino sobre una cuerda de trabajo', 'rescate-vertical' ),
-				'use'  => __( 'Autoseguro', 'rescate-vertical' ),
-			),
-			array(
-				'img'  => 'nudos/mariposa.jpg',
-				'name' => __( 'Mariposa', 'rescate-vertical' ),
-				'desc' => __( 'Crea un anclaje intermedio sin usar los extremos de la cuerda.', 'rescate-vertical' ),
-				'alt'  => __( 'Nudo mariposa formando un seno en mitad de la cuerda', 'rescate-vertical' ),
-				'use'  => __( 'Punto intermedio', 'rescate-vertical' ),
-			),
-		);
-		?>
-		<div class="rv-knots">
-			<?php
-			$rv_k = 0;
-			foreach ( $rv_knots as $knot ) :
-				$rv_kc = ( $rv_k % 4 ) > 0 ? ' d' . ( $rv_k % 4 ) : '';
-				$rv_k++;
-				?>
-				<figure class="rv-knot-card rv-reveal<?php echo esc_attr( $rv_kc ); ?>">
-					<div class="rv-knot-photo">
-						<img src="<?php echo esc_url( rv_img( $knot['img'] ) ); ?>"
-							alt="<?php echo esc_attr( $knot['alt'] ); ?>"
-							loading="lazy" decoding="async"
-							sizes="(max-width: 860px) 100vw, 25vw">
-						<span class="rv-knot-tag"><?php echo esc_html( $knot['use'] ); ?></span>
-					</div>
-					<figcaption class="rv-knot-body">
-						<h3><?php echo esc_html( $knot['name'] ); ?></h3>
-						<p><?php echo esc_html( $knot['desc'] ); ?></p>
-					</figcaption>
-				</figure>
-			<?php endforeach; ?>
-		</div>
+		<?php $rv_tecnicas = class_exists( 'RV_Content' ) ? RV_Content::items( RV_Content::TECNICA ) : array(); ?>
+
+		<?php if ( $rv_tecnicas ) : ?>
+			<div class="rv-knots">
+				<?php
+				$rv_k = 0;
+				foreach ( $rv_tecnicas as $rv_t ) :
+					$rv_kc  = ( $rv_k % 4 ) > 0 ? ' d' . ( $rv_k % 4 ) : '';
+					$rv_k++;
+					$rv_tag = get_post_meta( $rv_t->ID, 'rv_etiqueta', true );
+					?>
+					<figure class="rv-knot-card rv-reveal<?php echo esc_attr( $rv_kc ); ?>">
+						<?php if ( has_post_thumbnail( $rv_t ) ) : ?>
+							<div class="rv-knot-photo">
+								<?php echo get_the_post_thumbnail( $rv_t, 'large', array( 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
+								<?php if ( $rv_tag ) : ?>
+									<span class="rv-knot-tag"><?php echo esc_html( $rv_tag ); ?></span>
+								<?php endif; ?>
+							</div>
+						<?php endif; ?>
+						<figcaption class="rv-knot-body">
+							<h3><?php echo esc_html( get_the_title( $rv_t ) ); ?></h3>
+							<?php if ( trim( $rv_t->post_content ) !== '' ) : ?>
+								<?php echo wp_kses_post( wpautop( $rv_t->post_content ) ); ?>
+							<?php endif; ?>
+							<?php echo wp_kses_post( RV_Content::video_embed( get_post_meta( $rv_t->ID, 'rv_video', true ) ) ); ?>
+						</figcaption>
+					</figure>
+				<?php endforeach; ?>
+			</div>
+		<?php else : ?>
+			<p class="rv-section-intro"><?php esc_html_e( 'Todavía no hay técnicas cargadas. Añádelas en Rescate Vertical → Técnicas y nudos.', 'rescate-vertical' ); ?></p>
+		<?php endif; ?>
 
 		<div class="rv-callout rv-reveal" style="margin-top:32px;max-width:760px;">
 			<p class="rv-callout-k"><?php esc_html_e( 'Factor de seguridad del anclaje', 'rescate-vertical' ); ?></p>

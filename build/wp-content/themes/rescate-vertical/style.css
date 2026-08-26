@@ -4,7 +4,7 @@ Theme URI: https://rescatevertical.local
 Author: Rescate Vertical
 Author URI: https://rescatevertical.local
 Description: Tema educativo profesional sobre rescate vertical en emergencias médicas. Diseño claro con fotografía real, diagramas técnicos en SVG y animaciones de entrada al hacer scroll.
-Version: 2.8.0
+Version: 2.9.0
 Requires at least: 6.0
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
@@ -546,4 +546,89 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   .rv-brand-name{font-size:19px;letter-spacing:0.04em;}
   .rv-hero-actions .rv-btn{width:100%;justify-content:center;}
   .rv-footer-grid{flex-direction:column;gap:30px;}
+}
+
+/* ============================================================
+   16. FICHAS EDITABLES (equipos y protocolos)
+   ============================================================ */
+
+/* --- Listas de contenido editable --- */
+.rv-lista{margin:0;padding-left:1.25em;}
+.rv-lista li{margin-bottom:0.45em;font-size:14.5px;line-height:1.55;color:var(--rv-ink-2);}
+.rv-lista li:last-child{margin-bottom:0;}
+
+/* --- Vídeo incrustado --- */
+.rv-video{margin-top:14px;border-radius:6px;overflow:hidden;background:var(--rv-bg-soft);}
+.rv-video iframe{width:100%;aspect-ratio:16/9;height:auto;display:block;border:0;}
+
+/* --- Ficha de equipo --- */
+.rv-fichas{display:flex;flex-direction:column;gap:24px;}
+.rv-ficha{
+  display:grid;grid-template-columns:300px 1fr;gap:0;
+  border:1px solid var(--rv-line);border-radius:var(--rv-radius);overflow:hidden;
+  background:var(--rv-bg);
+  transition:border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.rv-ficha:hover{border-color:var(--rv-accent);box-shadow:0 12px 28px rgba(16,24,32,0.09);}
+.rv-ficha-media{background:var(--rv-bg-soft);overflow:hidden;}
+.rv-ficha-media img{width:100%;height:100%;object-fit:cover;min-height:210px;}
+/* Sin foto la ficha ocupa todo el ancho, sin dejar hueco gris */
+.rv-ficha--sinfoto{grid-template-columns:1fr;}
+.rv-ficha-body{padding:24px 26px;}
+.rv-ficha-body h3{font-size:19px;font-weight:700;margin:0 0 8px;}
+.rv-ficha-desc p{font-size:14.8px;line-height:1.6;color:var(--rv-ink-2);margin:0 0 14px;}
+.rv-ficha-specs{display:flex;flex-wrap:wrap;gap:0 30px;margin-bottom:16px;}
+.rv-ficha-specs .rv-spec{border-top:none;padding-top:0;min-width:180px;}
+
+/* Cuándo sí / cuándo no */
+.rv-uso{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px;}
+.rv-uso-col{border-radius:6px;padding:14px 16px;}
+.rv-uso-col h4{
+  font-family:var(--rv-font-body);font-size:12px;font-weight:700;
+  letter-spacing:0.06em;text-transform:uppercase;margin:0 0 8px;
+}
+.rv-uso-col--si{background:#EDF7F0;border-left:3px solid var(--rv-ok);}
+.rv-uso-col--si h4{color:var(--rv-ok);}
+.rv-uso-col--no{background:#FDEEEA;border-left:3px solid var(--rv-accent);}
+.rv-uso-col--no h4{color:var(--rv-accent-dark);}
+.rv-uso-col .rv-lista li{font-size:14px;}
+.rv-uso-col--si .rv-lista li::marker{color:var(--rv-ok);}
+.rv-uso-col--no .rv-lista li::marker{color:var(--rv-accent);}
+
+/* --- Ficha de protocolo --- */
+.rv-protos{display:flex;flex-direction:column;gap:26px;}
+.rv-proto-card{
+  border:1px solid var(--rv-line);border-radius:var(--rv-radius);
+  padding:26px 28px;background:var(--rv-bg);
+}
+.rv-proto-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:12px;}
+.rv-proto-head h3{font-size:22px;font-weight:800;margin:0;}
+.rv-proto-sigla{
+  font-family:var(--rv-font-data);font-weight:800;font-size:14px;letter-spacing:0.04em;
+  background:var(--rv-steel);color:#FFFFFF;padding:5px 12px;border-radius:4px;
+}
+.rv-proto-desc p{font-size:15.2px;line-height:1.65;color:var(--rv-ink-2);margin:0 0 16px;}
+.rv-proto-pasos{
+  background:var(--rv-bg-soft);border-left:4px solid var(--rv-steel);
+  border-radius:0 6px 6px 0;padding:16px 20px;margin-bottom:18px;
+}
+.rv-proto-pasos h4{
+  font-family:var(--rv-font-body);font-size:12px;font-weight:700;
+  letter-spacing:0.06em;text-transform:uppercase;color:var(--rv-steel-dark);margin:0 0 10px;
+}
+.rv-proto-pasos .rv-lista li::marker{color:var(--rv-steel);}
+
+/* Infografía del protocolo */
+.rv-proto-info{margin:0;}
+.rv-proto-info a{display:block;border:1px solid var(--rv-line);border-radius:6px;overflow:hidden;}
+.rv-proto-info img{width:100%;height:auto;display:block;}
+.rv-proto-info figcaption{
+  font-size:12.5px;color:var(--rv-ink-3);margin-top:8px;text-align:center;
+}
+
+@media (max-width:860px){
+  .rv-ficha{grid-template-columns:1fr;}
+  .rv-ficha-media img,.rv-ficha-sinfoto{min-height:190px;max-height:230px;}
+  .rv-uso{grid-template-columns:1fr;}
+  .rv-proto-card{padding:22px;}
 }

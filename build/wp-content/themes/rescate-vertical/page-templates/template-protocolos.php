@@ -2,6 +2,9 @@
 /**
  * Template Name: Sección · Protocolos y normativas
  * Template Post Type: page
+ *
+ * Los protocolos se editan en Rescate Vertical → Protocolos. Cada uno puede
+ * llevar su infografía como Imagen destacada.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,7 +17,7 @@ rv_page_hero(
 	array(
 		'kicker' => __( 'Sección 05 · 06', 'rescate-vertical' ),
 		'title'  => sprintf(
-			/* translators: %s: highlighted words. */
+			/* translators: %s: palabras destacadas. */
 			esc_html__( 'Cuando la técnica se cruza con la %s', 'rescate-vertical' ),
 			'<em>' . esc_html__( 'clínica', 'rescate-vertical' ) . '</em>'
 		),
@@ -24,12 +27,7 @@ rv_page_hero(
 	)
 );
 
-$rv_protocols = array(
-	array( 'PHTLS', __( 'Evaluación ABCDE del paciente politraumatizado, adaptada para ejecutarse mientras avanza la extracción técnica, no después de ella.', 'rescate-vertical' ) ),
-	array( 'TECC', __( 'Control de hemorragias y vía aérea cuando el entorno restringe el acceso normal del equipo médico.', 'rescate-vertical' ) ),
-	array( 'TCCC', __( 'Equilibra la atención clínica con la seguridad operativa cuando la evacuación inmediata no es posible.', 'rescate-vertical' ) ),
-	array( __( 'Integración', 'rescate-vertical' ), __( 'El equipo técnico y el médico actúan en simultáneo, no en secuencia: reduce el tiempo total de exposición al riesgo.', 'rescate-vertical' ) ),
-);
+$rv_protocolos = class_exists( 'RV_Content' ) ? RV_Content::items( RV_Content::PROTOCOLO ) : array();
 
 $rv_norms = array(
 	array( 'NFPA 1983', __( 'cuerdas y accesorios', 'rescate-vertical' ) ),
@@ -47,22 +45,61 @@ $rv_norms = array(
 		<div class="rv-section-head rv-reveal">
 			<span class="rv-kicker rv-kicker--med"><?php esc_html_e( 'Protocolos médicos', 'rescate-vertical' ); ?></span>
 			<h2><?php esc_html_e( 'La atención no espera a la extracción', 'rescate-vertical' ); ?></h2>
-			<p class="rv-section-intro"><?php esc_html_e( 'Tres marcos clínicos distintos, con un principio común: estabilizar al paciente sin detener la operación técnica que lo está sacando de ahí.', 'rescate-vertical' ); ?></p>
+			<p class="rv-section-intro"><?php esc_html_e( 'Marcos clínicos distintos, con un principio común: estabilizar al paciente sin detener la operación técnica que lo está sacando de ahí.', 'rescate-vertical' ); ?></p>
 		</div>
 
-		<div class="rv-proto">
-			<?php
-			$rv_d = 0;
-			foreach ( $rv_protocols as $proto ) :
-				$rv_c = $rv_d > 0 ? ' d' . min( $rv_d, 3 ) : '';
-				$rv_d++;
-				?>
-				<div class="rv-proto-row rv-reveal<?php echo esc_attr( $rv_c ); ?>">
-					<div class="rv-proto-code"><?php echo esc_html( $proto[0] ); ?></div>
-					<p><?php echo esc_html( $proto[1] ); ?></p>
-				</div>
-			<?php endforeach; ?>
-		</div>
+		<?php if ( $rv_protocolos ) : ?>
+			<div class="rv-protos">
+				<?php
+				foreach ( $rv_protocolos as $rv_p ) :
+					$rv_sigla = get_post_meta( $rv_p->ID, 'rv_sigla', true );
+					$rv_pasos = RV_Content::lines_to_list( get_post_meta( $rv_p->ID, 'rv_pasos', true ) );
+					?>
+					<article class="rv-proto-card rv-reveal">
+						<header class="rv-proto-head">
+							<h3><?php echo esc_html( get_the_title( $rv_p ) ); ?></h3>
+							<?php if ( $rv_sigla ) : ?>
+								<span class="rv-proto-sigla"><?php echo esc_html( $rv_sigla ); ?></span>
+							<?php endif; ?>
+						</header>
+
+						<?php if ( trim( $rv_p->post_content ) !== '' ) : ?>
+							<div class="rv-proto-desc"><?php echo wp_kses_post( wpautop( $rv_p->post_content ) ); ?></div>
+						<?php endif; ?>
+
+						<?php if ( $rv_pasos ) : ?>
+							<div class="rv-proto-pasos">
+								<h4><?php esc_html_e( 'Secuencia', 'rescate-vertical' ); ?></h4>
+								<?php echo wp_kses_post( $rv_pasos ); ?>
+							</div>
+						<?php endif; ?>
+
+						<?php if ( has_post_thumbnail( $rv_p ) ) : ?>
+							<figure class="rv-proto-info">
+								<a href="<?php echo esc_url( get_the_post_thumbnail_url( $rv_p, 'full' ) ); ?>" target="_blank" rel="noopener">
+									<?php
+									echo get_the_post_thumbnail(
+										$rv_p,
+										'large',
+										array(
+											'loading'  => 'lazy',
+											'decoding' => 'async',
+											'sizes'    => '(max-width: 860px) 100vw, 900px',
+										)
+									);
+									?>
+								</a>
+								<figcaption><?php esc_html_e( 'Pulsa la infografía para verla a tamaño completo.', 'rescate-vertical' ); ?></figcaption>
+							</figure>
+						<?php endif; ?>
+					</article>
+				<?php endforeach; ?>
+			</div>
+		<?php else : ?>
+			<p class="rv-section-intro">
+				<?php esc_html_e( 'Todavía no hay protocolos cargados. Añádelos en Rescate Vertical → Protocolos.', 'rescate-vertical' ); ?>
+			</p>
+		<?php endif; ?>
 	</div>
 </section>
 
