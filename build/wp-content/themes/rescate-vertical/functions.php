@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RV_THEME_VERSION', '3.0.0' );
+define( 'RV_THEME_VERSION', '3.1.0' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -330,6 +330,313 @@ function rv_technique_diagram( $which ) {
 			<?php
 			break;
 	}
+}
+
+/**
+ * Despiece dibujado de una pieza del equipo.
+ *
+ * Los números del dibujo se corresponden, en orden, con las líneas del campo
+ * "Partes de la pieza" de la ficha. Son esquemas: buscan que se entienda qué
+ * es cada parte y dónde está, no reproducir un modelo concreto.
+ *
+ * @param string $which mosqueton, arnes, cuerda, descensor, bloqueador, casco o camilla.
+ */
+function rv_equipo_partes( $which ) {
+	$known = array( 'mosqueton', 'arnes', 'cuerda', 'descensor', 'bloqueador', 'casco', 'camilla' );
+	if ( ! in_array( $which, $known, true ) ) {
+		return;
+	}
+
+	/** Círculo azul con el número de la parte. */
+	$badge = static function ( $x, $y, $n ) {
+		printf(
+			'<g><circle cx="%1$d" cy="%2$d" r="12" fill="#1B7FC4"/><text x="%1$d" y="%3$d" text-anchor="middle" font-family="Archivo, Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">%4$d</text></g>',
+			(int) $x,
+			(int) $y,
+			(int) $y + 5,
+			(int) $n
+		);
+	};
+
+	/** Línea de puntos que une el número con la parte señalada. */
+	$leader = static function ( $x1, $y1, $x2, $y2 ) {
+		printf(
+			'<path d="M%d %d L%d %d" stroke="#B0BDC6" stroke-width="1.3" stroke-dasharray="3 3" fill="none"/>',
+			(int) $x1,
+			(int) $y1,
+			(int) $x2,
+			(int) $y2
+		);
+	};
+
+	echo '<svg class="rv-despiece-svg" viewBox="0 0 400 300" role="img" aria-label="' . esc_attr__( 'Esquema con las partes numeradas', 'rescate-vertical' ) . '">';
+
+	switch ( $which ) {
+		case 'mosqueton':
+			?>
+			<rect x="130" y="50" width="120" height="190" rx="58" fill="none" stroke="#101820" stroke-width="9"/>
+			<path d="M130 112 V194" stroke="#D9502B" stroke-width="9" stroke-linecap="round"/>
+			<rect x="121" y="120" width="18" height="42" rx="9" fill="#FFFFFF" stroke="#101820" stroke-width="2.4"/>
+			<circle cx="130" cy="199" r="5" fill="#101820"/>
+			<circle cx="130" cy="106" r="5" fill="#FFFFFF" stroke="#101820" stroke-width="2.4"/>
+			<g stroke="#8A98A2" stroke-width="1.4">
+				<path d="M228 158 h14 M228 168 h14 M228 178 h10"/>
+			</g>
+			<g stroke="#1B7FC4" stroke-width="1.6" fill="none">
+				<path d="M276 58 V232" stroke-dasharray="5 4"/>
+				<path d="M276 58 l-5 8 M276 58 l5 8 M276 232 l-5 -8 M276 232 l5 -8"/>
+				<path d="M134 258 H246" stroke-dasharray="5 4"/>
+				<path d="M134 258 l8 -5 M134 258 l8 5 M246 258 l-8 -5 M246 258 l-8 5"/>
+			</g>
+			<?php
+			$leader( 320, 145, 288, 145 );
+			$badge( 332, 145, 1 );
+			$leader( 190, 278, 190, 266 );
+			$badge( 190, 290, 2 );
+			$leader( 72, 172, 124, 168 );
+			$badge( 60, 172, 3 );
+			$leader( 72, 128, 118, 138 );
+			$badge( 60, 128, 4 );
+			$leader( 72, 216, 124, 201 );
+			$badge( 60, 216, 5 );
+			$leader( 72, 84, 126, 104 );
+			$badge( 60, 84, 6 );
+			$leader( 320, 208, 246, 176 );
+			$badge( 332, 208, 7 );
+			break;
+
+		case 'arnes':
+			?>
+			<g fill="none" stroke="#101820" stroke-width="2.6" stroke-linecap="round">
+				<rect x="110" y="120" width="180" height="34" rx="17" fill="#FFFFFF"/>
+				<ellipse cx="152" cy="206" rx="38" ry="44"/>
+				<ellipse cx="248" cy="206" rx="38" ry="44"/>
+				<path d="M152 154 V162 M248 154 V162"/>
+				<path d="M142 120 C 152 74, 188 52, 200 48"/>
+				<path d="M258 120 C 248 74, 212 52, 200 48"/>
+			</g>
+			<circle cx="200" cy="62" r="11" fill="none" stroke="#8A98A2" stroke-width="2" stroke-dasharray="4 3"/>
+			<circle cx="200" cy="90" r="10" fill="#FFFFFF" stroke="#D9502B" stroke-width="3"/>
+			<circle cx="200" cy="137" r="13" fill="#FFFFFF" stroke="#D9502B" stroke-width="3.4"/>
+			<g fill="#FFFFFF" stroke="#101820" stroke-width="2">
+				<rect x="126" y="126" width="17" height="22" rx="3"/>
+				<rect x="257" y="126" width="17" height="22" rx="3"/>
+				<rect x="134" y="238" width="15" height="19" rx="3"/>
+				<rect x="251" y="238" width="15" height="19" rx="3"/>
+			</g>
+			<g fill="none" stroke="#8A98A2" stroke-width="2">
+				<ellipse cx="105" cy="140" rx="9" ry="6"/>
+				<ellipse cx="295" cy="140" rx="9" ry="6"/>
+			</g>
+			<g stroke="#8A98A2" stroke-width="1.3">
+				<rect x="176" y="124" width="20" height="11" rx="2" fill="#FFFFFF"/>
+				<path d="M179 128 h14 M179 132 h10"/>
+			</g>
+			<?php
+			$leader( 66, 137, 106, 137 );
+			$badge( 54, 137, 1 );
+			$leader( 66, 232, 112, 220 );
+			$badge( 54, 232, 2 );
+			$leader( 334, 137, 216, 137 );
+			$badge( 346, 137, 3 );
+			$leader( 334, 90, 212, 90 );
+			$badge( 346, 90, 4 );
+			$leader( 334, 44, 208, 56 );
+			$badge( 346, 44, 5 );
+			$leader( 108, 278, 138, 258 );
+			$badge( 108, 290, 6 );
+			$leader( 334, 186, 300, 146 );
+			$badge( 346, 186, 7 );
+			$leader( 250, 282, 194, 142 );
+			$badge( 250, 290, 8 );
+			break;
+
+		case 'cuerda':
+			?>
+			<rect x="26" y="94" width="234" height="84" rx="42" fill="#FFFFFF" stroke="#101820" stroke-width="3"/>
+			<g stroke="#C3CED5" stroke-width="2">
+				<path d="M52 96 l26 80 M80 95 l28 82 M108 94 l28 84 M136 94 l28 84 M164 94 l28 84 M192 94 l28 84 M218 96 l26 80"/>
+			</g>
+			<g>
+				<rect x="132" y="94" width="20" height="84" fill="#D9502B" opacity="0.16"/>
+				<path d="M132 94 V178 M152 94 V178" stroke="#D9502B" stroke-width="2.4"/>
+			</g>
+			<path d="M260 96 C 288 68, 320 68, 342 80" fill="none" stroke="#101820" stroke-width="2.8"/>
+			<path d="M260 134 C 292 106, 322 104, 344 114" fill="none" stroke="#101820" stroke-width="2.8"/>
+			<ellipse cx="260" cy="136" rx="9" ry="42" fill="#FFFFFF" stroke="#101820" stroke-width="2.8"/>
+			<g stroke="#D9502B" stroke-width="2.6" fill="none" stroke-linecap="round">
+				<path d="M268 112 C 300 104, 328 114, 352 108"/>
+				<path d="M268 126 C 300 120, 328 130, 352 124"/>
+				<path d="M268 140 C 300 134, 328 144, 352 138"/>
+				<path d="M268 154 C 300 150, 328 158, 352 152"/>
+				<path d="M268 168 C 300 164, 328 172, 352 166"/>
+			</g>
+			<rect x="356" y="100" width="28" height="72" rx="6" fill="#FFFFFF" stroke="#1B7FC4" stroke-width="2.2"/>
+			<g stroke="#1B7FC4" stroke-width="1.5">
+				<path d="M362 114 h16 M362 126 h16 M362 138 h11 M362 150 h16"/>
+			</g>
+			<?php
+			$leader( 74, 56, 92, 92 );
+			$badge( 68, 46, 1 );
+			$leader( 306, 52, 306, 76 );
+			$badge( 306, 40, 2 );
+			$leader( 370, 216, 370, 174 );
+			$badge( 370, 228, 3 );
+			$leader( 142, 216, 142, 182 );
+			$badge( 142, 228, 4 );
+			$leader( 244, 252, 258, 182 );
+			$badge( 244, 264, 5 );
+			break;
+
+		case 'descensor':
+			?>
+			<path d="M196 34 V104 C196 132 172 140 176 160 C 180 184 212 178 218 198 L218 262" fill="none" stroke="#D9502B" stroke-width="6" stroke-linecap="round"/>
+			<rect x="140" y="70" width="112" height="132" rx="16" fill="#FFFFFF" fill-opacity="0.92" stroke="#101820" stroke-width="2.6"/>
+			<path d="M140 86 V186 A 16 16 0 0 0 156 202 H192 V70 H156 A 16 16 0 0 0 140 86 Z" fill="none" stroke="#8A98A2" stroke-width="2" stroke-dasharray="5 4"/>
+			<path d="M126 100 a 26 26 0 0 1 0 42" fill="none" stroke="#8A98A2" stroke-width="1.6"/>
+			<path d="M126 142 l6 -6 M126 142 l7 2" stroke="#8A98A2" stroke-width="1.6" fill="none"/>
+			<path d="M176 108 A 24 24 0 1 0 200 146" fill="none" stroke="#101820" stroke-width="4"/>
+			<circle cx="192" cy="132" r="4" fill="#101820"/>
+			<rect x="248" y="140" width="66" height="24" rx="12" fill="#FFFFFF" stroke="#101820" stroke-width="2.6"/>
+			<circle cx="250" cy="152" r="5" fill="#101820"/>
+			<g stroke="#8A98A2" stroke-width="1.4">
+				<path d="M268 146 V158 M280 146 V158 M292 146 V158"/>
+			</g>
+			<circle cx="196" cy="216" r="13" fill="#FFFFFF" stroke="#101820" stroke-width="2.8"/>
+			<rect x="216" y="80" width="26" height="26" rx="4" fill="#FFFFFF" stroke="#1B7FC4" stroke-width="1.8"/>
+			<path d="M222 100 C 226 88, 234 96, 236 86" fill="none" stroke="#1B7FC4" stroke-width="1.8"/>
+			<path d="M172 168 C 186 172, 196 178, 200 188" fill="none" stroke="#101820" stroke-width="3"/>
+			<?php
+			$leader( 74, 88, 132, 92 );
+			$badge( 62, 88, 1 );
+			$leader( 74, 132, 158, 128 );
+			$badge( 62, 132, 2 );
+			$leader( 340, 152, 322, 152 );
+			$badge( 352, 152, 3 );
+			$leader( 74, 180, 170, 176 );
+			$badge( 62, 180, 4 );
+			$leader( 196, 254, 196, 232 );
+			$badge( 196, 266, 5 );
+			$leader( 330, 92, 248, 92 );
+			$badge( 342, 92, 6 );
+			$leader( 296, 258, 224, 244 );
+			$badge( 300, 268, 7 );
+			break;
+
+		case 'bloqueador':
+			?>
+			<path d="M160 26 V276" stroke="#D9502B" stroke-width="7" stroke-linecap="round"/>
+			<rect x="150" y="58" width="82" height="126" rx="14" fill="#FFFFFF" fill-opacity="0.94" stroke="#101820" stroke-width="2.6"/>
+			<rect x="226" y="92" width="48" height="102" rx="24" fill="#FFFFFF" stroke="#101820" stroke-width="2.6"/>
+			<g stroke="#8A98A2" stroke-width="1.5">
+				<path d="M236 116 h28 M236 130 h28 M236 144 h28 M236 158 h28"/>
+			</g>
+			<path d="M196 84 A 26 26 0 0 0 170 110 L170 124" fill="none" stroke="#101820" stroke-width="4"/>
+			<g fill="#101820">
+				<path d="M170 104 l-9 4 l9 4 Z"/>
+				<path d="M170 114 l-9 4 l9 4 Z"/>
+				<path d="M170 124 l-9 4 l9 4 Z"/>
+			</g>
+			<path d="M150 74 C 138 76, 134 88, 140 96" fill="none" stroke="#101820" stroke-width="3" stroke-linecap="round"/>
+			<circle cx="150" cy="74" r="4" fill="#101820"/>
+			<circle cx="196" cy="72" r="11" fill="#FFFFFF" stroke="#101820" stroke-width="2.8"/>
+			<circle cx="196" cy="170" r="11" fill="#FFFFFF" stroke="#101820" stroke-width="2.8"/>
+			<g stroke="#8A98A2" stroke-width="1.4" stroke-dasharray="4 4">
+				<path d="M150 196 V246 M172 196 V246"/>
+			</g>
+			<?php
+			$leader( 78, 112, 156, 114 );
+			$badge( 66, 112, 1 );
+			$leader( 78, 66, 132, 82 );
+			$badge( 66, 66, 2 );
+			$leader( 328, 142, 286, 142 );
+			$badge( 340, 142, 3 );
+			$leader( 328, 60, 210, 68 );
+			$badge( 340, 60, 4 );
+			$leader( 328, 186, 210, 172 );
+			$badge( 340, 186, 5 );
+			$leader( 106, 250, 146, 226 );
+			$badge( 94, 250, 6 );
+			break;
+
+		case 'casco':
+			?>
+			<path d="M108 166 A 92 84 0 0 1 292 166" fill="#FFFFFF" stroke="#101820" stroke-width="3.2"/>
+			<path d="M108 166 H292" stroke="#101820" stroke-width="3.2"/>
+			<path d="M292 166 l24 7 l-24 9" fill="#FFFFFF" stroke="#101820" stroke-width="2.6" stroke-linejoin="round"/>
+			<path d="M126 164 A 74 68 0 0 1 274 164" fill="none" stroke="#8A98A2" stroke-width="2" stroke-dasharray="5 4"/>
+			<g fill="none" stroke="#101820" stroke-width="2.6" stroke-linecap="round">
+				<path d="M132 168 C 148 206, 162 224, 176 234"/>
+				<path d="M268 168 C 252 206, 238 224, 224 234"/>
+			</g>
+			<rect x="174" y="230" width="52" height="16" rx="5" fill="#FFFFFF" stroke="#101820" stroke-width="2.4"/>
+			<path d="M200 230 V246" stroke="#101820" stroke-width="1.6"/>
+			<circle cx="106" cy="152" r="13" fill="#FFFFFF" stroke="#101820" stroke-width="2.6"/>
+			<g stroke="#101820" stroke-width="1.6">
+				<path d="M106 143 V161 M97 152 H115"/>
+			</g>
+			<g fill="#FFFFFF" stroke="#101820" stroke-width="2">
+				<rect x="146" y="116" width="14" height="20" rx="3"/>
+				<rect x="242" y="116" width="14" height="20" rx="3"/>
+			</g>
+			<g fill="none" stroke="#8A98A2" stroke-width="3" stroke-linecap="round">
+				<path d="M178 96 l10 -6 M200 88 l10 -4 M222 92 l10 -2"/>
+			</g>
+			<?php
+			$leader( 100, 56, 146, 100 );
+			$badge( 92, 46, 1 );
+			$leader( 74, 196, 154, 156 );
+			$badge( 62, 196, 2 );
+			$leader( 204, 278, 204, 258 );
+			$badge( 204, 290, 3 );
+			$leader( 56, 122, 96, 142 );
+			$badge( 46, 116, 4 );
+			$leader( 332, 116, 262, 122 );
+			$badge( 344, 116, 5 );
+			$leader( 254, 48, 226, 84 );
+			$badge( 258, 38, 6 );
+			break;
+
+		case 'camilla':
+		default:
+			?>
+			<circle cx="200" cy="26" r="11" fill="#FFFFFF" stroke="#101820" stroke-width="2.6"/>
+			<g stroke="#D9502B" stroke-width="2.2" fill="none" stroke-linecap="round">
+				<path d="M200 37 L134 66"/><path d="M200 37 L172 60"/>
+				<path d="M200 37 L228 60"/><path d="M200 37 L266 66"/>
+			</g>
+			<rect x="112" y="62" width="176" height="204" rx="44" fill="#FFFFFF" stroke="#101820" stroke-width="3.2"/>
+			<rect x="126" y="76" width="148" height="176" rx="36" fill="none" stroke="#8A98A2" stroke-width="1.6" stroke-dasharray="5 4"/>
+			<g fill="#1B7FC4" fill-opacity="0.16" stroke="#1B7FC4" stroke-width="1.6">
+				<rect x="112" y="106" width="176" height="15" rx="3"/>
+				<rect x="112" y="150" width="176" height="15" rx="3"/>
+				<rect x="112" y="200" width="176" height="15" rx="3"/>
+			</g>
+			<rect x="144" y="238" width="112" height="18" rx="6" fill="#FFFFFF" stroke="#D9502B" stroke-width="2.4"/>
+			<g fill="#101820">
+				<circle cx="134" cy="66" r="4"/><circle cx="172" cy="60" r="4"/>
+				<circle cx="228" cy="60" r="4"/><circle cx="266" cy="66" r="4"/>
+			</g>
+			<path d="M288 232 C 318 244, 334 252, 344 262" fill="none" stroke="#D9502B" stroke-width="2" stroke-dasharray="6 4"/>
+			<?php
+			$leader( 80, 78, 114, 88 );
+			$badge( 68, 74, 1 );
+			$leader( 74, 232, 132, 226 );
+			$badge( 62, 232, 2 );
+			$leader( 330, 158, 292, 158 );
+			$badge( 342, 158, 3 );
+			$leader( 106, 30, 148, 50 );
+			$badge( 94, 26, 4 );
+			$leader( 200, 286, 200, 260 );
+			$badge( 200, 294, 5 );
+			$leader( 322, 62, 272, 64 );
+			$badge( 334, 62, 6 );
+			$leader( 356, 288, 348, 268 );
+			$badge( 360, 294, 7 );
+			break;
+	}
+
+	echo '</svg>';
 }
 
 /**

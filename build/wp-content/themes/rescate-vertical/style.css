@@ -4,7 +4,7 @@ Theme URI: https://rescatevertical.local
 Author: Rescate Vertical
 Author URI: https://rescatevertical.local
 Description: Tema educativo profesional sobre rescate vertical en emergencias médicas. Diseño claro con fotografía real, diagramas técnicos en SVG y animaciones de entrada al hacer scroll.
-Version: 3.0.0
+Version: 3.1.0
 Requires at least: 6.0
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
@@ -650,3 +650,133 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 .rv-galeria--mini a:hover{border-color:var(--rv-accent);transform:translateY(-2px);}
 .rv-galeria--mini img{width:100%;height:88px;object-fit:cover;display:block;}
+
+/* ============================================================
+   17. FICHAS DE TÉCNICA (nudos y sistemas, paso a paso)
+   ============================================================ */
+.rv-tecs{display:flex;flex-direction:column;gap:26px;}
+.rv-tec{
+  background:#FFFFFF;border:1px solid var(--rv-line);border-radius:var(--rv-radius);
+  padding:26px 28px 28px;
+  transition:border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.rv-tec:hover{border-color:var(--rv-line-2);box-shadow:0 12px 30px rgba(14,26,36,0.07);}
+
+.rv-tec-head{display:grid;grid-template-columns:300px minmax(0,1fr);gap:26px;align-items:start;}
+.rv-tec-head--solo{grid-template-columns:1fr;}
+.rv-tec-media{
+  border:1px solid var(--rv-line);border-radius:6px;overflow:hidden;
+  background:var(--rv-bg-soft);aspect-ratio:4/3;
+}
+.rv-tec-media img{width:100%;height:100%;object-fit:cover;}
+.rv-tec-media--svg{display:flex;align-items:center;justify-content:center;padding:14px;aspect-ratio:auto;}
+.rv-tec-media--svg svg{width:100%;height:auto;}
+
+.rv-tec-tag{
+  display:inline-block;background:var(--rv-steel);color:#FFFFFF;
+  font-size:11px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;
+  padding:4px 10px;border-radius:3px;margin-bottom:10px;
+}
+.rv-tec-intro h3{font-size:23px;margin:0 0 10px;}
+.rv-tec-intro p{color:var(--rv-ink-2);margin:0 0 0.7em;}
+
+.rv-tec-cols{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);gap:24px;
+  margin-top:24px;padding-top:22px;border-top:1px solid var(--rv-line);
+}
+.rv-tec h4{
+  font-family:var(--rv-font-label);font-size:11.5px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--rv-ink-3);
+  margin:0 0 12px;
+}
+.rv-tec-mat .rv-lista{margin:0;}
+.rv-tec-mat .rv-lista li{font-size:14.5px;}
+
+/* Paso a paso: el número es la referencia que el alumno sigue en la foto */
+ol.rv-pasos-num{list-style:none;counter-reset:rvpaso;margin:0;padding:0;}
+ol.rv-pasos-num li{
+  counter-increment:rvpaso;position:relative;
+  padding:0 0 14px 42px;margin:0;
+  font-size:15px;line-height:1.6;color:var(--rv-ink);
+}
+ol.rv-pasos-num li::before{
+  content:counter(rvpaso);
+  position:absolute;left:0;top:1px;
+  width:26px;height:26px;border-radius:50%;
+  background:var(--rv-steel);color:#FFFFFF;
+  font-family:var(--rv-font-data);font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+/* línea que une un paso con el siguiente */
+ol.rv-pasos-num li::after{
+  content:"";position:absolute;left:13px;top:29px;bottom:2px;
+  width:1px;background:var(--rv-line-2);
+}
+ol.rv-pasos-num li:last-child{padding-bottom:0;}
+ol.rv-pasos-num li:last-child::after{display:none;}
+
+.rv-tec-errores{
+  margin-top:22px;padding:16px 18px;
+  background:rgba(217,80,43,0.05);border-left:3px solid var(--rv-accent);border-radius:0 5px 5px 0;
+}
+.rv-tec-errores h4{color:var(--rv-accent-dark);margin-bottom:8px;}
+.rv-tec-errores .rv-lista li{font-size:14.5px;}
+
+.rv-tec-fotos,.rv-tec-videos{margin-top:22px;}
+.rv-tec-videos .rv-video + .rv-video{margin-top:14px;}
+
+/* numerito sobre cada foto del paso a paso */
+.rv-galeria--mini a{position:relative;}
+.rv-galeria-num{
+  position:absolute;left:6px;top:6px;
+  width:22px;height:22px;border-radius:50%;
+  background:var(--rv-bg-deep);color:#FFFFFF;
+  font-family:var(--rv-font-data);font-size:11.5px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ============================================================
+   18. DESPIECE DE UN EQUIPO
+   ============================================================ */
+.rv-despiece{
+  margin-top:22px;padding-top:20px;border-top:1px solid var(--rv-line);
+}
+.rv-despiece h4{
+  font-family:var(--rv-font-label);font-size:11.5px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--rv-ink-3);margin:0 0 14px;
+}
+.rv-despiece-grid{
+  display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:26px;align-items:start;
+}
+.rv-despiece-fig{
+  background:var(--rv-bg-soft);border:1px solid var(--rv-line);border-radius:6px;padding:12px;
+}
+.rv-despiece-svg{width:100%;height:auto;display:block;}
+
+ol.rv-partes{list-style:none;counter-reset:rvparte;margin:0;padding:0;}
+ol.rv-partes li{
+  counter-increment:rvparte;position:relative;
+  padding:0 0 12px 36px;margin:0;font-size:14.5px;line-height:1.55;
+}
+ol.rv-partes li::before{
+  content:counter(rvparte);
+  position:absolute;left:0;top:1px;
+  width:23px;height:23px;border-radius:50%;
+  background:var(--rv-steel);color:#FFFFFF;
+  font-family:var(--rv-font-data);font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+ol.rv-partes li:last-child{padding-bottom:0;}
+ol.rv-partes b{display:block;color:var(--rv-ink);font-weight:700;}
+ol.rv-partes span{color:var(--rv-ink-2);}
+
+@media (max-width: 900px){
+  .rv-tec-head{grid-template-columns:1fr;gap:18px;}
+  .rv-tec-cols{grid-template-columns:1fr;gap:20px;}
+  .rv-despiece-grid{grid-template-columns:1fr;}
+  .rv-despiece-fig{max-width:340px;}
+}
+@media (max-width: 600px){
+  .rv-tec{padding:20px 18px 22px;}
+  .rv-tec-intro h3{font-size:20px;}
+}

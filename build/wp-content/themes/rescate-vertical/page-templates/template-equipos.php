@@ -81,6 +81,33 @@ $rv_equipos = class_exists( 'RV_Content' ) ? RV_Content::items( RV_Content::EQUI
 								</div>
 							<?php endif; ?>
 
+							<?php
+							$rv_esq    = get_post_meta( $rv_post->ID, 'rv_esquema', true );
+							$rv_partes = RV_Content::parts( get_post_meta( $rv_post->ID, 'rv_partes', true ) );
+							?>
+							<?php if ( $rv_partes || $rv_esq ) : ?>
+								<div class="rv-despiece">
+									<h4><?php esc_html_e( 'Partes de la pieza', 'rescate-vertical' ); ?></h4>
+									<div class="rv-despiece-grid">
+										<?php if ( $rv_esq ) : ?>
+											<div class="rv-despiece-fig"><?php rv_equipo_partes( $rv_esq ); ?></div>
+										<?php endif; ?>
+										<?php if ( $rv_partes ) : ?>
+											<ol class="rv-partes">
+												<?php foreach ( $rv_partes as $rv_parte ) : ?>
+													<li>
+														<b><?php echo esc_html( $rv_parte['nombre'] ); ?></b>
+														<?php if ( '' !== $rv_parte['desc'] ) : ?>
+															<span><?php echo esc_html( $rv_parte['desc'] ); ?></span>
+														<?php endif; ?>
+													</li>
+												<?php endforeach; ?>
+											</ol>
+										<?php endif; ?>
+									</div>
+								</div>
+							<?php endif; ?>
+
 							<?php if ( $rv_si || $rv_no ) : ?>
 								<div class="rv-uso">
 									<?php if ( $rv_si ) : ?>

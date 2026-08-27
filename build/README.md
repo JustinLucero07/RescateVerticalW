@@ -318,22 +318,54 @@ un **dato técnico** con su etiqueta, y dos listas clave:
 - **Cuándo NO se usa** — sale en rojo. Aquí van las contraindicaciones y los
   errores frecuentes.
 
-Escribe una situación por línea, empezando con guion. Ya vienen cargadas 7
+Escribe una situación por línea, empezando con guion. Ya vienen cargadas 8
 fichas, incluidas cuerda dinámica y estática con la diferencia de cuándo usar
-cada una, y el mosquetón con el aviso del eje menor.
+cada una, el mosquetón con el aviso del eje menor y el bloqueador de puño.
 
 El campo **Imágenes adicionales** admite tantas fotos como quieras por
 ficha (variantes del equipo, detalles de la marca, montaje correcto).
 
+#### El despiece: qué parte es cada cosa
+
+Cada equipo puede mostrar un **dibujo con sus partes numeradas**, que es lo que
+permite señalar dónde está el eje menor de un mosquetón o el punto ventral de
+un arnés. Se controla con dos campos:
+
+- **Despiece** — elige el dibujo que trae el tema: mosquetón, arnés, cuerda,
+  descensor autofrenante, bloqueador de puño, casco o camilla. Con *Sin
+  despiece* no se dibuja nada.
+- **Partes de la pieza** — una parte por línea, empezando con guion y con el
+  formato `Nombre — qué es`. Salen numeradas al lado del dibujo.
+
+**El orden importa**: la primera línea es el número 1 del dibujo, la segunda el
+2, y así. Si cambias el orden de las líneas, cambia a qué parte apunta cada
+número. Las ocho fichas vienen ya con su despiece escrito.
+
+Si prefieres tus propias fotos anotadas, pon *Sin despiece* y súbelas a
+**Imágenes adicionales**.
+
 ### Rescate Vertical → Técnicas y nudos
 
-Además de foto y descripción, cada técnica admite un **vídeo**: pega la
-dirección de YouTube o Vimeo en el campo *Vídeo* y se incrusta solo debajo de
-la ficha. Déjalo vacío si esa técnica no tiene vídeo.
+Aquí van tanto los **nudos** como los **sistemas y maniobras** (rápel,
+polipasto, anclaje, empaquetamiento). El campo **Tipo de ficha** decide en qué
+bloque de la página sale cada una.
 
-También tiene **Imágenes adicionales**: sirve para los pasos de un nudo o
-los detalles de un montaje. Salen como miniaturas en rejilla y se abren a
-tamaño completo al pulsarlas.
+Cada ficha admite:
+
+- **Imagen destacada** — la foto principal.
+- **Esquema técnico** — un dibujo del tema (rápel, polipasto, anclaje o
+  camilla) que se usa solo si la ficha no tiene foto.
+- **Material necesario** — un elemento por línea con guion.
+- **Elaboración paso a paso** — un paso por línea con guion. Salen numerados y
+  encadenados: es el detalle de cómo se hace el nudo o cómo se monta el sistema.
+- **Errores frecuentes** — uno por línea con guion. Salen destacados en rojo.
+- **Fotos del paso a paso** — sube una foto por paso, **en el mismo orden**:
+  cada miniatura lleva su número encima y se abre a tamaño completo al pulsarla.
+- **Vídeos** — una dirección de YouTube o Vimeo **por línea**. Puedes poner
+  varios en la misma ficha y se incrustan todos debajo.
+
+Vienen cargados los 4 nudos y los 4 sistemas, cada uno con su material, su paso
+a paso y sus errores frecuentes. Solo falta que subas tus fotos y tus vídeos.
 
 ### Rescate Vertical → Protocolos
 

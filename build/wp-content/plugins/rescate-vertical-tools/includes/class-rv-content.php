@@ -54,6 +54,13 @@ class RV_Content {
 					'rv_dato_label' => array( 'label' => __( 'Nombre del dato', 'rescate-vertical-tools' ), 'type' => 'text', 'desc' => __( 'Cómo se titula ese dato. Por ejemplo: Resistencia mín.', 'rescate-vertical-tools' ) ),
 					'rv_cuando_si'  => array( 'label' => __( 'Cuándo se usa', 'rescate-vertical-tools' ), 'type' => 'textarea', 'desc' => __( 'Una situación por línea, empezando con guion.', 'rescate-vertical-tools' ) ),
 					'rv_cuando_no'  => array( 'label' => __( 'Cuándo NO se usa', 'rescate-vertical-tools' ), 'type' => 'textarea', 'desc' => __( 'Una situación por línea, empezando con guion. Aquí van los errores frecuentes y las contraindicaciones.', 'rescate-vertical-tools' ) ),
+					'rv_esquema'    => array(
+						'label'   => __( 'Despiece', 'rescate-vertical-tools' ),
+						'type'    => 'select',
+						'options' => self::esquemas_equipo(),
+						'desc'    => __( 'Dibujo con las partes numeradas que trae el tema. Se pinta junto a la lista de abajo. Elige "Sin despiece" si prefieres subir tu propia imagen a la galería.', 'rescate-vertical-tools' ),
+					),
+					'rv_partes'     => array( 'label' => __( 'Partes de la pieza', 'rescate-vertical-tools' ), 'type' => 'textarea', 'desc' => __( 'Una parte por línea, en orden, empezando con guion: - Gatillo — se abre para conectar la cuerda. Los números salen sobre el dibujo.', 'rescate-vertical-tools' ) ),
 					'rv_galeria'    => array( 'label' => __( 'Imágenes adicionales', 'rescate-vertical-tools' ), 'type' => 'gallery', 'desc' => __( 'Fotos extra que se muestran debajo de la ficha.', 'rescate-vertical-tools' ) ),
 				),
 			),
@@ -61,11 +68,26 @@ class RV_Content {
 				'plural'   => __( 'Técnicas y nudos', 'rescate-vertical-tools' ),
 				'singular' => __( 'Técnica', 'rescate-vertical-tools' ),
 				'icon'     => 'dashicons-share-alt',
-				'intro'    => __( 'Cada ficha es una técnica o un nudo. Puede llevar foto (Imagen destacada) y además un vídeo.', 'rescate-vertical-tools' ),
+				'intro'    => __( 'Cada ficha es un nudo, un sistema o una maniobra. Lleva foto (Imagen destacada), el paso a paso de su elaboración, fotos de cada paso y los vídeos que quieras.', 'rescate-vertical-tools' ),
 				'fields'   => array(
+					'rv_grupo'    => array(
+						'label'   => __( 'Tipo de ficha', 'rescate-vertical-tools' ),
+						'type'    => 'select',
+						'options' => self::grupos_tecnica(),
+						'desc'    => __( 'Decide en qué bloque de la página sale: en "Nudos" o en "Sistemas y maniobras".', 'rescate-vertical-tools' ),
+					),
 					'rv_etiqueta' => array( 'label' => __( 'Etiqueta de uso', 'rescate-vertical-tools' ), 'type' => 'text', 'desc' => __( 'Aparece sobre la foto. Por ejemplo: Anclaje, Autoseguro, Encordamiento.', 'rescate-vertical-tools' ) ),
-					'rv_galeria'  => array( 'label' => __( 'Imágenes adicionales', 'rescate-vertical-tools' ), 'type' => 'gallery', 'desc' => __( 'Fotos extra: pasos del nudo, detalles del montaje…', 'rescate-vertical-tools' ) ),
-					'rv_video'    => array( 'label' => __( 'Vídeo', 'rescate-vertical-tools' ), 'type' => 'url', 'desc' => __( 'Pega la dirección de un vídeo de YouTube o Vimeo. Se incrusta solo debajo de la ficha. Déjalo vacío si no hay vídeo.', 'rescate-vertical-tools' ) ),
+					'rv_esquema'  => array(
+						'label'   => __( 'Esquema técnico', 'rescate-vertical-tools' ),
+						'type'    => 'select',
+						'options' => self::esquemas_tecnica(),
+						'desc'    => __( 'Dibujo que trae el tema. Se usa solo si la ficha no tiene Imagen destacada.', 'rescate-vertical-tools' ),
+					),
+					'rv_material' => array( 'label' => __( 'Material necesario', 'rescate-vertical-tools' ), 'type' => 'textarea', 'desc' => __( 'Un elemento por línea, empezando con guion. Por ejemplo: - Cuerda semiestática de 11 mm.', 'rescate-vertical-tools' ) ),
+					'rv_pasos'    => array( 'label' => __( 'Elaboración paso a paso', 'rescate-vertical-tools' ), 'type' => 'textarea', 'desc' => __( 'Un paso por línea, empezando con guion. Salen numerados, en orden. Aquí va el detalle de cómo se hace el nudo o cómo se monta el sistema.', 'rescate-vertical-tools' ) ),
+					'rv_errores'  => array( 'label' => __( 'Errores frecuentes', 'rescate-vertical-tools' ), 'type' => 'textarea', 'desc' => __( 'Uno por línea, empezando con guion. Salen destacados en rojo al final de la ficha.', 'rescate-vertical-tools' ) ),
+					'rv_galeria'  => array( 'label' => __( 'Fotos del paso a paso', 'rescate-vertical-tools' ), 'type' => 'gallery', 'desc' => __( 'Sube una foto por cada paso, en el mismo orden. Salen en rejilla y se abren a tamaño completo al pulsarlas.', 'rescate-vertical-tools' ) ),
+					'rv_video'    => array( 'label' => __( 'Vídeos', 'rescate-vertical-tools' ), 'type' => 'urls', 'desc' => __( 'Una dirección de YouTube o Vimeo por línea. Puedes poner varios y se incrustan todos debajo de la ficha. Déjalo vacío si no hay vídeo.', 'rescate-vertical-tools' ) ),
 				),
 			),
 			self::PROTOCOLO => array(
@@ -79,6 +101,51 @@ class RV_Content {
 					'rv_galeria' => array( 'label' => __( 'Infografías adicionales', 'rescate-vertical-tools' ), 'type' => 'gallery', 'desc' => __( 'Además de la Imagen destacada puedes subir aquí todas las que quieras. Se muestran una debajo de otra y se abren a tamaño completo al pulsarlas.', 'rescate-vertical-tools' ) ),
 				),
 			),
+		);
+	}
+
+	/**
+	 * Bloques en los que se agrupan las técnicas dentro de la página.
+	 *
+	 * @return array<string,string>
+	 */
+	public static function grupos_tecnica() {
+		return array(
+			'nudo'    => __( 'Nudo', 'rescate-vertical-tools' ),
+			'sistema' => __( 'Sistema o maniobra', 'rescate-vertical-tools' ),
+		);
+	}
+
+	/**
+	 * Esquemas dibujados que el tema puede pintar en una técnica.
+	 *
+	 * @return array<string,string>
+	 */
+	public static function esquemas_tecnica() {
+		return array(
+			''          => __( 'Sin esquema', 'rescate-vertical-tools' ),
+			'rapel'     => __( 'Rapel y descenso controlado', 'rescate-vertical-tools' ),
+			'polipasto' => __( 'Sistema de polipasto', 'rescate-vertical-tools' ),
+			'anclaje'   => __( 'Anclaje ecualizado', 'rescate-vertical-tools' ),
+			'camilla'   => __( 'Empaquetamiento en camilla', 'rescate-vertical-tools' ),
+		);
+	}
+
+	/**
+	 * Despieces dibujados que el tema puede pintar en un equipo.
+	 *
+	 * @return array<string,string>
+	 */
+	public static function esquemas_equipo() {
+		return array(
+			''            => __( 'Sin despiece', 'rescate-vertical-tools' ),
+			'mosqueton'   => __( 'Mosquetón', 'rescate-vertical-tools' ),
+			'arnes'       => __( 'Arnés', 'rescate-vertical-tools' ),
+			'cuerda'      => __( 'Cuerda (alma y camisa)', 'rescate-vertical-tools' ),
+			'descensor'   => __( 'Descensor autofrenante', 'rescate-vertical-tools' ),
+			'bloqueador'  => __( 'Bloqueador de puño', 'rescate-vertical-tools' ),
+			'casco'       => __( 'Casco', 'rescate-vertical-tools' ),
+			'camilla'     => __( 'Camilla de rescate', 'rescate-vertical-tools' ),
 		);
 	}
 
@@ -148,8 +215,14 @@ class RV_Content {
 						$value = get_post_meta( $post->ID, $key, true );
 						if ( 'gallery' === $field['type'] ) :
 							self::render_gallery_field( $key, $value );
-						elseif ( 'textarea' === $field['type'] ) :
+						elseif ( 'select' === $field['type'] ) :
 							?>
+							<select id="<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $key ); ?>">
+								<?php foreach ( $field['options'] as $opt_val => $opt_label ) : ?>
+									<option value="<?php echo esc_attr( $opt_val ); ?>" <?php selected( $value, $opt_val ); ?>><?php echo esc_html( $opt_label ); ?></option>
+								<?php endforeach; ?>
+							</select>
+						<?php elseif ( 'textarea' === $field['type'] || 'urls' === $field['type'] ) : ?>
 							<textarea id="<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $key ); ?>" rows="5" class="large-text"><?php echo esc_textarea( $value ); ?></textarea>
 						<?php else : ?>
 							<input type="<?php echo 'url' === $field['type'] ? 'url' : 'text'; ?>"
@@ -202,6 +275,18 @@ class RV_Content {
 			if ( 'gallery' === $field['type'] ) {
 				$ids   = array_filter( array_map( 'absint', explode( ',', (string) $raw ) ) );
 				$value = implode( ',', $ids );
+			} elseif ( 'select' === $field['type'] ) {
+				$value = isset( $field['options'][ $raw ] ) ? sanitize_text_field( $raw ) : '';
+			} elseif ( 'urls' === $field['type'] ) {
+				// Una dirección por línea: se saneia cada una y se descartan las vacías.
+				$urls = array();
+				foreach ( preg_split( '/\r\n|\r|\n/', (string) $raw ) as $line ) {
+					$url = esc_url_raw( trim( $line ) );
+					if ( '' !== $url ) {
+						$urls[] = $url;
+					}
+				}
+				$value = implode( "\n", $urls );
 			} elseif ( 'textarea' === $field['type'] ) {
 				$value = sanitize_textarea_field( $raw );
 			} elseif ( 'url' === $field['type'] ) {
@@ -341,5 +426,77 @@ class RV_Content {
 			return '';
 		}
 		return '<div class="rv-video">' . $embed . '</div>';
+	}
+
+	/**
+	 * Incrusta todos los vídeos de una ficha: una dirección por línea.
+	 *
+	 * @param string $raw Direcciones separadas por salto de línea.
+	 * @return string
+	 */
+	public static function videos_embed( $raw ) {
+		$raw = trim( (string) $raw );
+		if ( '' === $raw ) {
+			return '';
+		}
+		$out = '';
+		foreach ( preg_split( '/\r\n|\r|\n/', $raw ) as $line ) {
+			$out .= self::video_embed( $line );
+		}
+		return $out;
+	}
+
+	/**
+	 * Convierte líneas con guion en una lista numerada.
+	 *
+	 * Se usa para el paso a paso: el número es la referencia que el alumno
+	 * sigue mientras mira la foto o el vídeo del mismo paso.
+	 *
+	 * @param string $raw Texto con un paso por línea.
+	 * @return string HTML de la lista, o cadena vacía.
+	 */
+	public static function lines_to_steps( $raw ) {
+		$raw = trim( (string) $raw );
+		if ( '' === $raw ) {
+			return '';
+		}
+		$out = '';
+		foreach ( preg_split( '/\r\n|\r|\n/', $raw ) as $line ) {
+			$line = trim( ltrim( trim( $line ), '-*•' ) );
+			if ( '' === $line ) {
+				continue;
+			}
+			$out .= '<li>' . esc_html( $line ) . '</li>';
+		}
+		return '' === $out ? '' : '<ol class="rv-pasos-num">' . $out . '</ol>';
+	}
+
+	/**
+	 * Descompone el campo de partes en pares nombre / descripción.
+	 *
+	 * Acepta "Nombre — descripción", con guion largo o corto. Si no hay
+	 * separador, la línea entera se toma como nombre.
+	 *
+	 * @param string $raw Texto con una parte por línea.
+	 * @return array<int,array{nombre:string,desc:string}>
+	 */
+	public static function parts( $raw ) {
+		$raw = trim( (string) $raw );
+		if ( '' === $raw ) {
+			return array();
+		}
+		$partes = array();
+		foreach ( preg_split( '/\r\n|\r|\n/', $raw ) as $line ) {
+			$line = trim( ltrim( trim( $line ), '-*•' ) );
+			if ( '' === $line ) {
+				continue;
+			}
+			$trozos = preg_split( '/\s+(?:—|–|-)\s+/u', $line, 2 );
+			$partes[] = array(
+				'nombre' => trim( $trozos[0] ),
+				'desc'   => isset( $trozos[1] ) ? trim( $trozos[1] ) : '',
+			);
+		}
+		return $partes;
 	}
 }
