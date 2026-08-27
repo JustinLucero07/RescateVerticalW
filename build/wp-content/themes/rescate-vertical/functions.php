@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RV_THEME_VERSION', '2.9.0' );
+define( 'RV_THEME_VERSION', '3.0.0' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 

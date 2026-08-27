@@ -322,11 +322,18 @@ Escribe una situación por línea, empezando con guion. Ya vienen cargadas 7
 fichas, incluidas cuerda dinámica y estática con la diferencia de cuándo usar
 cada una, y el mosquetón con el aviso del eje menor.
 
+El campo **Imágenes adicionales** admite tantas fotos como quieras por
+ficha (variantes del equipo, detalles de la marca, montaje correcto).
+
 ### Rescate Vertical → Técnicas y nudos
 
 Además de foto y descripción, cada técnica admite un **vídeo**: pega la
 dirección de YouTube o Vimeo en el campo *Vídeo* y se incrusta solo debajo de
 la ficha. Déjalo vacío si esa técnica no tiene vídeo.
+
+También tiene **Imágenes adicionales**: sirve para los pasos de un nudo o
+los detalles de un montaje. Salen como miniaturas en rejilla y se abren a
+tamaño completo al pulsarlas.
 
 ### Rescate Vertical → Protocolos
 
@@ -336,6 +343,10 @@ Cada protocolo lleva:
   pulsarla se abre a tamaño completo.
 - **Secuencia**: la sigla, por ejemplo `XABCDE` o `MARCH PAWS`.
 - **Pasos del protocolo**: uno por línea con guion.
+- **Infografías adicionales**: pulsa *Añadir imágenes* y elige todas las
+  que quieras de la biblioteca de medios. Se muestran una debajo de otra,
+  después de la imagen destacada, y también se abren a tamaño completo.
+  Para quitar una, pulsa la **×** de su miniatura y guarda.
 
 Vienen cargados PHTLS, TECC, TCCC, síndrome compartimental/aplastamiento e
 integración con el equipo técnico, cada uno con su secuencia.

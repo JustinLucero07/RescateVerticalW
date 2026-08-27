@@ -24,6 +24,7 @@ class RV_Content {
 	public static function register() {
 		add_action( 'init', array( __CLASS__, 'register_post_types' ) );
 		add_action( 'add_meta_boxes', array( __CLASS__, 'add_meta_boxes' ) );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_assets' ) );
 
 		/*
 		 * Se usan las constantes y no types(): ese metodo lleva cadenas
@@ -53,6 +54,7 @@ class RV_Content {
 					'rv_dato_label' => array( 'label' => __( 'Nombre del dato', 'rescate-vertical-tools' ), 'type' => 'text', 'desc' => __( 'Cómo se titula ese dato. Por ejemplo: Resistencia mín.', 'rescate-vertical-tools' ) ),
 					'rv_cuando_si'  => array( 'label' => __( 'Cuándo se usa', 'rescate-vertical-tools' ), 'type' => 'textarea', 'desc' => __( 'Una situación por línea, empezando con guion.', 'rescate-vertical-tools' ) ),
 					'rv_cuando_no'  => array( 'label' => __( 'Cuándo NO se usa', 'rescate-vertical-tools' ), 'type' => 'textarea', 'desc' => __( 'Una situación por línea, empezando con guion. Aquí van los errores frecuentes y las contraindicaciones.', 'rescate-vertical-tools' ) ),
+					'rv_galeria'    => array( 'label' => __( 'Imágenes adicionales', 'rescate-vertical-tools' ), 'type' => 'gallery', 'desc' => __( 'Fotos extra que se muestran debajo de la ficha.', 'rescate-vertical-tools' ) ),
 				),
 			),
 			self::TECNICA => array(
@@ -62,6 +64,7 @@ class RV_Content {
 				'intro'    => __( 'Cada ficha es una técnica o un nudo. Puede llevar foto (Imagen destacada) y además un vídeo.', 'rescate-vertical-tools' ),
 				'fields'   => array(
 					'rv_etiqueta' => array( 'label' => __( 'Etiqueta de uso', 'rescate-vertical-tools' ), 'type' => 'text', 'desc' => __( 'Aparece sobre la foto. Por ejemplo: Anclaje, Autoseguro, Encordamiento.', 'rescate-vertical-tools' ) ),
+					'rv_galeria'  => array( 'label' => __( 'Imágenes adicionales', 'rescate-vertical-tools' ), 'type' => 'gallery', 'desc' => __( 'Fotos extra: pasos del nudo, detalles del montaje…', 'rescate-vertical-tools' ) ),
 					'rv_video'    => array( 'label' => __( 'Vídeo', 'rescate-vertical-tools' ), 'type' => 'url', 'desc' => __( 'Pega la dirección de un vídeo de YouTube o Vimeo. Se incrusta solo debajo de la ficha. Déjalo vacío si no hay vídeo.', 'rescate-vertical-tools' ) ),
 				),
 			),
@@ -73,6 +76,7 @@ class RV_Content {
 				'fields'   => array(
 					'rv_sigla' => array( 'label' => __( 'Secuencia', 'rescate-vertical-tools' ), 'type' => 'text', 'desc' => __( 'Por ejemplo: XABCDE, o MARCH PAWS.', 'rescate-vertical-tools' ) ),
 					'rv_pasos' => array( 'label' => __( 'Pasos del protocolo', 'rescate-vertical-tools' ), 'type' => 'textarea', 'desc' => __( 'Un paso por línea, empezando con guion. Por ejemplo: - X — Hemorragia exanguinante: control inmediato.', 'rescate-vertical-tools' ) ),
+					'rv_galeria' => array( 'label' => __( 'Infografías adicionales', 'rescate-vertical-tools' ), 'type' => 'gallery', 'desc' => __( 'Además de la Imagen destacada puedes subir aquí todas las que quieras. Se muestran una debajo de otra y se abren a tamaño completo al pulsarlas.', 'rescate-vertical-tools' ) ),
 				),
 			),
 		);
@@ -142,7 +146,9 @@ class RV_Content {
 					<td>
 						<?php
 						$value = get_post_meta( $post->ID, $key, true );
-						if ( 'textarea' === $field['type'] ) :
+						if ( 'gallery' === $field['type'] ) :
+							self::render_gallery_field( $key, $value );
+						elseif ( 'textarea' === $field['type'] ) :
 							?>
 							<textarea id="<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $key ); ?>" rows="5" class="large-text"><?php echo esc_textarea( $value ); ?></textarea>
 						<?php else : ?>
@@ -193,7 +199,10 @@ class RV_Content {
 			}
 			$raw = wp_unslash( $_POST[ $key ] );
 
-			if ( 'textarea' === $field['type'] ) {
+			if ( 'gallery' === $field['type'] ) {
+				$ids   = array_filter( array_map( 'absint', explode( ',', (string) $raw ) ) );
+				$value = implode( ',', $ids );
+			} elseif ( 'textarea' === $field['type'] ) {
 				$value = sanitize_textarea_field( $raw );
 			} elseif ( 'url' === $field['type'] ) {
 				$value = esc_url_raw( $raw );
@@ -204,6 +213,74 @@ class RV_Content {
 		}
 	}
 
+
+	/**
+	 * Carga la biblioteca de medios en las pantallas de edición de estos tipos.
+	 *
+	 * @param string $hook Pantalla actual del escritorio.
+	 */
+	public static function admin_assets( $hook ) {
+		if ( ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
+			return;
+		}
+		$screen = get_current_screen();
+		if ( ! $screen || ! in_array( $screen->post_type, array( self::EQUIPO, self::TECNICA, self::PROTOCOLO ), true ) ) {
+			return;
+		}
+
+		wp_enqueue_media();
+		wp_enqueue_style( 'rv-admin-gallery', RV_TOOLS_URL . 'assets/css/rv-admin.css', array(), RV_TOOLS_VERSION );
+		wp_enqueue_script( 'rv-admin-gallery', RV_TOOLS_URL . 'assets/js/rv-admin.js', array( 'jquery' ), RV_TOOLS_VERSION, true );
+		wp_localize_script(
+			'rv-admin-gallery',
+			'rvAdminGallery',
+			array(
+				'title'  => __( 'Elegir imágenes', 'rescate-vertical-tools' ),
+				'button' => __( 'Usar estas imágenes', 'rescate-vertical-tools' ),
+				'remove' => __( 'Quitar', 'rescate-vertical-tools' ),
+			)
+		);
+	}
+
+	/**
+	 * Pinta el selector de galería: miniaturas + IDs en un campo oculto.
+	 *
+	 * @param string $key   Nombre del campo.
+	 * @param string $value IDs separados por coma.
+	 */
+	private static function render_gallery_field( $key, $value ) {
+		$ids = array_filter( array_map( 'absint', explode( ',', (string) $value ) ) );
+		?>
+		<div class="rv-gal" data-field="<?php echo esc_attr( $key ); ?>">
+			<div class="rv-gal-items">
+				<?php foreach ( $ids as $id ) : ?>
+					<?php $src = wp_get_attachment_image_url( $id, 'thumbnail' ); ?>
+					<?php if ( $src ) : ?>
+						<div class="rv-gal-item" data-id="<?php echo esc_attr( $id ); ?>">
+							<img src="<?php echo esc_url( $src ); ?>" alt="">
+							<button type="button" class="rv-gal-quitar" aria-label="<?php esc_attr_e( 'Quitar imagen', 'rescate-vertical-tools' ); ?>">&times;</button>
+						</div>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</div>
+			<p>
+				<button type="button" class="button rv-gal-add"><?php esc_html_e( 'Añadir imágenes', 'rescate-vertical-tools' ); ?></button>
+			</p>
+			<input type="hidden" name="<?php echo esc_attr( $key ); ?>" class="rv-gal-input" value="<?php echo esc_attr( implode( ',', $ids ) ); ?>">
+		</div>
+		<?php
+	}
+
+	/**
+	 * IDs de la galería de una ficha.
+	 *
+	 * @param int $post_id ID de la ficha.
+	 * @return int[]
+	 */
+	public static function gallery_ids( $post_id ) {
+		$raw = get_post_meta( $post_id, 'rv_galeria', true );
+		return array_values( array_filter( array_map( 'absint', explode( ',', (string) $raw ) ) ) );
+	}
 	/* ------------------------------------------------------------------
 	 * Lectura desde las plantillas
 	 * ------------------------------------------------------------------ */

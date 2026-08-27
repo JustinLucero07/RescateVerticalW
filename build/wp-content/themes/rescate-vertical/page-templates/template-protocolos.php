@@ -92,6 +92,23 @@ $rv_norms = array(
 								<figcaption><?php esc_html_e( 'Pulsa la infografía para verla a tamaño completo.', 'rescate-vertical' ); ?></figcaption>
 							</figure>
 						<?php endif; ?>
+
+						<?php $rv_gal = RV_Content::gallery_ids( $rv_p->ID ); ?>
+						<?php if ( $rv_gal ) : ?>
+							<div class="rv-galeria">
+								<?php foreach ( $rv_gal as $rv_gid ) : ?>
+									<?php $rv_full = wp_get_attachment_image_url( $rv_gid, 'full' ); ?>
+									<?php if ( $rv_full ) : ?>
+										<figure class="rv-proto-info">
+											<a href="<?php echo esc_url( $rv_full ); ?>" target="_blank" rel="noopener">
+												<?php echo wp_get_attachment_image( $rv_gid, 'large', false, array( 'loading' => 'lazy', 'decoding' => 'async', 'sizes' => '(max-width: 860px) 100vw, 900px' ) ); ?>
+											</a>
+										</figure>
+									<?php endif; ?>
+								<?php endforeach; ?>
+								<p class="rv-galeria-pie"><?php esc_html_e( 'Pulsa cualquier imagen para verla a tamaño completo.', 'rescate-vertical' ); ?></p>
+							</div>
+						<?php endif; ?>
 					</article>
 				<?php endforeach; ?>
 			</div>

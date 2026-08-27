@@ -4,7 +4,7 @@ Theme URI: https://rescatevertical.local
 Author: Rescate Vertical
 Author URI: https://rescatevertical.local
 Description: Tema educativo profesional sobre rescate vertical en emergencias médicas. Diseño claro con fotografía real, diagramas técnicos en SVG y animaciones de entrada al hacer scroll.
-Version: 2.9.0
+Version: 3.0.0
 Requires at least: 6.0
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
@@ -632,3 +632,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   .rv-uso{grid-template-columns:1fr;}
   .rv-proto-card{padding:22px;}
 }
+
+/* --- Galería de imágenes de una ficha --- */
+.rv-galeria{display:flex;flex-direction:column;gap:16px;margin-top:16px;}
+.rv-galeria .rv-proto-info{margin:0;}
+.rv-galeria-pie{
+  font-size:12.5px;color:var(--rv-ink-3);margin:0;text-align:center;
+}
+/* Variante compacta: miniaturas en rejilla (equipos y técnicas) */
+.rv-galeria--mini{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));
+  gap:10px;margin-top:14px;
+}
+.rv-galeria--mini a{
+  display:block;border:1px solid var(--rv-line);border-radius:5px;overflow:hidden;
+  transition:border-color 0.18s ease, transform 0.18s ease;
+}
+.rv-galeria--mini a:hover{border-color:var(--rv-accent);transform:translateY(-2px);}
+.rv-galeria--mini img{width:100%;height:88px;object-fit:cover;display:block;}

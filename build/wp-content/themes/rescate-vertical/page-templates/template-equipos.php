@@ -97,6 +97,17 @@ $rv_equipos = class_exists( 'RV_Content' ) ? RV_Content::items( RV_Content::EQUI
 									<?php endif; ?>
 								</div>
 							<?php endif; ?>
+
+							<?php $rv_gal = RV_Content::gallery_ids( $rv_post->ID ); ?>
+							<?php if ( $rv_gal ) : ?>
+								<div class="rv-galeria rv-galeria--mini">
+									<?php foreach ( $rv_gal as $rv_gid ) : ?>
+										<a href="<?php echo esc_url( wp_get_attachment_image_url( $rv_gid, 'full' ) ); ?>" target="_blank" rel="noopener">
+											<?php echo wp_get_attachment_image( $rv_gid, 'medium', false, array( 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
+										</a>
+									<?php endforeach; ?>
+								</div>
+							<?php endif; ?>
 						</div>
 					</article>
 				<?php endforeach; wp_reset_postdata(); ?>

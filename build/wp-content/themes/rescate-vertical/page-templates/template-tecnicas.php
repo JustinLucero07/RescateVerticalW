@@ -125,6 +125,16 @@ $rv_procedures = array(
 							<?php if ( trim( $rv_t->post_content ) !== '' ) : ?>
 								<?php echo wp_kses_post( wpautop( $rv_t->post_content ) ); ?>
 							<?php endif; ?>
+							<?php $rv_gal = RV_Content::gallery_ids( $rv_t->ID ); ?>
+							<?php if ( $rv_gal ) : ?>
+								<div class="rv-galeria rv-galeria--mini">
+									<?php foreach ( $rv_gal as $rv_gid ) : ?>
+										<a href="<?php echo esc_url( wp_get_attachment_image_url( $rv_gid, 'full' ) ); ?>" target="_blank" rel="noopener">
+											<?php echo wp_get_attachment_image( $rv_gid, 'medium', false, array( 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
+										</a>
+									<?php endforeach; ?>
+								</div>
+							<?php endif; ?>
 							<?php echo wp_kses_post( RV_Content::video_embed( get_post_meta( $rv_t->ID, 'rv_video', true ) ) ); ?>
 						</figcaption>
 					</figure>
