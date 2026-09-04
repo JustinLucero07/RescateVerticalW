@@ -128,6 +128,22 @@ if ( ! function_exists( 'rv_render_tecnica' ) ) :
 			</div>
 		<?php endif; ?>
 
+		<?php
+		/*
+		 * Si la ficha todavía no tiene fotos propias, se usan las de las
+		 * prácticas que trae el tema, emparejadas por el esquema elegido.
+		 */
+		if ( ! $galeria && $esquema ) {
+			rv_campo_galeria(
+				$esquema,
+				array(
+					'titulo' => __( 'Así se ve en la práctica', 'rescate-vertical' ),
+					'clase'  => 'rv-campo--ficha',
+				)
+			);
+		}
+		?>
+
 		<?php if ( $videos ) : ?>
 			<div class="rv-tec-videos">
 				<h4><?php esc_html_e( 'Vídeo de la maniobra', 'rescate-vertical' ); ?></h4>
@@ -161,6 +177,17 @@ endif;
 		<?php else : ?>
 			<p class="rv-section-intro"><?php esc_html_e( 'Todavía no hay sistemas cargados. Añádelos en Rescate Vertical → Técnicas y nudos, marcando el tipo de ficha como "Sistema o maniobra".', 'rescate-vertical' ); ?></p>
 		<?php endif; ?>
+
+		<div class="rv-reveal">
+			<?php
+			rv_campo_videos_html(
+				array(
+					'titulo' => __( 'Las maniobras, grabadas en la práctica', 'rescate-vertical' ),
+					'texto'  => __( 'Secuencias registradas durante la formación en la torre de prácticas.', 'rescate-vertical' ),
+				)
+			);
+			?>
+		</div>
 	</div>
 </section>
 

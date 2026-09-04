@@ -4,7 +4,7 @@ Theme URI: https://rescatevertical.local
 Author: Rescate Vertical
 Author URI: https://rescatevertical.local
 Description: Tema educativo profesional sobre rescate vertical en emergencias médicas. Diseño claro con fotografía real, diagramas técnicos en SVG y animaciones de entrada al hacer scroll.
-Version: 3.1.0
+Version: 3.4.0
 Requires at least: 6.0
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
@@ -300,6 +300,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .rv-split{display:grid;grid-template-columns:1.05fr 0.95fr;gap:clamp(28px,4vw,52px);align-items:start;}
 .rv-split-media{border-radius:var(--rv-radius);overflow:hidden;border:1px solid var(--rv-line);}
 .rv-split-media img{width:100%;height:100%;object-fit:cover;}
+/* Foto vertical junto al texto: se recorta a 4/5 para que la columna
+   de imagen no quede mucho mas alta que la de texto. */
+.rv-split-media--retrato{aspect-ratio:4/5;}
+.rv-split-media--retrato img{object-position:center 22%;}
 .rv-prose p{color:var(--rv-ink-2);font-size:15.8px;margin-bottom:1.05em;}
 
 .rv-callout{
@@ -331,6 +335,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   display:block;overflow:hidden;
 }
 .rv-card-figure svg{width:100%;height:100%;display:block;}
+/* Las tarjetas llevan fotografía real; el esquema queda de reserva. */
+.rv-card-figure img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  /* El encuadre concreto lo fija cada tarjeta con un estilo en linea:
+     casi todas las fotos son verticales y cada una tiene su punto de interes. */
+  object-position:center 32%;
+  transition:transform 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.rv-card:hover .rv-card-figure img{transform:scale(1.05);}
 .rv-card-body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1;}
 .rv-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:9px;}
 .rv-card h3{font-size:17.5px;font-weight:700;letter-spacing:-0.005em;}
@@ -779,4 +792,65 @@ ol.rv-partes span{color:var(--rv-ink-2);}
 @media (max-width: 600px){
   .rv-tec{padding:20px 18px 22px;}
   .rv-tec-intro h3{font-size:20px;}
+}
+
+/* ============================================================
+   19. FOTOGRAFÍAS Y VÍDEOS DE PRÁCTICAS
+   ============================================================ */
+.rv-campo{margin-top:22px;}
+.rv-campo-titulo{
+  font-family:var(--rv-font-label);font-size:11.5px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--rv-ink-3);margin:0 0 10px;
+}
+.rv-campo-texto{color:var(--rv-ink-2);font-size:15px;margin:0 0 18px;max-width:70ch;}
+
+.rv-campo-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;
+}
+.rv-campo-item{margin:0;}
+.rv-campo-item a{
+  display:block;overflow:hidden;border-radius:6px;border:1px solid var(--rv-line);
+  background:var(--rv-bg-soft);
+  transition:border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.rv-campo-item a:hover{
+  border-color:var(--rv-accent);transform:translateY(-3px);
+  box-shadow:0 12px 26px rgba(14,26,36,0.12);
+}
+.rv-campo-item img{
+  width:100%;aspect-ratio:3/4;object-fit:cover;display:block;
+  transition:transform 0.45s cubic-bezier(0.22,1,0.36,1);
+}
+.rv-campo-item a:hover img{transform:scale(1.04);}
+.rv-campo-item figcaption{
+  font-size:13px;line-height:1.45;color:var(--rv-ink-2);margin-top:8px;
+}
+
+/* Banda ancha: fotos apaisadas, para cabecera de sección */
+.rv-campo--banda{margin-bottom:34px;}
+.rv-campo--banda .rv-campo-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;}
+.rv-campo--banda .rv-campo-item img{aspect-ratio:4/3;}
+
+/* Dentro de una ficha de técnica: miniaturas más contenidas */
+.rv-campo--ficha{margin-top:22px;}
+.rv-campo--ficha .rv-campo-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;}
+.rv-campo--ficha .rv-campo-item figcaption{font-size:12.5px;}
+
+.rv-campo-videos{margin-top:34px;}
+.rv-campo-videos-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;
+}
+.rv-campo-video{margin:0;}
+.rv-campo-video video{
+  width:100%;display:block;border-radius:6px;border:1px solid var(--rv-line);
+  background:var(--rv-bg-deep);
+  max-height:min(560px, 70vh);object-fit:contain;
+}
+.rv-campo-video figcaption{
+  font-size:13px;line-height:1.45;color:var(--rv-ink-2);margin-top:8px;
+}
+
+@media (max-width: 600px){
+  .rv-campo-grid,
+  .rv-campo--banda .rv-campo-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
 }

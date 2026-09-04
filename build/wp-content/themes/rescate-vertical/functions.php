@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'RV_THEME_VERSION', '3.1.0' );
+define( 'RV_THEME_VERSION', '3.4.0' );
 
 require_once get_template_directory() . '/inc/customizer.php';
 
@@ -330,6 +330,195 @@ function rv_technique_diagram( $which ) {
 			<?php
 			break;
 	}
+}
+
+/**
+ * Fotografías de prácticas reales que vienen con el tema, agrupadas por
+ * maniobra. Las claves coinciden con los valores del campo "Esquema técnico"
+ * de las fichas, para que cada sistema encuentre sus fotos solo.
+ *
+ * @return array<string,array<int,array{0:string,1:string}>> grupo => [archivo, alt]
+ */
+function rv_campo_fotos() {
+	return array(
+		'equipo'        => array(
+			array( 'equipo-1.jpg', __( 'Material de rescate vertical tendido sobre la lona para su revisión antes de la práctica', 'rescate-vertical' ) ),
+			array( 'equipo-2.jpg', __( 'Mosquetones, poleas, bloqueadores y descensores ordenados por tipo antes de repartirlos', 'rescate-vertical' ) ),
+		),
+		'polipasto'     => array(
+			array( 'polipasto-1.jpg', __( 'Polipasto montado sobre placa multianclaje, con poleas y mosquetones de seguro', 'rescate-vertical' ) ),
+			array( 'polipasto-2.jpg', __( 'Detalle del reenvío de la cuerda en el sistema de poleas', 'rescate-vertical' ) ),
+			array( 'polipasto-3.jpg', __( 'Conjunto de poleas y conectores del polipasto en carga', 'rescate-vertical' ) ),
+			array( 'polipasto-4.jpg', __( 'Vista general del polipasto instalado en la zona de trabajo', 'rescate-vertical' ) ),
+		),
+		'anclaje'       => array(
+			array( 'anclaje-1.jpg', __( 'Anclajes con cintas sobre la estructura metálica de la torre de prácticas', 'rescate-vertical' ) ),
+			array( 'anclaje-2.jpg', __( 'Punto de anclaje montado con cinta y conector sobre perfil estructural', 'rescate-vertical' ) ),
+			array( 'anclaje-3.jpg', __( 'Reparto de las líneas de trabajo y de seguridad desde los anclajes', 'rescate-vertical' ) ),
+		),
+		'rapel'         => array(
+			array( 'rapel-1.jpg', __( 'Descenso controlado desde la torre de prácticas con el equipo asegurando desde abajo', 'rescate-vertical' ) ),
+			array( 'rapel-2.jpg', __( 'Instructor montando el sistema en la cabecera antes de autorizar el descenso', 'rescate-vertical' ) ),
+		),
+		'camilla'       => array(
+			array( 'camilla-1.jpg', __( 'Camilla de rescate suspendida con el paciente asegurado y el rescatista acompañando la maniobra', 'rescate-vertical' ) ),
+		),
+		'entrenamiento' => array(
+			array( 'entrenamiento-1.jpg', __( 'Alumnos preparando cuerdas y conectores en la zona de trabajo', 'rescate-vertical' ) ),
+			array( 'entrenamiento-2.jpg', __( 'Práctica de montaje de sistemas al pie de la torre', 'rescate-vertical' ) ),
+			array( 'entrenamiento-3.jpg', __( 'El equipo sigue la maniobra desde la zona segura', 'rescate-vertical' ) ),
+			array( 'entrenamiento-4.jpg', __( 'Manejo y ordenado de las cuerdas durante el ejercicio', 'rescate-vertical' ) ),
+			array( 'entrenamiento-5.jpg', __( 'Revisión del montaje antes de cargar el sistema', 'rescate-vertical' ) ),
+			array( 'entrenamiento-6.jpg', __( 'Alumnos trabajando por parejas en la instalación de anclajes', 'rescate-vertical' ) ),
+		),
+	);
+}
+
+/**
+ * Foto de cabecera de una tarjeta.
+ *
+ * Sustituye a los esquemas dibujados en las tarjetas de portada y de "Qué es".
+ * Si el archivo no estuviera en el tema, cae al esquema técnico para que la
+ * tarjeta nunca se quede vacía.
+ *
+ * @param string $file    Archivo dentro de assets/images/campo.
+ * @param string $alt     Texto alternativo.
+ * @param string $esquema Esquema de reserva para rv_technique_diagram().
+ * @param int    $foco    Altura del encuadre en porcentaje: qué parte de la
+ *                        foto queda dentro de la franja recortada.
+ */
+function rv_card_foto( $file, $alt, $esquema = '', $foco = 32 ) {
+	$ruta = get_template_directory() . '/assets/images/campo/' . $file;
+
+	if ( ! file_exists( $ruta ) ) {
+		if ( $esquema ) {
+			rv_technique_diagram( $esquema );
+		}
+		return;
+	}
+
+	printf(
+		'<img src="%1$s" alt="%2$s" style="object-position:center %3$d%%" loading="lazy" decoding="async" sizes="(max-width: 700px) 100vw, 380px">',
+		esc_url( get_template_directory_uri() . '/assets/images/campo/' . $file ),
+		esc_attr( $alt ),
+		(int) $foco
+	);
+}
+
+/**
+ * Pinta una galería de fotos de prácticas.
+ *
+ * Solo muestra los archivos que existan, así que si alguno se quita del tema
+ * la sección sigue funcionando.
+ *
+ * @param string $grupo Clave de rv_campo_fotos().
+ * @param array  $args  titulo, texto y clase adicional.
+ */
+function rv_campo_galeria( $grupo, $args = array() ) {
+	$grupos = rv_campo_fotos();
+	if ( ! isset( $grupos[ $grupo ] ) ) {
+		return;
+	}
+
+	$args = wp_parse_args(
+		$args,
+		array(
+			'titulo' => '',
+			'texto'  => '',
+			'clase'  => '',
+		)
+	);
+
+	$base  = get_template_directory() . '/assets/images/campo/';
+	$fotos = array();
+	foreach ( $grupos[ $grupo ] as $foto ) {
+		if ( file_exists( $base . $foto[0] ) ) {
+			$fotos[] = $foto;
+		}
+	}
+	if ( ! $fotos ) {
+		return;
+	}
+	?>
+	<div class="rv-campo <?php echo esc_attr( $args['clase'] ); ?>">
+		<?php if ( $args['titulo'] ) : ?>
+			<h4 class="rv-campo-titulo"><?php echo esc_html( $args['titulo'] ); ?></h4>
+		<?php endif; ?>
+		<?php if ( $args['texto'] ) : ?>
+			<p class="rv-campo-texto"><?php echo esc_html( $args['texto'] ); ?></p>
+		<?php endif; ?>
+		<div class="rv-campo-grid">
+			<?php foreach ( $fotos as $foto ) : ?>
+				<figure class="rv-campo-item">
+					<a href="<?php echo esc_url( get_template_directory_uri() . '/assets/images/campo/' . $foto[0] ); ?>" target="_blank" rel="noopener">
+						<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/campo/' . $foto[0] ); ?>"
+							alt="<?php echo esc_attr( $foto[1] ); ?>" loading="lazy" decoding="async">
+					</a>
+					<figcaption><?php echo esc_html( $foto[1] ); ?></figcaption>
+				</figure>
+			<?php endforeach; ?>
+		</div>
+	</div>
+	<?php
+}
+
+/**
+ * Vídeos de prácticas incluidos en el tema.
+ *
+ * @return array<int,array{0:string,1:string}> archivo y pie.
+ */
+function rv_campo_videos() {
+	return array(
+		array( 'practica-1.mp4', __( 'Montaje del sistema y manejo de las cuerdas al pie de la torre de prácticas', 'rescate-vertical' ) ),
+		array( 'practica-2.mp4', __( 'Izado de la camilla con el rescatista acompañando al paciente durante la maniobra', 'rescate-vertical' ) ),
+	);
+}
+
+/**
+ * Pinta los vídeos de prácticas que estén presentes en el tema.
+ *
+ * @param array $args titulo y texto de encabezado.
+ */
+function rv_campo_videos_html( $args = array() ) {
+	$args = wp_parse_args(
+		$args,
+		array(
+			'titulo' => '',
+			'texto'  => '',
+		)
+	);
+
+	$base   = get_template_directory() . '/assets/video/';
+	$videos = array();
+	foreach ( rv_campo_videos() as $video ) {
+		if ( file_exists( $base . $video[0] ) ) {
+			$videos[] = $video;
+		}
+	}
+	if ( ! $videos ) {
+		return;
+	}
+	?>
+	<div class="rv-campo-videos">
+		<?php if ( $args['titulo'] ) : ?>
+			<h4 class="rv-campo-titulo"><?php echo esc_html( $args['titulo'] ); ?></h4>
+		<?php endif; ?>
+		<?php if ( $args['texto'] ) : ?>
+			<p class="rv-campo-texto"><?php echo esc_html( $args['texto'] ); ?></p>
+		<?php endif; ?>
+		<div class="rv-campo-videos-grid">
+			<?php foreach ( $videos as $video ) : ?>
+				<figure class="rv-campo-video">
+					<video controls preload="metadata" playsinline>
+						<source src="<?php echo esc_url( get_template_directory_uri() . '/assets/video/' . $video[0] ); ?>" type="video/mp4">
+						<?php esc_html_e( 'Tu navegador no puede reproducir este vídeo.', 'rescate-vertical' ); ?>
+					</video>
+					<figcaption><?php echo esc_html( $video[1] ); ?></figcaption>
+				</figure>
+			<?php endforeach; ?>
+		</div>
+	</div>
+	<?php
 }
 
 /**

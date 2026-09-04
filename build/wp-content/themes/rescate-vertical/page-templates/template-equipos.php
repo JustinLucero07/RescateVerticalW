@@ -38,6 +38,19 @@ $rv_equipos = class_exists( 'RV_Content' ) ? RV_Content::items( RV_Content::EQUI
 			<p class="rv-section-intro"><?php esc_html_e( 'La norma europea EN define el ensayo que cada pieza debe superar. Conocerla permite verificar en campo si el equipo disponible sirve para la maniobra que se va a ejecutar.', 'rescate-vertical' ); ?></p>
 		</div>
 
+		<div class="rv-reveal">
+			<?php
+			rv_campo_galeria(
+				'equipo',
+				array(
+					'titulo' => __( 'El material, antes de la maniobra', 'rescate-vertical' ),
+					'texto'  => __( 'Todo el equipo se tiende, se cuenta y se revisa pieza por pieza antes de repartirlo. Lo que no pasa la revisión no sale al terreno.', 'rescate-vertical' ),
+					'clase'  => 'rv-campo--banda',
+				)
+			);
+			?>
+		</div>
+
 		<?php if ( $rv_equipos ) : ?>
 			<div class="rv-fichas">
 				<?php

@@ -39,11 +39,11 @@ rv_page_hero(
 				</div>
 			</div>
 
-			<div class="rv-split-media rv-reveal d2">
+			<div class="rv-split-media rv-split-media--retrato rv-reveal d2">
 				<?php
 				rv_section_image(
-					'tecnicas.jpg',
-					__( 'Equipo de rescate preparando sistemas de cuerdas antes de una maniobra', 'rescate-vertical' )
+					'que-es-tecnica.jpg',
+					__( 'Técnica de rescate vertical en suspensión, con casco, arnés y descensor sobre la cuerda', 'rescate-vertical' )
 				);
 				?>
 			</div>
@@ -60,7 +60,7 @@ rv_page_hero(
 
 		<div class="rv-cards">
 			<div class="rv-card rv-reveal">
-				<span class="rv-card-figure"><?php rv_technique_diagram( 'rapel' ); ?></span>
+				<span class="rv-card-figure"><?php rv_card_foto( 'polipasto-4.jpg', esc_attr__( 'Sistema de poleas y cuerda repartiendo la carga', 'rescate-vertical' ), 'rapel', 65 ); ?></span>
 				<div class="rv-card-body">
 					<div class="rv-card-top">
 						<h3><?php esc_html_e( 'La física de las cargas', 'rescate-vertical' ); ?></h3>
@@ -71,7 +71,7 @@ rv_page_hero(
 			</div>
 
 			<div class="rv-card rv-reveal d1">
-				<span class="rv-card-figure"><?php rv_technique_diagram( 'anclaje' ); ?></span>
+				<span class="rv-card-figure"><?php rv_card_foto( 'anclaje-2.jpg', esc_attr__( 'Punto de anclaje con cinta y conector sobre la estructura', 'rescate-vertical' ), 'anclaje', 35 ); ?></span>
 				<div class="rv-card-body">
 					<div class="rv-card-top">
 						<h3><?php esc_html_e( 'La técnica de cuerdas', 'rescate-vertical' ); ?></h3>
@@ -82,7 +82,7 @@ rv_page_hero(
 			</div>
 
 			<div class="rv-card rv-reveal d2">
-				<span class="rv-card-figure"><?php rv_technique_diagram( 'camilla' ); ?></span>
+				<span class="rv-card-figure"><?php rv_card_foto( 'camilla-1.jpg', esc_attr__( 'Rescatistas asegurando al paciente en la camilla suspendida', 'rescate-vertical' ), 'camilla', 35 ); ?></span>
 				<div class="rv-card-body">
 					<div class="rv-card-top">
 						<h3><?php esc_html_e( 'El protocolo clínico', 'rescate-vertical' ); ?></h3>
@@ -93,7 +93,7 @@ rv_page_hero(
 			</div>
 
 			<div class="rv-card rv-reveal d3">
-				<span class="rv-card-figure"><?php rv_technique_diagram( 'polipasto' ); ?></span>
+				<span class="rv-card-figure"><?php rv_card_foto( 'entrenamiento-3.jpg', esc_attr__( 'El equipo coordina la maniobra desde la zona segura', 'rescate-vertical' ), 'polipasto', 65 ); ?></span>
 				<div class="rv-card-body">
 					<div class="rv-card-top">
 						<h3><?php esc_html_e( 'La coordinación del equipo', 'rescate-vertical' ); ?></h3>

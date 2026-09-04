@@ -142,7 +142,7 @@ get_header();
 
 		<div class="rv-cards">
 			<a class="rv-card rv-reveal" href="<?php echo esc_url( rv_section_url( 'fisica' ) ); ?>" style="text-decoration:none;">
-				<span class="rv-card-figure"><?php rv_technique_diagram( 'rapel' ); ?></span>
+				<span class="rv-card-figure"><?php rv_card_foto( 'polipasto-1.jpg', esc_attr__( 'Poleas y mosquetones de un polipasto trabajando bajo carga', 'rescate-vertical' ), 'rapel', 50 ); ?></span>
 				<span class="rv-card-body">
 					<span class="rv-card-top">
 						<h3><?php esc_html_e( 'Física del rescate', 'rescate-vertical' ); ?></h3>
@@ -157,7 +157,7 @@ get_header();
 			</a>
 
 			<a class="rv-card rv-reveal d1" href="<?php echo esc_url( rv_section_url( 'tecnicas' ) ); ?>" style="text-decoration:none;">
-				<span class="rv-card-figure"><?php rv_technique_diagram( 'anclaje' ); ?></span>
+				<span class="rv-card-figure"><?php rv_card_foto( 'anclaje-1.jpg', esc_attr__( 'Anclajes con cintas y polea sobre la estructura metálica', 'rescate-vertical' ), 'anclaje', 35 ); ?></span>
 				<span class="rv-card-body">
 					<span class="rv-card-top">
 						<h3><?php esc_html_e( 'Técnicas y anclajes', 'rescate-vertical' ); ?></h3>
@@ -172,7 +172,7 @@ get_header();
 			</a>
 
 			<a class="rv-card rv-reveal d2" href="<?php echo esc_url( rv_section_url( 'equipos' ) ); ?>" style="text-decoration:none;">
-				<span class="rv-card-figure"><?php rv_technique_diagram( 'polipasto' ); ?></span>
+				<span class="rv-card-figure"><?php rv_card_foto( 'equipo-1.jpg', esc_attr__( 'Material de rescate tendido y revisado antes de la maniobra', 'rescate-vertical' ), 'polipasto', 50 ); ?></span>
 				<span class="rv-card-body">
 					<span class="rv-card-top">
 						<h3><?php esc_html_e( 'Equipos certificados', 'rescate-vertical' ); ?></h3>
@@ -187,7 +187,7 @@ get_header();
 			</a>
 
 			<a class="rv-card rv-reveal d3" href="<?php echo esc_url( rv_section_url( 'protocolos' ) ); ?>" style="text-decoration:none;">
-				<span class="rv-card-figure"><?php rv_technique_diagram( 'camilla' ); ?></span>
+				<span class="rv-card-figure"><?php rv_card_foto( 'camilla-1.jpg', esc_attr__( 'Rescatistas asegurando al paciente en la camilla suspendida', 'rescate-vertical' ), 'camilla', 35 ); ?></span>
 				<span class="rv-card-body">
 					<span class="rv-card-top">
 						<h3><?php esc_html_e( 'Protocolos y normativas', 'rescate-vertical' ); ?></h3>

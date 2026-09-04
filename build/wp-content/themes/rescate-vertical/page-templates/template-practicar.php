@@ -103,4 +103,18 @@ rv_page_hero(
 	</div>
 </section>
 
+<section class="rv-section rv-section--soft">
+	<div class="rv-shell">
+		<div class="rv-section-head rv-reveal">
+			<span class="rv-kicker"><?php esc_html_e( 'La práctica real', 'rescate-vertical' ); ?></span>
+			<h2><?php esc_html_e( 'Donde el razonamiento se pone a prueba', 'rescate-vertical' ); ?></h2>
+			<p class="rv-section-intro"><?php esc_html_e( 'Lo que se entrena aquí termina de aprenderse con las cuerdas en la mano. Estas son sesiones de formación en torre de prácticas: montaje de sistemas, anclajes y trabajo por equipos.', 'rescate-vertical' ); ?></p>
+		</div>
+
+		<div class="rv-reveal d1">
+			<?php rv_campo_galeria( 'entrenamiento', array( 'clase' => 'rv-campo--banda' ) ); ?>
+		</div>
+	</div>
+</section>
+
 <?php get_footer(); ?>

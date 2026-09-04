@@ -383,6 +383,32 @@ Cada protocolo lleva:
 Vienen cargados PHTLS, TECC, TCCC, síndrome compartimental/aplastamiento e
 integración con el equipo técnico, cada uno con su secuencia.
 
+### Las fotos y los vídeos de las prácticas
+
+El tema trae **18 fotografías y 2 vídeos** de las sesiones de formación en la
+torre de prácticas. Vienen dentro del zip, así que **no hay que subir nada**:
+al activar el tema ya están colocados.
+
+Dónde sale cada cosa:
+
+| Sección | Qué aparece |
+|---|---|
+| Equipos | Banda superior *«El material, antes de la maniobra»*, con las 2 fotos del equipo tendido |
+| Técnicas → Sistema de polipasto | 4 fotos del polipasto montado |
+| Técnicas → Anclaje ecualizado | 3 fotos de los anclajes sobre la estructura |
+| Técnicas → Rápel | 2 fotos del descenso y del montaje en cabecera |
+| Técnicas → Empaquetamiento | 1 foto de la camilla suspendida |
+| Técnicas, al final de los sistemas | Los 2 vídeos, con reproductor propio |
+| Practicar | Bloque *«La práctica real»* con las 6 fotos del entrenamiento |
+
+Las fotos de cada sistema salen **solo si esa ficha todavía no tiene fotos
+propias**. En cuanto subas imágenes al campo *Fotos del paso a paso* de una
+ficha, esas mandan y las del tema desaparecen de ahí. Es decir: sirven de
+contenido de arranque y se apartan solas cuando pones el tuyo.
+
+Los archivos están en `assets/images/campo/` y `assets/video/` dentro del tema,
+por si algún día quieres sustituirlos por FTP conservando los nombres.
+
 ### Añadir texto suelto a cualquier sección
 
 Todas las secciones muestran al final lo que escribas en el **editor de la
